@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a1a">
+<title>Explorium Budget Tracker</title>
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --panel: #242424;
+    --panel-2: #2e2e2e;
+    --border: #3a3a3a;
+    --text: #e8e8e8;
+    --text-dim: #999;
+    --accent: #4ade80;
+    --warn: #fb923c;
+    --over: #f87171;
+    --under: #4ade80;
+    --link: #60a5fa;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.4;
+    padding-bottom: 100px;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .totals {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .totals .label { color: var(--text-dim); margin-right: 4px; }
+  .totals .est { color: var(--text); }
+  .totals .act { color: var(--text); }
+  .totals .delta.over { color: var(--over); }
+  .totals .delta.under { color: var(--under); }
+  main { padding: 12px 12px 80px; }
+  .section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 12px 14px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .section-totals {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: right;
+    margin-top: 2px;
+  }
+  .section-totals .delta.over { color: var(--over); }
+  .section-totals .delta.under { color: var(--under); }
+  .section-body { padding: 8px; }
+  .section-notes {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    resize: vertical;
+    min-height: 36px;
+    font-family: inherit;
+  }
+  .items { display: flex; flex-direction: column; gap: 6px; }
+  .item {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .item-row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .item-desc {
+    flex: 1;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .item-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .item-row2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    font-size: 12px;
+  }
+  .cell { display: flex; flex-direction: column; }
+  .cell-label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cell-value { font-size: 14px; font-weight: 500; }
+  .cell-value.over { color: var(--over); }
+  .cell-value.under { color: var(--under); }
+  .item-notes {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .item-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  button {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    min-height: 36px;
+  }
+  button:active { background: var(--border); }
+  button.primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  button.danger { color: var(--over); }
+  button.small { padding: 4px 10px; min-height: 28px; font-size: 12px; }
+  .add-item-btn { margin-top: 8px; width: 100%; }
+  .add-section-btn { margin: 16px 0; width: 100%; padding: 14px; font-size: 14px; }
+  .save-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    padding: 10px 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    z-index: 200;
+  }
+  .save-status {
+    flex: 1;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .save-status.dirty { color: var(--warn); }
+  .save-status.saving { color: var(--link); }
+  .save-status.saved { color: var(--accent); }
+  .save-status.error { color: var(--over); }
+  input[type="text"], input[type="number"], textarea {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+  }
+  input[type="number"] { -moz-appearance: textfield; }
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 16px;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal h3 { margin: 0 0 12px; font-size: 16px; }
+  .modal-form { display: flex; flex-direction: column; gap: 10px; }
+  .modal-form label { font-size: 12px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px; }
+  .modal-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 8px; }
+  .auth-prompt {
+    background: var(--panel-2);
+    padding: 14px;
+    border-radius: 8px;
+    margin: 16px 12px;
+    border: 1px solid var(--warn);
+  }
+  .auth-prompt p { margin: 0 0 8px; font-size: 13px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Explorium Budget Tracker</h1>
+  <div class="totals" id="grand-totals">
+    <span><span class="label">Estimated:</span><span class="est" id="grand-est">$0</span></span>
+    <span><span class="label">Actual:</span><span class="act" id="grand-act">$0</span></span>
+    <span><span class="label">Delta:</span><span class="delta" id="grand-delta">$0</span></span>
+    <span><span class="label">Items:</span><span id="grand-count">0</span></span>
+  </div>
+</header>
+
+<main id="app">
+  <div id="sections"></div>
+  <button class="add-section-btn" onclick="addSection()">+ Add Section</button>
+</main>
+
+<div class="save-bar">
+  <span class="save-status" id="save-status">Loaded</span>
+  <button class="primary" onclick="save()">Save</button>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

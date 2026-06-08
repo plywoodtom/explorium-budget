@@ -1,0 +1,105 @@
+{
+  "lastModified": "2026-06-08T08:30:00.000Z",
+  "sections": [
+    {
+      "id": "sec-hard-costs",
+      "name": "Hard Costs Rollup",
+      "notes": "Top-level categories from EXPLORIUM-HARD-COSTS-REFRESHED.md (2026-05-27). Detailed line items in their own sections below.",
+      "items": [
+        { "id": "hc-1", "description": "Wall materials (wholesale, all 11 games + 10pct tax)", "qty": 1, "unitCost": 22053, "actualCost": null, "notes": "Royal Plywood. See Wall Materials section for per-game detail.", "dateAdded": "2026-04-27" },
+        { "id": "hc-2", "description": "Spray adhesive (whole project)", "qty": 1, "unitCost": 1300, "actualCost": null, "notes": "One bottle covers all 11 games. Corrected from 1600.", "dateAdded": "2026-04-27" },
+        { "id": "hc-3", "description": "Electronics (MASTER-BOM)", "qty": 1, "unitCost": 13543, "actualCost": null, "notes": "Pis, Arduinos, sensors, displays, RFID readers.", "dateAdded": "2026-04-27" },
+        { "id": "hc-4", "description": "Freight set-aside (Tempe AZ -> Staunton VA)", "qty": 1, "unitCost": 8000, "actualCost": null, "notes": "Full truckload.", "dateAdded": "2026-04-27" }
+      ]
+    },
+    {
+      "id": "sec-overhead",
+      "name": "Overhead",
+      "notes": "Containers, shop, utilities. From EXPLORIUM-HARD-COSTS-REFRESHED.md.",
+      "items": [
+        { "id": "oh-1", "description": "40-ft high cube container", "qty": 1, "unitCost": 3800, "actualCost": null, "notes": "On-site storage, becomes asset after build.", "dateAdded": "2026-04-27" },
+        { "id": "oh-2", "description": "Forklift purchase", "qty": 1, "unitCost": 4500, "actualCost": null, "notes": "Multi-project utility, justifies buy over rent.", "dateAdded": "2026-04-27" },
+        { "id": "oh-3", "description": "First shop rent (Tempe, 4 months)", "qty": 4, "unitCost": 1227, "actualCost": null, "notes": "Existing shop.", "dateAdded": "2026-04-27" },
+        { "id": "oh-4", "description": "Second shop rent (4 months)", "qty": 4, "unitCost": 1250, "actualCost": null, "notes": "Needed because current shop is overcrowded.", "dateAdded": "2026-04-27" },
+        { "id": "oh-5", "description": "Utilities (both shops, 4 months)", "qty": 1, "unitCost": 2400, "actualCost": null, "notes": "Mid-range estimate.", "dateAdded": "2026-04-27" }
+      ]
+    },
+    {
+      "id": "sec-labor",
+      "name": "Labor",
+      "notes": "Tom's personal pay (cash flow) + paid helper.",
+      "items": [
+        { "id": "lab-1", "description": "Tom personal pay (4 months × 4k lean)", "qty": 4, "unitCost": 4000, "actualCost": null, "notes": "Cash flow during build, not new cost - draw vs profit.", "dateAdded": "2026-04-27" },
+        { "id": "lab-2", "description": "Hire help (40 hr/wk × 12 wk × 35/hr)", "qty": 480, "unitCost": 35, "actualCost": null, "notes": "Expanded 2026-05-27. Funded by additional reception desk + RFID deposits.", "dateAdded": "2026-05-27" }
+      ]
+    },
+    {
+      "id": "sec-tools",
+      "name": "Tools (Shop Supplies)",
+      "notes": "Tools and gear retained after build. From EXPLORIUM-CONSUMABLES-WORKSHEET.md (2026-05-27).",
+      "items": [
+        { "id": "t-1", "description": "Table saw - SawStop Contractor", "qty": 1, "unitCost": 1500, "actualCost": null, "notes": "Safety on helper-staffed deadline. Added 2026-05-27.", "dateAdded": "2026-05-27" },
+        { "id": "t-2", "description": "Infinity Bond Brute hot glue gun 500W adjustable", "qty": 1, "unitCost": 300, "actualCost": null, "notes": "Floor-to-panel sealing tool.", "dateAdded": "2026-05-27" },
+        { "id": "t-3", "description": "Used banding machine", "qty": 1, "unitCost": 50, "actualCost": null, "notes": "Craigslist or local pickup. Freight prep, panel banding.", "dateAdded": "2026-05-27" },
+        { "id": "t-4", "description": "PPE kit (masks, glasses, earplugs)", "qty": 2, "unitCost": 50, "actualCost": null, "notes": "Covers ~2 helpers.", "dateAdded": "2026-05-27" },
+        { "id": "t-5", "description": "First aid kit (OSHA basic)", "qty": 1, "unitCost": 50, "actualCost": null, "notes": "Wife may have one from teaching retirement.", "dateAdded": "2026-05-27" }
+      ]
+    },
+    {
+      "id": "sec-consumables",
+      "name": "Consumables",
+      "notes": "Used up during the build. From EXPLORIUM-CONSUMABLES-WORKSHEET.md (2026-05-27).",
+      "items": [
+        { "id": "c-1", "description": "Fasteners (wood screws, brad nails, finish nails, pocket screws)", "qty": 1, "unitCost": 500, "actualCost": null, "notes": "Bulk for ~80 wall panels + framing.", "dateAdded": "2026-05-27" },
+        { "id": "c-2", "description": "Router bits - laminate trim", "qty": 2, "unitCost": 20, "actualCost": null, "notes": "20 each.", "dateAdded": "2026-05-27" },
+        { "id": "c-3", "description": "Titebond II 5-gal glue", "qty": 1, "unitCost": 120, "actualCost": null, "notes": "Wood-to-wood panel bonding.", "dateAdded": "2026-05-27" },
+        { "id": "c-4", "description": "Sandpaper (mixed grits)", "qty": 1, "unitCost": 75, "actualCost": null, "notes": "Edge cleanup, finish prep.", "dateAdded": "2026-05-27" },
+        { "id": "c-5", "description": "Backup saw blades", "qty": 2, "unitCost": 25, "actualCost": null, "notes": "Spare blades for laminate cutting.", "dateAdded": "2026-05-27" },
+        { "id": "c-6", "description": "Hot glue sticks (50pk high-temp)", "qty": 1, "unitCost": 125, "actualCost": null, "notes": "Floor-to-panel seal.", "dateAdded": "2026-05-27" },
+        { "id": "c-7", "description": "Lacquer thinner (5-gal)", "qty": 1, "unitCost": 70, "actualCost": null, "notes": "Laminate adhesive cleanup, surface prep.", "dateAdded": "2026-05-27" },
+        { "id": "c-8", "description": "Cotton shop rags (25lb box, Highway 85)", "qty": 1, "unitCost": 60, "actualCost": null, "notes": "Adhesive + finish cleanup.", "dateAdded": "2026-05-27" },
+        { "id": "c-9", "description": "Paint - touch-up only", "qty": 1, "unitCost": 150, "actualCost": null, "notes": "No full-surface paint.", "dateAdded": "2026-05-27" }
+      ]
+    },
+    {
+      "id": "sec-hardware",
+      "name": "Hardware",
+      "notes": "Floor anchors, alignment pins, thresholds, door hardware. Per-door cost is 25 (push plate + jamb moulding) plus 40 door slab.",
+      "items": [
+        { "id": "hw-1", "description": "Floor anchors + alignment pins", "qty": 1, "unitCost": 500, "actualCost": null, "notes": "Tapcon-style for bolting walls + steel dowel pins for panel alignment. Roto-locks no longer needed. Added 2026-05-27.", "dateAdded": "2026-05-27" },
+        { "id": "hw-2", "description": "Aluminum thresholds (18 × 3\" × 1/4\" × 4')", "qty": 18, "unitCost": 30.56, "actualCost": null, "notes": "Under each doorway as threshold and panel support. Added 2026-05-27.", "dateAdded": "2026-05-27" }
+      ]
+    },
+    {
+      "id": "sec-wall-materials",
+      "name": "Wall Materials (Aggregate)",
+      "notes": "Total per EXPLORIUM-HARD-COSTS-REFRESHED is 22053 across all 11 games. Per-game detail in EXPLORIUM-WALL-MATERIALS-WORKSHEET.md - add per-game line items here as built.",
+      "items": [
+        { "id": "wm-1", "description": "Wall materials aggregate (all 11 games)", "qty": 1, "unitCost": 22053, "actualCost": null, "notes": "Royal Plywood wholesale + 10pct tax. Break out per-game as you build.", "dateAdded": "2026-04-27" }
+      ]
+    },
+    {
+      "id": "sec-quotes",
+      "name": "Quotes & Custom Builds",
+      "notes": "Reception desk + display wall + other one-off quoted items.",
+      "items": [
+        { "id": "q-1", "description": "Reception desk (V3)", "qty": 1, "unitCost": 0, "actualCost": null, "notes": "See QUOTE-EXPLORIUM-RECEPTION-DESK-V3.md for breakdown.", "dateAdded": "2026-06-08" },
+        { "id": "q-2", "description": "Display wall (V1)", "qty": 1, "unitCost": 0, "actualCost": null, "notes": "See QUOTE-EXPLORIUM-DISPLAY-WALL-V1.md for breakdown.", "dateAdded": "2026-06-08" }
+      ]
+    },
+    {
+      "id": "sec-tbd",
+      "name": "TBD / Buffer Items",
+      "notes": "Items still scoped in the 15,735 buffer (ship-milestone payment). Add line items as scope is locked.",
+      "items": [
+        { "id": "tbd-1", "description": "Sugar Surge - rotating hub + breakaway arms", "qty": 1, "unitCost": 0, "actualCost": null, "notes": "TBD scope.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-2", "description": "Volcano structure (foam/fiberglass cone)", "qty": 1, "unitCost": 1400, "actualCost": null, "notes": "Estimate 800-2000.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-3", "description": "Volcano mechanics (eruption, fog, lighting)", "qty": 1, "unitCost": 1000, "actualCost": null, "notes": "Estimate 500-1500.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-4", "description": "Volcano batting cage netting", "qty": 1, "unitCost": 600, "actualCost": null, "notes": "Estimate 400-800.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-5", "description": "Velocity Rings steel arch", "qty": 1, "unitCost": 1250, "actualCost": null, "notes": "Estimate 1000-1500 pending Tom's quote.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-6", "description": "Velocity Rings monitor wall (optional)", "qty": 1, "unitCost": 200, "actualCost": null, "notes": "Optional add-on.", "dateAdded": "2026-06-08" },
+        { "id": "tbd-7", "description": "Liability + tools insurance (build window)", "qty": 1, "unitCost": 450, "actualCost": null, "notes": "Estimate 300-600.", "dateAdded": "2026-06-08" }
+      ]
+    }
+  ]
+}
