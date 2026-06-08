@@ -477,10 +477,11 @@ function addItem(si) {
         <select id="m-paymethod">
           <option value="">(none yet)</option>
           <option value="Cash">Cash</option>
+          <option value="Debit">Debit</option>
+          <option value="Credit Card">Credit Card</option>
           <option value="Zelle">Zelle</option>
           <option value="ACH">ACH</option>
           <option value="Check">Check</option>
-          <option value="Credit Card">Credit Card</option>
           <option value="Other">Other</option>
         </select>
       </label>
@@ -538,10 +539,11 @@ function editItem(si, ii) {
         <select id="m-paymethod">
           <option value="" ${!it.paymentMethod ? "selected" : ""}>(none yet)</option>
           <option value="Cash" ${it.paymentMethod === "Cash" ? "selected" : ""}>Cash</option>
+          <option value="Debit" ${it.paymentMethod === "Debit" ? "selected" : ""}>Debit</option>
+          <option value="Credit Card" ${it.paymentMethod === "Credit Card" ? "selected" : ""}>Credit Card</option>
           <option value="Zelle" ${it.paymentMethod === "Zelle" ? "selected" : ""}>Zelle</option>
           <option value="ACH" ${it.paymentMethod === "ACH" ? "selected" : ""}>ACH</option>
           <option value="Check" ${it.paymentMethod === "Check" ? "selected" : ""}>Check</option>
-          <option value="Credit Card" ${it.paymentMethod === "Credit Card" ? "selected" : ""}>Credit Card</option>
           <option value="Other" ${it.paymentMethod === "Other" ? "selected" : ""}>Other</option>
         </select>
       </label>
