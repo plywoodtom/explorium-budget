@@ -228,10 +228,12 @@ function renderTotals() {
   document.getElementById("grand-orig-spent").textContent = fmt(origSpent)
     + (deposit > 0 ? " (" + ((origSpent / deposit) * 100).toFixed(1) + "%)" : "");
 
-  // Deposit Remaining
+  // Deposit Remaining: subtract TOTAL spend (originals + add-ons), since all cash
+  // came out of the same bank that received the deposit
+  const realRemaining = deposit - totalSpent;
   const remEl = document.getElementById("grand-deposit-remaining");
-  remEl.textContent = fmt(remaining);
-  remEl.className = "gt-value " + (remaining < 0 ? "over" : remaining > 0 ? "under" : "");
+  remEl.textContent = fmt(realRemaining);
+  remEl.className = "gt-value " + (realRemaining < 0 ? "over" : realRemaining > 0 ? "under" : "");
 
   // Add-ons Spent
   document.getElementById("grand-addons-spent").textContent = fmt(addedSpent);
