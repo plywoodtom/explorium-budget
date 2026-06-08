@@ -1,0 +1,12 @@
+name = "explorium-budget-worker"
+main = "index.js"
+compatibility_date = "2026-06-01"
+
+# Set these in the Cloudflare dashboard or via `wrangler secret put`:
+#   EDIT_SECRET   - shared secret
+#   GITHUB_TOKEN  - fine-grained PAT (contents: write on plywoodtom/explorium-budget)
+#
+# Set this in vars (not a secret):
+[vars]
+GITHUB_REPO = "plywoodtom/explorium-budget"
+FILE_PATH = "data.json"
