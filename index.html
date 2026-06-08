@@ -351,28 +351,61 @@
     margin-right: 4px;
     vertical-align: -1px;
   }
+  .deposit-band {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 0 0 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    align-items: baseline;
+    font-size: 12px;
+  }
+  .deposit-label { color: var(--text-dim); }
+  .deposit-value { color: var(--accent); font-weight: 600; font-size: 14px; }
+  .deposit-meta { color: var(--text-dimmer); font-size: 11px; }
+  .addon-badge {
+    display: inline-block;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--warn);
+    color: #0a0a0a;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    font-weight: 700;
+    vertical-align: 1px;
+  }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Explorium Budget Tracker</h1>
+  <div class="deposit-band" id="deposit-band" style="display:none">
+    <span class="deposit-label">Deposit:</span>
+    <span class="deposit-value" id="deposit-value">$0</span>
+    <span class="deposit-meta" id="deposit-meta"></span>
+  </div>
   <div class="grand-totals">
     <div class="gt-cell">
-      <span class="gt-label">Budget</span>
-      <span class="gt-value" id="grand-est">$0</span>
+      <span class="gt-label">Original Spent</span>
+      <span class="gt-value" id="grand-orig-spent">$0</span>
     </div>
     <div class="gt-cell">
-      <span class="gt-label">Spent</span>
-      <span class="gt-value" id="grand-act">$0</span>
+      <span class="gt-label">Deposit Remaining</span>
+      <span class="gt-value" id="grand-deposit-remaining">$0</span>
     </div>
     <div class="gt-cell">
-      <span class="gt-label">Delta (vs full budget)</span>
-      <span class="gt-value" id="grand-delta">$0</span>
+      <span class="gt-label">Add-ons Spent</span>
+      <span class="gt-value" id="grand-addons-spent">$0</span>
     </div>
     <div class="gt-cell">
-      <span class="gt-label">Items filled</span>
-      <span class="gt-value" id="grand-count">0 / 0</span>
+      <span class="gt-label">Total Out of Pocket</span>
+      <span class="gt-value" id="grand-total-spent">$0</span>
     </div>
   </div>
   <div class="search-bar">

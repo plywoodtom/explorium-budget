@@ -42,6 +42,14 @@ function isFilled(item) {
   return item.actualCost !== null && item.actualCost !== undefined && item.actualCost !== "" && Number(item.actualCost) > 0;
 }
 
+function isAdded(item) {
+  return item.scope === "added";
+}
+
+function isOriginal(item) {
+  return item.scope !== "added";
+}
+
 function totalEst(item) {
   return (Number(item.qty) || 0) * (Number(item.unitCost) || 0);
 }
@@ -76,6 +84,28 @@ function grandTotalEst() {
 
 function grandTotalAct() {
   return data.sections.reduce((s, sec) => s + sectionTotalAct(sec), 0);
+}
+
+function grandOriginalSpent() {
+  return data.sections.reduce(
+    (s, sec) => s + sec.items.filter(isOriginal).reduce((a, i) => a + actual(i), 0),
+    0
+  );
+}
+
+function grandAddedSpent() {
+  return data.sections.reduce(
+    (s, sec) => s + sec.items.filter(isAdded).reduce((a, i) => a + actual(i), 0),
+    0
+  );
+}
+
+function depositAmount() {
+  return Number(data.deposit) || 0;
+}
+
+function depositRemaining() {
+  return depositAmount() - grandOriginalSpent();
 }
 
 function grandFilledCount() {
@@ -175,17 +205,39 @@ function render() {
 }
 
 function renderTotals() {
-  const est = grandTotalEst();
-  const act = grandTotalAct();
-  const d = act - est;
-  document.getElementById("grand-est").textContent = fmt(est);
-  document.getElementById("grand-act").textContent = fmt(act);
-  const deltaEl = document.getElementById("grand-delta");
-  const pctOfBudget = est > 0 ? (act / est) * 100 : 0;
-  const pctLabel = act > 0 ? " (" + pctOfBudget.toFixed(1) + "% of budget)" : "";
-  deltaEl.textContent = (d >= 0 ? "+" : "") + fmt(d) + pctLabel;
-  deltaEl.className = "gt-value " + (d > 0 ? "over" : d < 0 ? "under" : "");
-  document.getElementById("grand-count").textContent = grandFilledCount() + " / " + grandTargetCount();
+  const deposit = depositAmount();
+  const origSpent = grandOriginalSpent();
+  const addedSpent = grandAddedSpent();
+  const totalSpent = origSpent + addedSpent;
+  const remaining = deposit - origSpent;
+
+  // Deposit band (top)
+  const depEl = document.getElementById("deposit-band");
+  if (deposit > 0) {
+    depEl.style.display = "";
+    document.getElementById("deposit-value").textContent = fmt(deposit);
+    const meta = [];
+    if (data.depositDate) meta.push("received " + data.depositDate);
+    if (data.contractTotal) meta.push("50pct of " + fmt(data.contractTotal) + " contract");
+    document.getElementById("deposit-meta").textContent = meta.length ? "- " + meta.join(" - ") : "";
+  } else {
+    depEl.style.display = "none";
+  }
+
+  // Original Spent cell
+  document.getElementById("grand-orig-spent").textContent = fmt(origSpent)
+    + (deposit > 0 ? " (" + ((origSpent / deposit) * 100).toFixed(1) + "%)" : "");
+
+  // Deposit Remaining
+  const remEl = document.getElementById("grand-deposit-remaining");
+  remEl.textContent = fmt(remaining);
+  remEl.className = "gt-value " + (remaining < 0 ? "over" : remaining > 0 ? "under" : "");
+
+  // Add-ons Spent
+  document.getElementById("grand-addons-spent").textContent = fmt(addedSpent);
+
+  // Total Out of Pocket
+  document.getElementById("grand-total-spent").textContent = fmt(totalSpent);
 }
 
 function renderSection(sec, si, dupSet) {
@@ -259,7 +311,7 @@ function renderItem(item, si, ii, dupSet) {
     <div class="${classes.join(" ")}">
       <div class="item-row1">
         <div>
-          <div class="item-desc">${escapeHtml(item.description)}${isDup ? ' <span class="dup-flag">Possible duplicate</span>' : ""}</div>
+          <div class="item-desc">${escapeHtml(item.description)}${isAdded(item) ? ' <span class="addon-badge">Add-on</span>' : ""}${isDup ? ' <span class="dup-flag">Possible duplicate</span>' : ""}</div>
           <div class="item-meta">Qty ${item.qty || 0} &times; ${fmt(item.unitCost || 0)}${item.dateAdded ? " &middot; " + escapeHtml(item.dateAdded) : ""}</div>
         </div>
         <div class="item-actions">
@@ -421,6 +473,23 @@ function addItem(si) {
       </div>
       <label>Actual Cost (optional) <input type="number" id="m-act" step="any"></label>
       <label>Receipt path (optional, set by Tom-and-Claude later) <input type="text" id="m-receipt"></label>
+      <label>Payment method
+        <select id="m-paymethod">
+          <option value="">(none yet)</option>
+          <option value="Cash">Cash</option>
+          <option value="Zelle">Zelle</option>
+          <option value="ACH">ACH</option>
+          <option value="Check">Check</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+      <label>Scope
+        <select id="m-scope">
+          <option value="original">Original (planned, deposit-funded)</option>
+          <option value="added">Add-on (extra, beyond original budget)</option>
+        </select>
+      </label>
       <label>Notes <textarea id="m-notes" rows="2"></textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -434,6 +503,8 @@ function saveNewItem(si) {
   const desc = document.getElementById("m-desc").value.trim();
   if (!desc) return;
   const receipt = document.getElementById("m-receipt").value.trim();
+  const paymethod = document.getElementById("m-paymethod").value.trim();
+  const scope = document.getElementById("m-scope").value || "original";
   data.sections[si].items.push({
     id: uid("item"),
     description: desc,
@@ -442,6 +513,8 @@ function saveNewItem(si) {
     actualCost: document.getElementById("m-act").value ? Number(document.getElementById("m-act").value) : null,
     notes: document.getElementById("m-notes").value,
     receiptPath: receipt || null,
+    paymentMethod: paymethod || null,
+    scope: scope,
     dateAdded: new Date().toISOString().slice(0, 10)
   });
   markDirty();
@@ -461,6 +534,23 @@ function editItem(si, ii) {
       </div>
       <label>Actual Cost <input type="number" id="m-act" value="${it.actualCost ?? ""}" step="any"></label>
       <label>Receipt path <input type="text" id="m-receipt" value="${escapeHtml(it.receiptPath || "")}"></label>
+      <label>Payment method
+        <select id="m-paymethod">
+          <option value="" ${!it.paymentMethod ? "selected" : ""}>(none yet)</option>
+          <option value="Cash" ${it.paymentMethod === "Cash" ? "selected" : ""}>Cash</option>
+          <option value="Zelle" ${it.paymentMethod === "Zelle" ? "selected" : ""}>Zelle</option>
+          <option value="ACH" ${it.paymentMethod === "ACH" ? "selected" : ""}>ACH</option>
+          <option value="Check" ${it.paymentMethod === "Check" ? "selected" : ""}>Check</option>
+          <option value="Credit Card" ${it.paymentMethod === "Credit Card" ? "selected" : ""}>Credit Card</option>
+          <option value="Other" ${it.paymentMethod === "Other" ? "selected" : ""}>Other</option>
+        </select>
+      </label>
+      <label>Scope
+        <select id="m-scope">
+          <option value="original" ${(it.scope || "original") === "original" ? "selected" : ""}>Original (planned, deposit-funded)</option>
+          <option value="added" ${it.scope === "added" ? "selected" : ""}>Add-on (extra, beyond original budget)</option>
+        </select>
+      </label>
       <label>Notes <textarea id="m-notes" rows="2">${escapeHtml(it.notes || "")}</textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -478,6 +568,8 @@ function saveEditItem(si, ii) {
   const actVal = document.getElementById("m-act").value;
   it.actualCost = actVal === "" ? null : Number(actVal);
   it.receiptPath = document.getElementById("m-receipt").value.trim() || null;
+  it.paymentMethod = document.getElementById("m-paymethod").value.trim() || null;
+  it.scope = document.getElementById("m-scope").value || "original";
   it.notes = document.getElementById("m-notes").value;
   markDirty();
   closeModal();
@@ -546,6 +638,9 @@ async function load() {
         if (typeof sec.collapsed !== "boolean") sec.collapsed = true;
         if (!sec.category) sec.category = "misc";
         if (typeof sec.targetItems !== "number") sec.targetItems = sec.items.length;
+        sec.items.forEach(it => {
+          if (!it.scope) it.scope = "original";
+        });
       });
       render();
       setStatus("Loaded - " + (data.lastModified ? new Date(data.lastModified).toLocaleString() : "no save yet"), "saved");
