@@ -70,7 +70,8 @@
         { "id": "to-2", "description": "Infinity Bond Brute hot glue gun (500W adjustable)", "qty": 1, "unitCost": 300, "actualCost": null, "notes": "Floor-to-panel sealing tool.", "receiptPath": null, "dateAdded": "2026-05-27" },
         { "id": "to-3", "description": "Used banding machine", "qty": 1, "unitCost": 50, "actualCost": null, "notes": "Craigslist or local pickup. Freight prep, panel banding.", "receiptPath": null, "dateAdded": "2026-05-27" },
         { "id": "to-4", "description": "Forklift purchase", "qty": 1, "unitCost": 4500, "actualCost": null, "notes": "Multi-project utility, justifies buy over rent.", "receiptPath": null, "dateAdded": "2026-04-27" },
-        { "id": "to-5", "description": "First aid kit (OSHA basic)", "qty": 1, "unitCost": 50, "actualCost": null, "notes": "Wife may have one from teaching retirement.", "receiptPath": null, "dateAdded": "2026-05-27" }
+        { "id": "to-5", "description": "First aid kit (OSHA basic)", "qty": 1, "unitCost": 50, "actualCost": null, "notes": "Wife may have one from teaching retirement.", "receiptPath": null, "dateAdded": "2026-05-27" },
+        { "id": "to-6", "description": "Oneida 2hp dust collector (240v, 55-gal drum, wall-mount)", "qty": 1, "unitCost": 500, "actualCost": 500, "notes": "Bought used via Facebook Marketplace from Richard Gozinia. Cyclone separator + filter unit. Brackets included. Replaces 2 older dust collectors (to be sold - see Income/Offsets when added).", "receiptPath": "receipts/2026-06-08-fb-oneida-dust-collector-listing.jpg; receipts/2026-06-08-photo-oneida-dust-collector.jpg", "paymentMethod": "Cash", "datePurchased": "2026-06-08", "dateAdded": "2026-06-08" }
       ]
     },
     {
