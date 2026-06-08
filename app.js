@@ -2,11 +2,22 @@
 // Loads data.json, renders sections + items, supports in-app edits.
 // Save POSTs to a Cloudflare Worker that commits to GitHub.
 
-const WORKER_URL = "https://explorium-budget-worker.plywoodtom.workers.dev"; // updated when Worker deploys
+const WORKER_URL = "https://explorium-budget-worker.plywoodtom.workers.dev";
 const SECRET_STORAGE_KEY = "explorium_budget_secret";
+
+const CATEGORIES = [
+  { value: "electronics", label: "Electronics" },
+  { value: "materials",   label: "Building Materials" },
+  { value: "consumables", label: "Consumables" },
+  { value: "labor",       label: "Labor" },
+  { value: "tools",       label: "Tools" },
+  { value: "overhead",    label: "Overhead / Fixed Costs" },
+  { value: "misc",        label: "Misc" }
+];
 
 let data = { lastModified: null, sections: [] };
 let dirty = false;
+let searchTerm = "";
 
 // --- Helpers ---------------------------------------------------------------
 
@@ -17,13 +28,18 @@ function fmt(n) {
   return sign + "$" + abs.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function fmtShort(n) {
-  if (n === null || n === undefined || isNaN(n)) return "$0";
-  return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+function fmtPct(n) {
+  if (!isFinite(n)) return "";
+  const sign = n > 0 ? "+" : "";
+  return sign + n.toFixed(1) + "%";
 }
 
 function uid(prefix) {
   return prefix + "-" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+}
+
+function isFilled(item) {
+  return item.actualCost !== null && item.actualCost !== undefined && item.actualCost !== "" && Number(item.actualCost) > 0;
 }
 
 function totalEst(item) {
@@ -34,20 +50,24 @@ function actual(item) {
   return Number(item.actualCost) || 0;
 }
 
-function delta(item) {
-  return actual(item) - totalEst(item);
-}
-
 function sectionTotalEst(sec) {
   return sec.items.reduce((s, i) => s + totalEst(i), 0);
+}
+
+function sectionFilledEst(sec) {
+  return sec.items.filter(isFilled).reduce((s, i) => s + totalEst(i), 0);
 }
 
 function sectionTotalAct(sec) {
   return sec.items.reduce((s, i) => s + actual(i), 0);
 }
 
-function sectionItemCount(sec) {
-  return sec.items.length;
+function sectionFilledCount(sec) {
+  return sec.items.filter(isFilled).length;
+}
+
+function sectionTargetCount(sec) {
+  return Math.max(Number(sec.targetItems) || 0, sec.items.length);
 }
 
 function grandTotalEst() {
@@ -58,8 +78,12 @@ function grandTotalAct() {
   return data.sections.reduce((s, sec) => s + sectionTotalAct(sec), 0);
 }
 
-function grandItemCount() {
-  return data.sections.reduce((s, sec) => s + sec.items.length, 0);
+function grandFilledCount() {
+  return data.sections.reduce((s, sec) => s + sectionFilledCount(sec), 0);
+}
+
+function grandTargetCount() {
+  return data.sections.reduce((s, sec) => s + sectionTargetCount(sec), 0);
 }
 
 function markDirty() {
@@ -78,13 +102,74 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+function normalizeDesc(s) {
+  return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+// --- Duplicate detection ---------------------------------------------------
+
+function findDuplicateSet() {
+  const counts = {};
+  data.sections.forEach(sec => sec.items.forEach(it => {
+    const k = normalizeDesc(it.description);
+    if (!k) return;
+    counts[k] = (counts[k] || 0) + 1;
+  }));
+  return new Set(Object.keys(counts).filter(k => counts[k] > 1));
+}
+
+// --- Search ----------------------------------------------------------------
+
+function onSearch(term) {
+  searchTerm = (term || "").toLowerCase().trim();
+  document.getElementById("search-clear").style.display = searchTerm ? "" : "none";
+  render();
+  if (searchTerm) {
+    // Auto-expand sections that contain matches
+    data.sections.forEach(sec => {
+      const matched = sec.items.some(it => normalizeDesc(it.description).includes(normalizeDesc(searchTerm)));
+      if (matched) sec.collapsed = false;
+    });
+    render();
+  }
+}
+
+function clearSearch() {
+  document.getElementById("search").value = "";
+  onSearch("");
+}
+
+function itemMatchesSearch(item) {
+  if (!searchTerm) return false;
+  return normalizeDesc(item.description).includes(normalizeDesc(searchTerm))
+    || normalizeDesc(item.notes || "").includes(normalizeDesc(searchTerm));
+}
+
+function sectionHasSearchMatch(sec) {
+  if (!searchTerm) return true;
+  return sec.items.some(itemMatchesSearch);
+}
+
+// --- Expand / Collapse all -------------------------------------------------
+
+function expandAll() {
+  data.sections.forEach(sec => sec.collapsed = false);
+  render();
+}
+
+function collapseAll() {
+  data.sections.forEach(sec => sec.collapsed = true);
+  render();
+}
+
 // --- Rendering --------------------------------------------------------------
 
 function render() {
   const root = document.getElementById("sections");
   root.innerHTML = "";
+  const dupSet = findDuplicateSet();
   data.sections.forEach((sec, si) => {
-    root.appendChild(renderSection(sec, si));
+    root.appendChild(renderSection(sec, si, dupSet));
   });
   renderTotals();
 }
@@ -96,52 +181,86 @@ function renderTotals() {
   document.getElementById("grand-est").textContent = fmt(est);
   document.getElementById("grand-act").textContent = fmt(act);
   const deltaEl = document.getElementById("grand-delta");
-  deltaEl.textContent = (d >= 0 ? "+" : "") + fmt(d);
-  deltaEl.className = "delta " + (d > 0 ? "over" : d < 0 ? "under" : "");
-  document.getElementById("grand-count").textContent = grandItemCount();
+  const pctOfBudget = est > 0 ? (act / est) * 100 : 0;
+  const pctLabel = act > 0 ? " (" + pctOfBudget.toFixed(1) + "% of budget)" : "";
+  deltaEl.textContent = (d >= 0 ? "+" : "") + fmt(d) + pctLabel;
+  deltaEl.className = "gt-value " + (d > 0 ? "over" : d < 0 ? "under" : "");
+  document.getElementById("grand-count").textContent = grandFilledCount() + " / " + grandTargetCount();
 }
 
-function renderSection(sec, si) {
+function renderSection(sec, si, dupSet) {
   const el = document.createElement("div");
   el.className = "section";
-  const est = sectionTotalEst(sec);
-  const act = sectionTotalAct(sec);
-  const d = act - est;
+  el.dataset.category = sec.category || "misc";
+  if (searchTerm && !sectionHasSearchMatch(sec)) el.classList.add("dim");
+
+  const totalEstVal = sectionTotalEst(sec);
+  const filledEstVal = sectionFilledEst(sec);
+  const totalActVal = sectionTotalAct(sec);
+  const filledCount = sectionFilledCount(sec);
+  const targetCount = sectionTargetCount(sec);
+
+  // Section delta = actual - estimated of FILLED items only (apples to apples)
+  const sectionDelta = totalActVal - filledEstVal;
+  const sectionPct = filledEstVal > 0 ? (sectionDelta / filledEstVal) * 100 : 0;
+  const dCls = sectionDelta > 0 ? "over" : sectionDelta < 0 ? "under" : "";
+
+  const collapsed = sec.collapsed !== false;
+  const chev = "&#9656;"; // small right triangle, rotates 90deg when open
+
+  const summary = [];
+  summary.push(`<span class="ss-cell"><span class="ss-label">Budget</span><span class="ss-value">${fmt(totalEstVal)}</span></span>`);
+  summary.push(`<span class="ss-cell"><span class="ss-label">Filled</span><span class="ss-value ss-target" onclick="event.stopPropagation();editTarget(${si})">${filledCount} / ${targetCount}</span></span>`);
+  if (filledCount > 0) {
+    summary.push(`<span class="ss-cell"><span class="ss-label">Spent</span><span class="ss-value">${fmt(totalActVal)}</span></span>`);
+    summary.push(`<span class="ss-cell"><span class="ss-label">Delta</span><span class="ss-value ${dCls}">${sectionDelta >= 0 ? "+" : ""}${fmt(sectionDelta)} ${filledEstVal > 0 ? "(" + fmtPct(sectionPct) + ")" : ""}</span></span>`);
+  }
+
   el.innerHTML = `
-    <div class="section-header" onclick="toggleSection(${si})">
+    <div class="section-stripe"></div>
+    <div class="section-header ${collapsed ? "collapsed" : ""}" onclick="toggleSection(${si})">
       <div>
-        <h2>${escapeHtml(sec.name)}</h2>
-        <div class="section-totals">
-          ${sec.items.length} items · Est ${fmt(est)} · Act ${fmt(act)} · <span class="delta ${d > 0 ? "over" : d < 0 ? "under" : ""}">${d >= 0 ? "+" : ""}${fmt(d)}</span>
+        <div class="section-title-row">
+          <span class="section-chevron">${chev}</span>
+          <span class="section-name">${escapeHtml(sec.name)}</span>
         </div>
+        <div class="section-summary">${summary.join("")}</div>
       </div>
-      <div style="display:flex;gap:6px;">
+      <div class="section-actions">
         <button class="small" onclick="event.stopPropagation();editSection(${si})">Edit</button>
         <button class="small danger" onclick="event.stopPropagation();deleteSection(${si})">Del</button>
       </div>
     </div>
-    <div class="section-body" id="sec-body-${si}">
-      <textarea class="section-notes" placeholder="Section notes (optional)" oninput="updateSectionNotes(${si}, this.value)">${escapeHtml(sec.notes || "")}</textarea>
-      <div class="items">
-        ${sec.items.map((it, ii) => renderItem(it, si, ii)).join("")}
+    ${collapsed ? "" : `
+      <div class="section-body">
+        <textarea class="section-notes" placeholder="Section notes (optional)" oninput="updateSectionNotes(${si}, this.value)">${escapeHtml(sec.notes || "")}</textarea>
+        <div class="items">
+          ${sec.items.map((it, ii) => renderItem(it, si, ii, dupSet)).join("")}
+        </div>
+        <button class="add-item-btn" onclick="addItem(${si})">+ Add Item</button>
       </div>
-      <button class="add-item-btn" onclick="addItem(${si})">+ Add Item</button>
-    </div>
+    `}
   `;
   return el;
 }
 
-function renderItem(item, si, ii) {
+function renderItem(item, si, ii, dupSet) {
   const est = totalEst(item);
   const act = actual(item);
+  const filled = isFilled(item);
   const d = act - est;
   const dCls = d > 0 ? "over" : d < 0 ? "under" : "";
+  const matched = itemMatchesSearch(item);
+  const isDup = dupSet && dupSet.has(normalizeDesc(item.description));
+  const classes = ["item"];
+  if (matched) classes.push("match-highlight");
+  if (isDup) classes.push("duplicate");
   return `
-    <div class="item">
+    <div class="${classes.join(" ")}">
       <div class="item-row1">
         <div>
-          <div class="item-desc">${escapeHtml(item.description)}</div>
-          <div class="item-meta">Qty ${item.qty || 0} × ${fmt(item.unitCost || 0)} ${item.dateAdded ? "· " + escapeHtml(item.dateAdded) : ""}</div>
+          <div class="item-desc">${escapeHtml(item.description)}${isDup ? ' <span class="dup-flag">Possible duplicate</span>' : ""}</div>
+          <div class="item-meta">Qty ${item.qty || 0} &times; ${fmt(item.unitCost || 0)}${item.dateAdded ? " &middot; " + escapeHtml(item.dateAdded) : ""}</div>
         </div>
         <div class="item-actions">
           <button class="small" onclick="editItem(${si},${ii})">Edit</button>
@@ -155,21 +274,23 @@ function renderItem(item, si, ii) {
         </div>
         <div class="cell">
           <span class="cell-label">Actual</span>
-          <span class="cell-value">${act ? fmt(act) : "—"}</span>
+          <span class="cell-value">${filled ? fmt(act) : "&mdash;"}</span>
         </div>
         <div class="cell">
           <span class="cell-label">Delta</span>
-          <span class="cell-value ${dCls}">${act ? (d >= 0 ? "+" : "") + fmt(d) : "—"}</span>
+          <span class="cell-value ${dCls}">${filled ? (d >= 0 ? "+" : "") + fmt(d) : "&mdash;"}</span>
         </div>
       </div>
       ${item.notes ? `<div class="item-notes">${escapeHtml(item.notes)}</div>` : ""}
+      ${item.receiptPath ? `<div class="item-receipt">Receipt: ${escapeHtml(item.receiptPath)}</div>` : ""}
     </div>
   `;
 }
 
 function toggleSection(si) {
-  const body = document.getElementById("sec-body-" + si);
-  body.style.display = body.style.display === "none" ? "" : "none";
+  data.sections[si].collapsed = !(data.sections[si].collapsed !== false);
+  // Don't mark dirty for collapse-state changes alone; they're UI only.
+  render();
 }
 
 // --- Modals -----------------------------------------------------------------
@@ -189,11 +310,21 @@ document.getElementById("modal-backdrop").addEventListener("click", e => {
 
 // --- Sections CRUD ----------------------------------------------------------
 
+function categoryOptions(selected) {
+  return CATEGORIES.map(c => `<option value="${c.value}" ${c.value === selected ? "selected" : ""}>${c.label}</option>`).join("");
+}
+
 function addSection() {
   showModal(`
     <h3>Add Section</h3>
     <div class="modal-form">
       <label>Name <input type="text" id="m-name" autofocus></label>
+      <label>Category
+        <select id="m-cat">${categoryOptions("misc")}</select>
+      </label>
+      <label>Target item count
+        <input type="number" id="m-target" value="1" min="0" step="1">
+      </label>
       <label>Notes (optional) <textarea id="m-notes" rows="3"></textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -209,6 +340,9 @@ function saveNewSection() {
   data.sections.push({
     id: uid("sec"),
     name,
+    category: document.getElementById("m-cat").value,
+    targetItems: Number(document.getElementById("m-target").value) || 0,
+    collapsed: false,
     notes: document.getElementById("m-notes").value,
     items: []
   });
@@ -223,6 +357,12 @@ function editSection(si) {
     <h3>Edit Section</h3>
     <div class="modal-form">
       <label>Name <input type="text" id="m-name" value="${escapeHtml(sec.name)}" autofocus></label>
+      <label>Category
+        <select id="m-cat">${categoryOptions(sec.category || "misc")}</select>
+      </label>
+      <label>Target item count
+        <input type="number" id="m-target" value="${Number(sec.targetItems) || 0}" min="0" step="1">
+      </label>
       <label>Notes <textarea id="m-notes" rows="3">${escapeHtml(sec.notes || "")}</textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -233,8 +373,11 @@ function editSection(si) {
 }
 
 function saveEditSection(si) {
-  data.sections[si].name = document.getElementById("m-name").value.trim() || data.sections[si].name;
-  data.sections[si].notes = document.getElementById("m-notes").value;
+  const sec = data.sections[si];
+  sec.name = document.getElementById("m-name").value.trim() || sec.name;
+  sec.category = document.getElementById("m-cat").value;
+  sec.targetItems = Number(document.getElementById("m-target").value) || 0;
+  sec.notes = document.getElementById("m-notes").value;
   markDirty();
   closeModal();
   render();
@@ -253,6 +396,18 @@ function updateSectionNotes(si, val) {
   markDirty();
 }
 
+function editTarget(si) {
+  const sec = data.sections[si];
+  const cur = Number(sec.targetItems) || sec.items.length;
+  const val = prompt(`Target item count for "${sec.name}"? (current ${cur}, items already in list: ${sec.items.length})`, cur);
+  if (val === null) return;
+  const n = Number(val);
+  if (isNaN(n) || n < 0) return;
+  sec.targetItems = n;
+  markDirty();
+  render();
+}
+
 // --- Items CRUD -------------------------------------------------------------
 
 function addItem(si) {
@@ -265,6 +420,7 @@ function addItem(si) {
         <label>Unit Cost (est) <input type="number" id="m-unit" value="0" step="any"></label>
       </div>
       <label>Actual Cost (optional) <input type="number" id="m-act" step="any"></label>
+      <label>Receipt path (optional, set by Tom-and-Claude later) <input type="text" id="m-receipt"></label>
       <label>Notes <textarea id="m-notes" rows="2"></textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -277,6 +433,7 @@ function addItem(si) {
 function saveNewItem(si) {
   const desc = document.getElementById("m-desc").value.trim();
   if (!desc) return;
+  const receipt = document.getElementById("m-receipt").value.trim();
   data.sections[si].items.push({
     id: uid("item"),
     description: desc,
@@ -284,6 +441,7 @@ function saveNewItem(si) {
     unitCost: Number(document.getElementById("m-unit").value) || 0,
     actualCost: document.getElementById("m-act").value ? Number(document.getElementById("m-act").value) : null,
     notes: document.getElementById("m-notes").value,
+    receiptPath: receipt || null,
     dateAdded: new Date().toISOString().slice(0, 10)
   });
   markDirty();
@@ -302,6 +460,7 @@ function editItem(si, ii) {
         <label>Unit Cost (est) <input type="number" id="m-unit" value="${it.unitCost || 0}" step="any"></label>
       </div>
       <label>Actual Cost <input type="number" id="m-act" value="${it.actualCost ?? ""}" step="any"></label>
+      <label>Receipt path <input type="text" id="m-receipt" value="${escapeHtml(it.receiptPath || "")}"></label>
       <label>Notes <textarea id="m-notes" rows="2">${escapeHtml(it.notes || "")}</textarea></label>
       <div class="modal-actions">
         <button onclick="closeModal()">Cancel</button>
@@ -318,6 +477,7 @@ function saveEditItem(si, ii) {
   it.unitCost = Number(document.getElementById("m-unit").value) || 0;
   const actVal = document.getElementById("m-act").value;
   it.actualCost = actVal === "" ? null : Number(actVal);
+  it.receiptPath = document.getElementById("m-receipt").value.trim() || null;
   it.notes = document.getElementById("m-notes").value;
   markDirty();
   closeModal();
@@ -381,8 +541,14 @@ async function load() {
     if (res.ok) {
       data = await res.json();
       if (!data.sections) data.sections = [];
+      // Ensure each section has defaults
+      data.sections.forEach(sec => {
+        if (typeof sec.collapsed !== "boolean") sec.collapsed = true;
+        if (!sec.category) sec.category = "misc";
+        if (typeof sec.targetItems !== "number") sec.targetItems = sec.items.length;
+      });
       render();
-      setStatus("Loaded · " + (data.lastModified ? new Date(data.lastModified).toLocaleString() : "no save yet"), "saved");
+      setStatus("Loaded - " + (data.lastModified ? new Date(data.lastModified).toLocaleString() : "no save yet"), "saved");
     } else {
       setStatus("data.json not found - starting empty", "dirty");
       data = { lastModified: null, sections: [] };

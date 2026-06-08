@@ -13,11 +13,20 @@
     --border: #3a3a3a;
     --text: #e8e8e8;
     --text-dim: #999;
+    --text-dimmer: #777;
     --accent: #4ade80;
     --warn: #fb923c;
     --over: #f87171;
     --under: #4ade80;
     --link: #60a5fa;
+
+    --cat-electronics: #3b82f6;
+    --cat-materials: #b45309;
+    --cat-consumables: #eab308;
+    --cat-labor: #22c55e;
+    --cat-tools: #f97316;
+    --cat-overhead: #64748b;
+    --cat-misc: #71717a;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
@@ -35,59 +44,130 @@
     z-index: 100;
     background: var(--panel);
     border-bottom: 1px solid var(--border);
-    padding: 12px 16px;
+    padding: 10px 14px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
   }
   header h1 {
     margin: 0;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
   }
-  .totals {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 13px;
+  .grand-totals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 14px;
+    font-size: 12px;
   }
-  .totals .label { color: var(--text-dim); margin-right: 4px; }
-  .totals .est { color: var(--text); }
-  .totals .act { color: var(--text); }
-  .totals .delta.over { color: var(--over); }
-  .totals .delta.under { color: var(--under); }
+  .gt-cell { display: flex; flex-direction: column; }
+  .gt-label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .gt-value { font-size: 15px; font-weight: 600; }
+  .gt-value.over { color: var(--over); }
+  .gt-value.under { color: var(--under); }
+  .search-bar {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .search-bar input {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .search-bar input::placeholder { color: var(--text-dimmer); }
+  .search-clear {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    min-height: 0;
+  }
   main { padding: 12px 12px 80px; }
   .section {
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     overflow: hidden;
+    position: relative;
   }
+  .section.dim { opacity: 0.35; }
+  .section-stripe {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--cat-misc);
+  }
+  .section[data-category="electronics"] .section-stripe { background: var(--cat-electronics); }
+  .section[data-category="materials"] .section-stripe { background: var(--cat-materials); }
+  .section[data-category="consumables"] .section-stripe { background: var(--cat-consumables); }
+  .section[data-category="labor"] .section-stripe { background: var(--cat-labor); }
+  .section[data-category="tools"] .section-stripe { background: var(--cat-tools); }
+  .section[data-category="overhead"] .section-stripe { background: var(--cat-overhead); }
+  .section[data-category="misc"] .section-stripe { background: var(--cat-misc); }
+
   .section-header {
-    padding: 12px 14px;
+    padding: 12px 14px 12px 18px;
     background: var(--panel-2);
     border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     cursor: pointer;
     user-select: none;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px;
+    align-items: start;
   }
-  .section-header h2 {
-    margin: 0;
+  .section-header.collapsed { border-bottom-color: transparent; }
+  .section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .section-chevron {
+    color: var(--text-dim);
+    font-size: 11px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+    display: inline-block;
+    transform: rotate(0deg);
+  }
+  .section-header:not(.collapsed) .section-chevron { transform: rotate(90deg); }
+  .section-name {
     font-size: 16px;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .section-totals {
+  .section-summary {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     font-size: 12px;
     color: var(--text-dim);
-    text-align: right;
-    margin-top: 2px;
   }
-  .section-totals .delta.over { color: var(--over); }
-  .section-totals .delta.under { color: var(--under); }
-  .section-body { padding: 8px; }
+  .ss-cell { display: inline-flex; gap: 4px; align-items: baseline; }
+  .ss-label { color: var(--text-dimmer); }
+  .ss-value { color: var(--text); font-weight: 500; }
+  .ss-value.over { color: var(--over); }
+  .ss-value.under { color: var(--under); }
+  .ss-target { color: var(--link); text-decoration: underline dotted; cursor: pointer; }
+  .section-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .section-body { padding: 8px 8px 8px 13px; }
   .section-notes {
     width: 100%;
     background: var(--panel-2);
@@ -111,6 +191,8 @@
     grid-template-columns: 1fr;
     gap: 6px;
   }
+  .item.match-highlight { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .item.duplicate { border-color: var(--warn); }
   .item-row1 {
     display: flex;
     justify-content: space-between;
@@ -121,6 +203,14 @@
     flex: 1;
     font-weight: 500;
     font-size: 14px;
+  }
+  .item-desc .dup-flag {
+    color: var(--warn);
+    font-size: 10px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
   }
   .item-meta {
     font-size: 11px;
@@ -143,10 +233,15 @@
     font-style: italic;
     margin-top: 2px;
   }
+  .item-receipt {
+    font-size: 11px;
+    color: var(--link);
+    margin-top: 2px;
+  }
   .item-actions {
     display: flex;
     gap: 6px;
-    margin-top: 4px;
+    flex-shrink: 0;
   }
   button {
     background: var(--panel);
@@ -230,25 +325,68 @@
   .modal-form label { font-size: 12px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px; }
   .modal-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .modal-actions { display: flex; gap: 8px; margin-top: 8px; }
-  .auth-prompt {
-    background: var(--panel-2);
-    padding: 14px;
-    border-radius: 8px;
-    margin: 16px 12px;
-    border: 1px solid var(--warn);
+  .modal-form select {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
   }
-  .auth-prompt p { margin: 0 0 8px; font-size: 13px; color: var(--text-dim); }
+  .color-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Explorium Budget Tracker</h1>
-  <div class="totals" id="grand-totals">
-    <span><span class="label">Estimated:</span><span class="est" id="grand-est">$0</span></span>
-    <span><span class="label">Actual:</span><span class="act" id="grand-act">$0</span></span>
-    <span><span class="label">Delta:</span><span class="delta" id="grand-delta">$0</span></span>
-    <span><span class="label">Items:</span><span id="grand-count">0</span></span>
+  <div class="grand-totals">
+    <div class="gt-cell">
+      <span class="gt-label">Budget</span>
+      <span class="gt-value" id="grand-est">$0</span>
+    </div>
+    <div class="gt-cell">
+      <span class="gt-label">Spent</span>
+      <span class="gt-value" id="grand-act">$0</span>
+    </div>
+    <div class="gt-cell">
+      <span class="gt-label">Delta (vs full budget)</span>
+      <span class="gt-value" id="grand-delta">$0</span>
+    </div>
+    <div class="gt-cell">
+      <span class="gt-label">Items filled</span>
+      <span class="gt-value" id="grand-count">0 / 0</span>
+    </div>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search items..." oninput="onSearch(this.value)">
+    <button class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">Clear</button>
+  </div>
+  <div class="color-legend">
+    <span><span class="legend-dot" style="background:var(--cat-electronics)"></span>Electronics</span>
+    <span><span class="legend-dot" style="background:var(--cat-materials)"></span>Materials</span>
+    <span><span class="legend-dot" style="background:var(--cat-consumables)"></span>Consumables</span>
+    <span><span class="legend-dot" style="background:var(--cat-labor)"></span>Labor</span>
+    <span><span class="legend-dot" style="background:var(--cat-tools)"></span>Tools</span>
+    <span><span class="legend-dot" style="background:var(--cat-overhead)"></span>Overhead</span>
+    <span><span class="legend-dot" style="background:var(--cat-misc)"></span>Misc</span>
   </div>
 </header>
 
@@ -259,6 +397,8 @@
 
 <div class="save-bar">
   <span class="save-status" id="save-status">Loaded</span>
+  <button onclick="expandAll()" class="small">Expand all</button>
+  <button onclick="collapseAll()" class="small">Collapse all</button>
   <button class="primary" onclick="save()">Save</button>
 </div>
 
