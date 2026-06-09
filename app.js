@@ -38,7 +38,17 @@ function uid(prefix) {
   return prefix + "-" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
 }
 
+function hasPayments(item) {
+  return Array.isArray(item.payments) && item.payments.length > 0;
+}
+
+function paymentsSum(item) {
+  if (!hasPayments(item)) return 0;
+  return item.payments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
+}
+
 function isFilled(item) {
+  if (hasPayments(item)) return paymentsSum(item) > 0;
   return item.actualCost !== null && item.actualCost !== undefined && item.actualCost !== "" && Number(item.actualCost) > 0;
 }
 
@@ -55,6 +65,7 @@ function totalEst(item) {
 }
 
 function actual(item) {
+  if (hasPayments(item)) return paymentsSum(item);
   return Number(item.actualCost) || 0;
 }
 
@@ -309,6 +320,16 @@ function renderItem(item, si, ii, dupSet) {
   const classes = ["item"];
   if (matched) classes.push("match-highlight");
   if (isDup) classes.push("duplicate");
+  const hasPays = hasPayments(item);
+  const paymentsHtml = hasPays ? item.payments.map((p, pi) => `
+    <div class="payment-row">
+      <span class="payment-date">${escapeHtml(p.date || "")}</span>
+      <span class="payment-amount">${fmt(p.amount)}</span>
+      <span class="payment-method">${escapeHtml(p.method || "")}</span>
+      <span class="payment-notes">${escapeHtml(p.notes || "")}</span>
+      <button class="small payment-del" onclick="deletePayment(${si},${ii},${pi})">x</button>
+    </div>
+  `).join("") : "";
   return `
     <div class="${classes.join(" ")}">
       <div class="item-row1">
@@ -317,6 +338,7 @@ function renderItem(item, si, ii, dupSet) {
           <div class="item-meta">Qty ${item.qty || 0} &times; ${fmt(item.unitCost || 0)}${item.dateAdded ? " &middot; " + escapeHtml(item.dateAdded) : ""}</div>
         </div>
         <div class="item-actions">
+          <button class="small pay-btn" onclick="addPayment(${si},${ii})">+ Pay</button>
           <button class="small" onclick="editItem(${si},${ii})">Edit</button>
           <button class="small danger" onclick="deleteItem(${si},${ii})">Del</button>
         </div>
@@ -327,7 +349,7 @@ function renderItem(item, si, ii, dupSet) {
           <span class="cell-value">${fmt(est)}</span>
         </div>
         <div class="cell">
-          <span class="cell-label">Actual</span>
+          <span class="cell-label">${hasPays ? "Paid (" + item.payments.length + ")" : "Actual"}</span>
           <span class="cell-value">${filled ? fmt(act) : "&mdash;"}</span>
         </div>
         <div class="cell">
@@ -335,6 +357,7 @@ function renderItem(item, si, ii, dupSet) {
           <span class="cell-value ${dCls}">${filled ? (d >= 0 ? "+" : "") + fmt(d) : "&mdash;"}</span>
         </div>
       </div>
+      ${hasPays ? `<div class="payments-list">${paymentsHtml}</div>` : ""}
       ${item.notes ? `<div class="item-notes">${escapeHtml(item.notes)}</div>` : ""}
       ${item.receiptPath ? `<div class="item-receipt">Receipt: ${escapeHtml(item.receiptPath)}</div>` : ""}
     </div>
@@ -584,6 +607,69 @@ function deleteItem(si, ii) {
   const it = data.sections[si].items[ii];
   if (!confirm(`Delete item "${it.description}"?`)) return;
   data.sections[si].items.splice(ii, 1);
+  markDirty();
+  render();
+}
+
+// --- Payments CRUD ----------------------------------------------------------
+
+function addPayment(si, ii) {
+  const it = data.sections[si].items[ii];
+  const today = new Date().toISOString().slice(0, 10);
+  showModal(`
+    <h3>Add Payment</h3>
+    <div class="modal-form">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px">
+        ${escapeHtml(it.description)}
+      </div>
+      <label>Date <input type="date" id="m-pdate" value="${today}" autofocus></label>
+      <label>Amount <input type="number" id="m-pamount" step="any" placeholder="0.00"></label>
+      <label>Method
+        <select id="m-pmethod">
+          <option value="">(select)</option>
+          <option value="Cash">Cash</option>
+          <option value="Debit">Debit</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Zelle">Zelle</option>
+          <option value="ACH">ACH</option>
+          <option value="Check">Check</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+      <label>Notes (optional) <input type="text" id="m-pnotes" placeholder="e.g. May draw, Royal Plywood order 2"></label>
+      <div class="modal-actions">
+        <button onclick="closeModal()">Cancel</button>
+        <button class="primary" onclick="saveNewPayment(${si},${ii})">Add Payment</button>
+      </div>
+    </div>
+  `);
+  setTimeout(() => document.getElementById("m-pamount").focus(), 50);
+}
+
+function saveNewPayment(si, ii) {
+  const it = data.sections[si].items[ii];
+  const amount = Number(document.getElementById("m-pamount").value);
+  if (!amount || amount <= 0) { alert("Amount required"); return; }
+  if (!Array.isArray(it.payments)) it.payments = [];
+  it.payments.push({
+    id: uid("pay"),
+    date: document.getElementById("m-pdate").value || new Date().toISOString().slice(0, 10),
+    amount: amount,
+    method: document.getElementById("m-pmethod").value || null,
+    notes: document.getElementById("m-pnotes").value.trim() || null
+  });
+  it.payments.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+  markDirty();
+  closeModal();
+  render();
+}
+
+function deletePayment(si, ii, pi) {
+  const it = data.sections[si].items[ii];
+  if (!Array.isArray(it.payments) || !it.payments[pi]) return;
+  const p = it.payments[pi];
+  if (!confirm(`Delete payment ${p.date} ${fmt(p.amount)}?`)) return;
+  it.payments.splice(pi, 1);
   markDirty();
   render();
 }
