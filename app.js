@@ -60,6 +60,15 @@ function isOriginal(item) {
   return item.scope !== "added";
 }
 
+function isComplete(item) {
+  return item.complete === true;
+}
+
+function originalSaved(item) {
+  if (!isFilled(item) || !isOriginal(item)) return 0;
+  return totalEst(item) - actual(item);
+}
+
 function totalEst(item) {
   return (Number(item.qty) || 0) * (Number(item.unitCost) || 0);
 }
@@ -109,6 +118,14 @@ function grandAddedSpent() {
     (s, sec) => s + sec.items.filter(isAdded).reduce((a, i) => a + actual(i), 0),
     0
   );
+}
+
+function grandOriginalSavedDelta() {
+  let total = 0;
+  data.sections.forEach(sec => {
+    sec.items.forEach(it => { total += originalSaved(it); });
+  });
+  return total;
 }
 
 function depositAmount() {
@@ -251,6 +268,17 @@ function renderTotals() {
 
   // Total Out of Pocket
   document.getElementById("grand-total-spent").textContent = fmt(totalSpent);
+
+  // Savings band
+  const saved = grandOriginalSavedDelta();
+  const net = saved - addedSpent;
+  const savedEl = document.getElementById("savings-saved");
+  savedEl.textContent = (saved >= 0 ? "+" : "") + fmt(saved);
+  savedEl.className = "sv-value " + (saved > 0 ? "under" : saved < 0 ? "over" : "");
+  document.getElementById("savings-addons").textContent = fmt(addedSpent);
+  const netEl = document.getElementById("savings-net");
+  netEl.textContent = (net >= 0 ? "+" : "") + fmt(net);
+  netEl.className = "sv-value " + (net > 0 ? "under" : net < 0 ? "over" : "");
 }
 
 function renderSection(sec, si, dupSet) {
@@ -317,10 +345,13 @@ function renderItem(item, si, ii, dupSet) {
   const dCls = d > 0 ? "over" : d < 0 ? "under" : "";
   const matched = itemMatchesSearch(item);
   const isDup = dupSet && dupSet.has(normalizeDesc(item.description));
+  const category = (data.sections[si] && data.sections[si].category) || "misc";
   const classes = ["item"];
   if (matched) classes.push("match-highlight");
   if (isDup) classes.push("duplicate");
+  if (isComplete(item)) classes.push("complete");
   const hasPays = hasPayments(item);
+  const star = isOriginal(item) ? `<span class="scope-star" style="color:var(--cat-${category})" title="Original budget item">&#9733;</span>` : "";
   const paymentsHtml = hasPays ? item.payments.map((p, pi) => `
     <div class="payment-row">
       <span class="payment-date">${escapeHtml(p.date || "")}</span>
@@ -334,11 +365,12 @@ function renderItem(item, si, ii, dupSet) {
     <div class="${classes.join(" ")}">
       <div class="item-row1">
         <div>
-          <div class="item-desc">${escapeHtml(item.description)}${isAdded(item) ? ' <span class="addon-badge">Add-on</span>' : ""}${isDup ? ' <span class="dup-flag">Possible duplicate</span>' : ""}</div>
+          <div class="item-desc">${star}${escapeHtml(item.description)}${isAdded(item) ? ' <span class="addon-badge">Add-on</span>' : ""}${isDup ? ' <span class="dup-flag">Possible duplicate</span>' : ""}</div>
           <div class="item-meta">Qty ${item.qty || 0} &times; ${fmt(item.unitCost || 0)}${item.dateAdded ? " &middot; " + escapeHtml(item.dateAdded) : ""}</div>
         </div>
         <div class="item-actions">
           <button class="small pay-btn" onclick="addPayment(${si},${ii})">+ Pay</button>
+          <button class="small done-btn ${isComplete(item) ? "is-done" : ""}" onclick="toggleComplete(${si},${ii})">${isComplete(item) ? "Reopen" : "Done"}</button>
           <button class="small" onclick="editItem(${si},${ii})">Edit</button>
           <button class="small danger" onclick="deleteItem(${si},${ii})">Del</button>
         </div>
@@ -607,6 +639,13 @@ function deleteItem(si, ii) {
   const it = data.sections[si].items[ii];
   if (!confirm(`Delete item "${it.description}"?`)) return;
   data.sections[si].items.splice(ii, 1);
+  markDirty();
+  render();
+}
+
+function toggleComplete(si, ii) {
+  const it = data.sections[si].items[ii];
+  it.complete = !isComplete(it);
   markDirty();
   render();
 }

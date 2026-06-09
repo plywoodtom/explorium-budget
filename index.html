@@ -366,6 +366,42 @@
   .deposit-label { color: var(--text-dim); }
   .deposit-value { color: var(--accent); font-weight: 600; font-size: 14px; }
   .deposit-meta { color: var(--text-dimmer); font-size: 11px; }
+  .savings-band {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 12px;
+    margin-bottom: 2px;
+  }
+  .sv-cell { display: flex; flex-direction: column; }
+  .sv-label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sv-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .sv-value.over { color: var(--over); }
+  .sv-value.under { color: var(--under); }
+  .scope-star {
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 5px;
+    vertical-align: 1px;
+    line-height: 1;
+  }
+  .item.complete {
+    opacity: 0.55;
+  }
+  .item.complete .item-desc {
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--text-dimmer);
+  }
+  .done-btn.is-done {
+    background: var(--accent);
+    color: #0a0a0a;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
   .addon-badge {
     display: inline-block;
     font-size: 9px;
@@ -420,6 +456,20 @@
     <span class="deposit-label">Deposit:</span>
     <span class="deposit-value" id="deposit-value">$0</span>
     <span class="deposit-meta" id="deposit-meta"></span>
+  </div>
+  <div class="savings-band">
+    <div class="sv-cell">
+      <span class="sv-label">Saved on Originals</span>
+      <span class="sv-value" id="savings-saved">$0</span>
+    </div>
+    <div class="sv-cell">
+      <span class="sv-label">Add-on Spend</span>
+      <span class="sv-value" id="savings-addons">$0</span>
+    </div>
+    <div class="sv-cell">
+      <span class="sv-label">Net vs Budget</span>
+      <span class="sv-value" id="savings-net">$0</span>
+    </div>
   </div>
   <div class="grand-totals">
     <div class="gt-cell">
