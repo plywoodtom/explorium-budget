@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-06-08T23:30:00.000Z",
+  "lastModified": "2026-06-09T00:30:00.000Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -61,7 +61,11 @@
       "collapsed": true,
       "notes": "Tom's personal pay (cash flow draw, not new cost) + paid helper hours.",
       "items": [
-        { "id": "lb-1", "description": "Tom personal pay (4 months x 4k lean)", "qty": 4, "unitCost": 4000, "actualCost": null, "notes": "Cash flow during build, not new cost - draw vs profit.", "receiptPath": null, "dateAdded": "2026-04-27" },
+        { "id": "lb-1", "description": "Tom personal pay (4 months x 4k lean)", "qty": 4, "unitCost": 4000, "actualCost": null, "notes": "Cash flow during build, not new cost - draw vs profit. Logged via payments list.", "receiptPath": null, "payments": [
+          { "id": "pay-lb1-1", "date": "2026-06-01", "amount": 2000, "method": "Zelle", "notes": "Draw" },
+          { "id": "pay-lb1-2", "date": "2026-06-01", "amount": 2000, "method": "Zelle", "notes": "Draw" },
+          { "id": "pay-lb1-3", "date": "2026-06-01", "amount": 200, "method": "Zelle", "notes": "Bundled with rent reimbursement (rent 2579.78 + 200 pay = 2779.78 total transfer)" }
+        ], "dateAdded": "2026-04-27" },
         { "id": "lb-2", "description": "Hire help (40 hr/wk x 12 wk x 35/hr)", "qty": 480, "unitCost": 35, "actualCost": null, "notes": "Expanded 2026-05-27. Funded by reception desk + RFID deposits.", "receiptPath": null, "dateAdded": "2026-05-27" }
       ]
     },
@@ -112,7 +116,7 @@
       "notes": "Rent, utilities, insurance, container, freight - facility and recurring costs not part of the build itself.",
       "items": [
         { "id": "ov-1", "description": "40-ft high cube container (used, delivered)", "qty": 1, "unitCost": 3800, "actualCost": 2579.15, "notes": "Vendor: Duncan & Son Lines (Buckeye AZ). Invoice C003309 dated 6/2/2026. Breakdown: 2050 container + 400 delivery + 129.15 tax = 2579.15. Paid via Zelle 6/8/2026 to Tony Castro / E MERCH LLC, confirmation 7B51AM57. Doors facing CAB. Drop point min 12ft wide, 110ft pullout. Under budget by 1220.85.", "receiptPath": "receipts/2026-06-02-invoice-Duncan_and_Son_Lines-C003309.jpg; receipts/2026-06-08-zelle-container-E_MERCH_LLC.jpg", "paymentMethod": "Zelle", "datePurchased": "2026-06-08", "dateAdded": "2026-04-27" },
-        { "id": "ov-2", "description": "First shop rent (Tempe, 4 months)", "qty": 4, "unitCost": 1227, "actualCost": 2579.78, "notes": "MAY+JUNE PAID via check #211 on 2026-06-08 (2579.78 covers 2 months at ~1289.89/mo, slightly above 1227 unit budget). JUL+AUG still owed.", "receiptPath": null, "paymentMethod": "Check", "datePurchased": "2026-06-08", "dateAdded": "2026-04-27" },
+        { "id": "ov-2", "description": "First shop rent (Tempe, 4 months)", "qty": 4, "unitCost": 1227, "actualCost": 2579.78, "notes": "MAY+JUNE PAID via check #211 on 2026-06-08 (2579.78 covers 2 months at ~1289.89/mo). Check was written from Tom's PERSONAL acct; company reimbursed him 2779.78 (rent 2579.78 + 200 personal pay bundled - the 200 is logged in lb-1). JUL+AUG still owed.", "receiptPath": null, "paymentMethod": "Check", "datePurchased": "2026-06-08", "dateAdded": "2026-04-27" },
         { "id": "ov-3", "description": "Second shop rent (4 months)", "qty": 4, "unitCost": 1250, "actualCost": 693.33, "notes": "JUNE pro-rated PAID via cashier's check (combined 1993.33 = 1300 deposit on ov-3-dep + 693.33 first month pro-rated rent). JUL/AUG/SEP full months still owed.", "receiptPath": null, "paymentMethod": "Check", "datePurchased": "2026-06-08", "dateAdded": "2026-04-27" },
         { "id": "ov-3-dep", "description": "Second shop refundable security deposit", "qty": 1, "unitCost": 1300, "actualCost": 1300, "notes": "Refundable security deposit on second shop. Combined cashier's check 1993.33 with first month's pro-rated rent (ov-3). Returned at lease end if no damages.", "receiptPath": null, "paymentMethod": "Check", "scope": "added", "datePurchased": "2026-06-08", "dateAdded": "2026-06-08" },
         { "id": "ov-4", "description": "Utilities (both shops, 4 months)", "qty": 1, "unitCost": 2400, "actualCost": null, "notes": "Mid-range estimate.", "receiptPath": null, "dateAdded": "2026-04-27" },
