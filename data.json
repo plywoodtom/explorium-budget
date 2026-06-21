@@ -2145,14 +2145,74 @@
       "notes": "Wall panels, plywood, laminate, adhesives, fasteners, hardware, thresholds. Per-game wall material detail in EXPLORIUM-WALL-MATERIALS-WORKSHEET.md.",
       "items": [
         {
-          "id": "ma-1",
-          "description": "Wall materials (wholesale, all 11 games + 10pct tax)",
-          "qty": 1,
-          "unitCost": 22053,
+          "id": "ma-ply34",
+          "description": "3/4\" plywood (framing + platforms, all games)",
+          "qty": 72,
+          "unitCost": 85,
           "actualCost": null,
-          "notes": "Royal Plywood. Break out per-game as built.",
+          "notes": "Original est 85/sheet. Buying ~100 birch at 60; expense per-sheet-used as actual. Reception counter sheets separate.",
           "receiptPath": null,
-          "dateAdded": "2026-04-27"
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-ply12",
+          "description": "1/2\" plywood (inside skins + backers)",
+          "qty": 26,
+          "unitCost": 45,
+          "actualCost": null,
+          "notes": "Original est 45/sheet. Sourcing at 35. Sync Shift + Air Pirate + LB skyline; backer count TBD.",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-mdf14",
+          "description": "1/4\" MDF skins (both faces + edge strips)",
+          "qty": 180,
+          "unitCost": 30,
+          "actualCost": null,
+          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal.",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-lam48",
+          "description": "Plastic laminate 4x8",
+          "qty": 194,
+          "unitCost": 67,
+          "actualCost": null,
+          "notes": "Original est 67/sheet.",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-lam510",
+          "description": "Plastic laminate 5x10 (Twister)",
+          "qty": 16,
+          "unitCost": 104.69,
+          "actualCost": null,
+          "notes": "Original est area-scaled. Twister 6 outside confirmed; inside bottoms 3-6x 4x10 TBD (Oz/tornado theme).",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-doors",
+          "description": "Doors (36in slabs)",
+          "qty": 18,
+          "unitCost": 40,
+          "actualCost": null,
+          "notes": "Original est 40 each.",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
+        },
+        {
+          "id": "ma-doorhw",
+          "description": "Door hardware (push plate + jamb)",
+          "qty": 18,
+          "unitCost": 25,
+          "actualCost": null,
+          "notes": "Original est 25/door.",
+          "receiptPath": null,
+          "dateAdded": "2026-06-21"
         },
         {
           "id": "ma-2",
