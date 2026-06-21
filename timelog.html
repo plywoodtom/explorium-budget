@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a1a">
+<title>Explorium Time Tracker</title>
+<style>
+  :root{--bg:#1a1a1a;--panel:#242424;--panel-2:#2e2e2e;--border:#3a3a3a;--text:#e8e8e8;
+    --text-dim:#999;--text-dimmer:#777;--accent:#4ade80;--warn:#fb923c;--over:#f87171;--link:#60a5fa;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);color:var(--text);font-size:15px;line-height:1.4;padding-bottom:120px;}
+  header{position:sticky;top:0;z-index:100;background:var(--panel);border-bottom:1px solid var(--border);
+    padding:10px 14px;display:flex;flex-direction:column;gap:6px;}
+  header h1{margin:0;font-size:17px;font-weight:600;}
+  .nav a{color:var(--link);font-size:13px;text-decoration:none;margin-right:12px;}
+  main{padding:12px;}
+  .summary{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}
+  .sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;}
+  .scell{display:flex;flex-direction:column;}
+  .slab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);}
+  .sval{font-size:18px;font-weight:700;}
+  .sval.good{color:var(--accent);}
+  .bycat{margin-top:10px;font-size:12px;color:var(--text-dim);display:flex;flex-wrap:wrap;gap:4px 12px;}
+  .add-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .add-row input,.add-row select{background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:9px 8px;font-size:14px;font-family:inherit;}
+  #e-date{width:140px;} #e-cat{flex:0 0 auto;} #e-desc{flex:1;min-width:120px;} #e-hours{width:64px;text-align:center;}
+  .entries{display:flex;flex-direction:column;gap:5px;}
+  .entry{background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:8px 10px;
+    display:grid;grid-template-columns:78px 1fr auto auto;gap:8px;align-items:center;font-size:13px;}
+  .e-date{font-family:monospace;color:var(--text-dim);font-size:11px;}
+  .e-cat{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#0a0a0a;background:var(--link);
+    padding:1px 6px;border-radius:3px;font-weight:700;margin-right:6px;}
+  .e-hrs{font-weight:700;color:var(--accent);}
+  .e-del{background:transparent;border:1px solid var(--border);color:var(--over);border-radius:5px;padding:4px 9px;font-size:12px;cursor:pointer;}
+  button{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:6px;
+    padding:9px 14px;font-size:13px;font-family:inherit;cursor:pointer;min-height:38px;}
+  button.primary{background:var(--accent);color:#0a0a0a;border-color:var(--accent);font-weight:600;}
+  .save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);
+    padding:10px 12px;display:flex;gap:8px;align-items:center;z-index:200;}
+  .save-status{flex:1;font-size:12px;color:var(--text-dim);}
+  .save-status.dirty{color:var(--warn);} .save-status.saving{color:var(--link);}
+  .save-status.saved{color:var(--accent);} .save-status.error{color:var(--over);}
+  .hint{font-size:11px;color:var(--text-dimmer);margin:8px 2px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Explorium Time Tracker</h1>
+  <div class="nav"><a href="index.html">Budget</a><a href="tasks.html">Tasks</a></div>
+</header>
+
+<main>
+  <div class="summary" id="summary"></div>
+  <div class="add-row">
+    <input type="date" id="e-date">
+    <select id="e-cat">
+      <option>Cutting</option><option>Assembly</option><option>Skinning</option>
+      <option>Wiring</option><option>Install</option><option>Design</option>
+      <option>Sourcing</option><option>Travel/Pickup</option><option>Admin</option><option>Other</option>
+    </select>
+    <input type="text" id="e-desc" placeholder="What did you do?">
+    <input type="number" id="e-hours" placeholder="hrs" min="0" step="0.25">
+    <button onclick="addEntry()">Add</button>
+  </div>
+  <div class="entries" id="entries"></div>
+  <div class="hint">Log everything - budgeted or not (travel, design, sourcing). $/hr at the bottom uses the contract total and your logged spend. Saves to the same data.json (shared edit secret).</div>
+</main>
+
+<div class="save-bar">
+  <span class="save-status" id="save-status">Loading...</span>
+  <button class="primary" onclick="save()">Save</button>
+</div>
+
+<script>
+const WORKER_URL = "https://explorium-budget-worker.plywoodtom.workers.dev";
+const SECRET_STORAGE_KEY = "explorium_budget_secret";
+let data = { sections:[], tasks:[], timelog:[] };
+let dirty = false;
+
+function uid(){ return "t-"+Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4); }
+function getSecret(){
+  let s=localStorage.getItem(SECRET_STORAGE_KEY);
+  if(!s){ s=prompt("Enter edit secret (same one used by the budget tracker):"); if(s) localStorage.setItem(SECRET_STORAGE_KEY,s); }
+  return s;
+}
+function setStatus(m,c){ const e=document.getElementById("save-status"); e.textContent=m; e.className="save-status "+(c||""); }
+function fmt(n){ return "$"+(Math.round(n)).toLocaleString("en-US"); }
+
+function totalSpent(){
+  let sum=0;
+  (data.sections||[]).forEach(s=>(s.items||[]).forEach(it=>{
+    if(Array.isArray(it.payments)&&it.payments.length) sum+=it.payments.reduce((a,p)=>a+(Number(p.amount)||0),0);
+    else sum+=Number(it.actualCost)||0;
+  }));
+  return sum;
+}
+
+function renderSummary(){
+  const hrs=data.timelog.reduce((s,e)=>s+(Number(e.hours)||0),0);
+  const contract=Number(data.contractTotal)||0;
+  const spent=totalSpent();
+  const profit=contract-spent;
+  const revPerHr=hrs?contract/hrs:0;
+  const profPerHr=hrs?profit/hrs:0;
+  const byCat={};
+  data.timelog.forEach(e=>{ byCat[e.cat]=(byCat[e.cat]||0)+(Number(e.hours)||0); });
+  const cats=Object.keys(byCat).sort((a,b)=>byCat[b]-byCat[a])
+    .map(c=>`${c} ${byCat[c]}h`).join("  -  ");
+  document.getElementById("summary").innerHTML=`
+    <div class="sgrid">
+      <div class="scell"><span class="slab">Total hours</span><span class="sval">${hrs.toFixed(2)}</span></div>
+      <div class="scell"><span class="slab">Profit so far</span><span class="sval ${profit>=0?'good':''}">${fmt(profit)}</span></div>
+      <div class="scell"><span class="slab">Revenue / hour</span><span class="sval">${hrs?fmt(revPerHr):'-'}</span></div>
+      <div class="scell"><span class="slab">Profit / hour</span><span class="sval ${profPerHr>=0?'good':''}">${hrs?fmt(profPerHr):'-'}</span></div>
+    </div>
+    <div class="bycat">${cats||"No time logged yet"}</div>
+    <div class="bycat">Contract ${fmt(contract)} - Spent ${fmt(spent)}</div>`;
+}
+
+function render(){
+  const wrap=document.getElementById("entries"); wrap.innerHTML="";
+  const sorted=[...data.timelog].map((e,idx)=>({e,idx})).sort((a,b)=>(b.e.date||"").localeCompare(a.e.date||""));
+  sorted.forEach(({e,idx})=>{
+    const row=document.createElement("div"); row.className="entry";
+    row.innerHTML=`
+      <span class="e-date">${e.date||""}</span>
+      <span><span class="e-cat">${e.cat||""}</span><span class="e-desc"></span></span>
+      <span class="e-hrs">${(Number(e.hours)||0)}h</span>
+      <button class="e-del" onclick="delEntry(${idx})">&times;</button>`;
+    row.querySelector(".e-desc").textContent=e.desc||"";
+    wrap.appendChild(row);
+  });
+  renderSummary();
+}
+
+function addEntry(){
+  const date=document.getElementById("e-date").value;
+  const cat=document.getElementById("e-cat").value;
+  const desc=document.getElementById("e-desc").value.trim();
+  const hours=Number(document.getElementById("e-hours").value)||0;
+  if(!hours){ alert("Enter hours"); return; }
+  data.timelog.push({id:uid(),date:date||new Date().toISOString().slice(0,10),cat,desc,hours});
+  document.getElementById("e-desc").value=""; document.getElementById("e-hours").value="";
+  dirty=true; setStatus("Unsaved changes","dirty"); render();
+}
+function delEntry(i){ if(confirm("Delete this entry?")){ data.timelog.splice(i,1); dirty=true; setStatus("Unsaved changes","dirty"); render(); } }
+
+async function save(){
+  const secret=getSecret(); if(!secret){ setStatus("Secret required","error"); return; }
+  data.lastModified=new Date().toISOString();
+  setStatus("Saving...","saving");
+  try{
+    const res=await fetch(WORKER_URL,{method:"POST",
+      headers:{"Content-Type":"application/json","X-Edit-Secret":secret},body:JSON.stringify(data)});
+    if(!res.ok) throw new Error("HTTP "+res.status+": "+await res.text());
+    dirty=false; setStatus("Saved","saved");
+  }catch(e){ setStatus("Save failed: "+e.message,"error"); console.error(e); }
+}
+
+async function load(){
+  try{
+    const res=await fetch("data.json?t="+Date.now());
+    if(res.ok) data=await res.json();
+    if(!Array.isArray(data.sections)) data.sections=[];
+    if(!Array.isArray(data.tasks)) data.tasks=[];
+    if(!Array.isArray(data.timelog)) data.timelog=[];
+    document.getElementById("e-date").value=new Date().toISOString().slice(0,10);
+    setStatus("Loaded "+(data.lastModified?new Date(data.lastModified).toLocaleString():""),"saved");
+    render();
+  }catch(e){ setStatus("Load error: "+e.message,"error"); data={sections:[],tasks:[],timelog:[]}; render(); }
+}
+
+window.addEventListener("DOMContentLoaded", load);
+window.addEventListener("beforeunload", e=>{ if(dirty){ e.preventDefault(); e.returnValue=""; } });
+</script>
+</body>
+</html>

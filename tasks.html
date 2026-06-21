@@ -41,6 +41,9 @@
   .t-side{display:flex;gap:4px;flex-shrink:0;}
   .t-edit,.t-del{padding:6px 9px;min-height:0;}
   .t-del{color:var(--over);}
+  .t-hrs{width:52px;background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:5px;padding:6px 2px;font-size:13px;text-align:center;font-family:inherit;flex-shrink:0;}
+  .t-hrs::-webkit-outer-spin-button,.t-hrs::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
   .add-row{display:flex;gap:6px;margin-top:12px;}
   .add-row input{flex:1;background:var(--panel);color:var(--text);border:1px solid var(--border);
     border-radius:6px;padding:10px;font-size:14px;font-family:inherit;}
@@ -61,7 +64,7 @@
 <header>
   <h1>Explorium Task Checklist</h1>
   <div class="sub">Reorder with the arrows. Check a task, then Save - checked items drop to the bottom on save (uncheck before saving to undo).</div>
-  <div class="nav"><a href="index.html">&larr; Budget Tracker</a></div>
+  <div class="nav"><a href="index.html">&larr; Budget Tracker</a> &nbsp; <a href="timelog.html">Time Tracker &rarr;</a></div>
 </header>
 
 <main>
@@ -74,9 +77,11 @@
       <option value="skin">Skin</option>
       <option value="later">Later</option>
     </select>
+    <input type="number" id="new-hours" placeholder="hrs" min="0" step="0.5" style="width:60px;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:10px 4px;font-size:14px;font-family:inherit;text-align:center;">
     <button onclick="addTask()">Add</button>
   </div>
-  <div class="hint">Saving writes to the same data.json as the budget tracker (your edit secret is reused).</div>
+  <div class="hint" id="totals"></div>
+  <div class="hint">Saving writes to the same data.json as the budget tracker (your edit secret is reused). The hrs box is your estimate per task.</div>
 </main>
 
 <div class="save-bar">
@@ -115,6 +120,17 @@ const SEED_TASKS = [
 ];
 
 function uid(){ return "task-" + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4); }
+function estHours(text){
+  const t=(text||"").toLowerCase();
+  if(t.includes("cut + rip")||t.includes("cut everything")) return 12;
+  if(t.includes("assembly jig")||t.includes("build jig")) return 2;
+  if(t.includes("2x8 panels")) return 2;
+  if(t.includes("basic 4x8")) return 7;
+  if(t.includes("corner 4x8")) return 14;
+  if(t.includes("door 4x8")) return 11;
+  if(t.includes("twister 5x10")) return 4;
+  return 0;
+}
 function getSecret(){
   let s = localStorage.getItem(SECRET_STORAGE_KEY);
   if(!s){ s = prompt("Enter edit secret (same one used by the budget tracker):"); if(s) localStorage.setItem(SECRET_STORAGE_KEY,s); }
@@ -131,6 +147,7 @@ function render(){
     row.innerHTML = `
       <input type="checkbox" class="t-check" ${t.done?"checked":""} onchange="toggle(${i})">
       <div class="t-main"><span class="t-phase p-${t.phase||'later'}">${PHASES[t.phase]||""}</span><span class="t-text"></span></div>
+      <input type="number" class="t-hrs" value="${t.hours||0}" min="0" step="0.5" title="Est. hours" onchange="setHours(${i},this.value)">
       <div class="t-arrows">
         <button onclick="move(${i},-1)" ${i===0?"disabled":""}>&#9650;</button>
         <button onclick="move(${i},1)" ${i===data.tasks.length-1?"disabled":""}>&#9660;</button>
@@ -142,14 +159,24 @@ function render(){
     row.querySelector(".t-text").textContent = t.text;
     wrap.appendChild(row);
   });
+  updateTotals();
+}
+
+function updateTotals(){
+  const all = data.tasks.reduce((s,t)=>s+(Number(t.hours)||0),0);
+  const left = data.tasks.filter(t=>!t.done).reduce((s,t)=>s+(Number(t.hours)||0),0);
+  document.getElementById("totals").textContent =
+    `Est hours - total ${all} | remaining ${left} | ${data.tasks.length} tasks`;
 }
 
 function toggle(i){ data.tasks[i].done = !data.tasks[i].done; dirty=true; markDirty(); render(); }
+function setHours(i,v){ data.tasks[i].hours = Number(v)||0; dirty=true; markDirty(); updateTotals(); }
 function move(i,d){ const j=i+d; if(j<0||j>=data.tasks.length) return; const a=data.tasks; [a[i],a[j]]=[a[j],a[i]]; dirty=true; markDirty(); render(); }
 function addTask(){
   const inp=document.getElementById("new-text"); const text=inp.value.trim(); if(!text) return;
   const phase=document.getElementById("new-phase").value;
-  data.tasks.push({id:uid(),text,phase,done:false}); inp.value=""; dirty=true; markDirty(); render();
+  const hours=Number(document.getElementById("new-hours").value)||0;
+  data.tasks.push({id:uid(),text,phase,done:false,hours}); inp.value=""; document.getElementById("new-hours").value=""; dirty=true; markDirty(); render();
 }
 function editTask(i){ const t=prompt("Edit task:",data.tasks[i].text); if(t!==null){ data.tasks[i].text=t.trim()||data.tasks[i].text; dirty=true; markDirty(); render(); } }
 function delTask(i){ if(confirm("Delete this task?")){ data.tasks.splice(i,1); dirty=true; markDirty(); render(); } }
@@ -179,9 +206,13 @@ async function load(){
     if(!Array.isArray(data.sections)) data.sections=[];
     if(!Array.isArray(data.tasks)) data.tasks=[];
     if(data.tasks.length===0){
-      data.tasks = SEED_TASKS.map(([phase,text])=>({id:uid(),text,phase,done:false}));
+      data.tasks = SEED_TASKS.map(([phase,text])=>({id:uid(),text,phase,done:false,hours:estHours(text)}));
       dirty=true; setStatus("Seeded default tasks - hit Save to persist","dirty");
     } else { setStatus("Loaded "+(data.lastModified?new Date(data.lastModified).toLocaleString():""),"saved"); }
+    // backfill estimated hours on existing tasks that don't have any yet
+    let filled=false;
+    data.tasks.forEach(t=>{ if(t.hours===undefined||t.hours===null){ t.hours=estHours(t.text); if(t.hours) filled=true; else t.hours=0; } });
+    if(filled){ dirty=true; }
     render();
   }catch(e){ setStatus("Load error: "+e.message,"error"); data={sections:[],tasks:[]}; render(); }
 }
