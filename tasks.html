@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a1a">
+<title>Explorium Task Checklist</title>
+<style>
+  :root{
+    --bg:#1a1a1a; --panel:#242424; --panel-2:#2e2e2e; --border:#3a3a3a;
+    --text:#e8e8e8; --text-dim:#999; --text-dimmer:#777;
+    --accent:#4ade80; --warn:#fb923c; --over:#f87171; --link:#60a5fa;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);color:var(--text);font-size:15px;line-height:1.4;padding-bottom:120px;}
+  header{position:sticky;top:0;z-index:100;background:var(--panel);border-bottom:1px solid var(--border);
+    padding:10px 14px;display:flex;flex-direction:column;gap:6px;}
+  header h1{margin:0;font-size:17px;font-weight:600;}
+  .sub{font-size:12px;color:var(--text-dim);}
+  .nav a{color:var(--link);font-size:13px;text-decoration:none;}
+  main{padding:12px;}
+  .tasks{display:flex;flex-direction:column;gap:6px;}
+  .task{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;
+    padding:10px 10px 10px 12px;display:flex;align-items:center;gap:10px;}
+  .task.done{opacity:0.5;}
+  .task.done .t-text{text-decoration:line-through;text-decoration-color:var(--text-dimmer);}
+  .t-check{width:24px;height:24px;flex-shrink:0;accent-color:var(--accent);}
+  .t-main{flex:1;min-width:0;}
+  .t-text{font-size:14px;font-weight:500;}
+  .t-phase{display:inline-block;font-size:9px;text-transform:uppercase;letter-spacing:.5px;
+    padding:1px 6px;border-radius:3px;margin-right:6px;font-weight:700;vertical-align:1px;color:#0a0a0a;}
+  .p-procure{background:var(--warn);}
+  .p-framing{background:var(--accent);}
+  .p-skin{background:var(--link);}
+  .p-later{background:var(--text-dimmer);}
+  .t-arrows{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+  .t-arrows button,.t-edit,.t-del{background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:5px;font-size:12px;cursor:pointer;}
+  .t-arrows button{padding:2px 8px;min-height:0;line-height:1.3;}
+  .t-side{display:flex;gap:4px;flex-shrink:0;}
+  .t-edit,.t-del{padding:6px 9px;min-height:0;}
+  .t-del{color:var(--over);}
+  .add-row{display:flex;gap:6px;margin-top:12px;}
+  .add-row input{flex:1;background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:10px;font-size:14px;font-family:inherit;}
+  .add-row select{background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:0 8px;font-size:13px;font-family:inherit;}
+  button{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:6px;
+    padding:9px 14px;font-size:13px;font-family:inherit;cursor:pointer;min-height:38px;}
+  button.primary{background:var(--accent);color:#0a0a0a;border-color:var(--accent);font-weight:600;}
+  .save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);
+    padding:10px 12px;display:flex;gap:8px;align-items:center;z-index:200;}
+  .save-status{flex:1;font-size:12px;color:var(--text-dim);}
+  .save-status.dirty{color:var(--warn);} .save-status.saving{color:var(--link);}
+  .save-status.saved{color:var(--accent);} .save-status.error{color:var(--over);}
+  .hint{font-size:11px;color:var(--text-dimmer);margin:8px 2px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Explorium Task Checklist</h1>
+  <div class="sub">Reorder with the arrows. Check a task, then Save - checked items drop to the bottom on save (uncheck before saving to undo).</div>
+  <div class="nav"><a href="index.html">&larr; Budget Tracker</a></div>
+</header>
+
+<main>
+  <div class="tasks" id="tasks"></div>
+  <div class="add-row">
+    <input type="text" id="new-text" placeholder="New task..." onkeydown="if(event.key==='Enter')addTask()">
+    <select id="new-phase">
+      <option value="procure">Procure</option>
+      <option value="framing">Framing</option>
+      <option value="skin">Skin</option>
+      <option value="later">Later</option>
+    </select>
+    <button onclick="addTask()">Add</button>
+  </div>
+  <div class="hint">Saving writes to the same data.json as the budget tracker (your edit secret is reused).</div>
+</main>
+
+<div class="save-bar">
+  <span class="save-status" id="save-status">Loading...</span>
+  <button class="primary" onclick="save()">Save</button>
+</div>
+
+<script>
+const WORKER_URL = "https://explorium-budget-worker.plywoodtom.workers.dev";
+const SECRET_STORAGE_KEY = "explorium_budget_secret";
+let data = { sections: [], tasks: [] };
+let dirty = false;
+
+const PHASES = { procure:"Procure", framing:"Framing", skin:"Skin", later:"Later" };
+
+const SEED_TASKS = [
+  ["procure","Buy 34-36 sheets 3/4in 4x8 plywood (framing)"],
+  ["procure","Buy 2 sheets 3/4in 4x10 plywood (Twister verticals)"],
+  ["procure","Buy 18 doors, 36in"],
+  ["procure","Buy 72 LF of 3in metal threshold (1/4in alum or 3/16in steel)"],
+  ["procure","Buy construction adhesive + fasteners"],
+  ["procure","Clear ~22x4 ft floor for cut-strip staging"],
+  ["framing","Shift 1: Cut + rip all framing ribs, label/bundle by style"],
+  ["framing","Shift 2: Build assembly jig"],
+  ["framing","Shift 2: Assemble all 2x8 panels (6)"],
+  ["framing","Shift 2: Assemble all Basic 4x8 panels (20)"],
+  ["framing","Shift 3: Assemble all Corner 4x8 panels (42)"],
+  ["framing","Shift 4: Assemble all Door 4x8 panels (16)"],
+  ["framing","Shift 5: Assemble Twister 5x10 panels (6)"],
+  ["skin","Order 1/4in MDF one-side skins (~100 sheets)"],
+  ["skin","Skin one side of every panel (1/4in MDF)"],
+  ["skin","Make 1/2in plywood backer list (brackets/buttons)"],
+  ["skin","Spec Volcano short walls (4x4 count + rib recipe)"],
+  ["later","Buy ply for floor platforms (Sync Shift, Velocity Rings)"],
+  ["later","Buy ply for prop bases + Lightning Bolt walls"]
+];
+
+function uid(){ return "task-" + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4); }
+function getSecret(){
+  let s = localStorage.getItem(SECRET_STORAGE_KEY);
+  if(!s){ s = prompt("Enter edit secret (same one used by the budget tracker):"); if(s) localStorage.setItem(SECRET_STORAGE_KEY,s); }
+  return s;
+}
+function setStatus(msg,cls){ const e=document.getElementById("save-status"); e.textContent=msg; e.className="save-status "+(cls||""); }
+
+function render(){
+  const wrap = document.getElementById("tasks");
+  wrap.innerHTML = "";
+  data.tasks.forEach((t,i) => {
+    const row = document.createElement("div");
+    row.className = "task" + (t.done ? " done" : "");
+    row.innerHTML = `
+      <input type="checkbox" class="t-check" ${t.done?"checked":""} onchange="toggle(${i})">
+      <div class="t-main"><span class="t-phase p-${t.phase||'later'}">${PHASES[t.phase]||""}</span><span class="t-text"></span></div>
+      <div class="t-arrows">
+        <button onclick="move(${i},-1)" ${i===0?"disabled":""}>&#9650;</button>
+        <button onclick="move(${i},1)" ${i===data.tasks.length-1?"disabled":""}>&#9660;</button>
+      </div>
+      <div class="t-side">
+        <button class="t-edit" onclick="editTask(${i})">Edit</button>
+        <button class="t-del" onclick="delTask(${i})">&times;</button>
+      </div>`;
+    row.querySelector(".t-text").textContent = t.text;
+    wrap.appendChild(row);
+  });
+}
+
+function toggle(i){ data.tasks[i].done = !data.tasks[i].done; dirty=true; markDirty(); render(); }
+function move(i,d){ const j=i+d; if(j<0||j>=data.tasks.length) return; const a=data.tasks; [a[i],a[j]]=[a[j],a[i]]; dirty=true; markDirty(); render(); }
+function addTask(){
+  const inp=document.getElementById("new-text"); const text=inp.value.trim(); if(!text) return;
+  const phase=document.getElementById("new-phase").value;
+  data.tasks.push({id:uid(),text,phase,done:false}); inp.value=""; dirty=true; markDirty(); render();
+}
+function editTask(i){ const t=prompt("Edit task:",data.tasks[i].text); if(t!==null){ data.tasks[i].text=t.trim()||data.tasks[i].text; dirty=true; markDirty(); render(); } }
+function delTask(i){ if(confirm("Delete this task?")){ data.tasks.splice(i,1); dirty=true; markDirty(); render(); } }
+function markDirty(){ setStatus("Unsaved changes","dirty"); }
+
+async function save(){
+  // checked tasks move to the bottom (stable order) on save
+  const notDone = data.tasks.filter(t=>!t.done);
+  const done = data.tasks.filter(t=>t.done);
+  data.tasks = [...notDone, ...done];
+  const secret = getSecret();
+  if(!secret){ setStatus("Secret required","error"); return; }
+  data.lastModified = new Date().toISOString();
+  setStatus("Saving...","saving");
+  try{
+    const res = await fetch(WORKER_URL, { method:"POST",
+      headers:{"Content-Type":"application/json","X-Edit-Secret":secret}, body:JSON.stringify(data) });
+    if(!res.ok){ throw new Error("HTTP "+res.status+": "+await res.text()); }
+    dirty=false; setStatus("Saved","saved"); render();
+  }catch(e){ setStatus("Save failed: "+e.message,"error"); console.error(e); }
+}
+
+async function load(){
+  try{
+    const res = await fetch("data.json?t="+Date.now());
+    if(res.ok){ data = await res.json(); }
+    if(!Array.isArray(data.sections)) data.sections=[];
+    if(!Array.isArray(data.tasks)) data.tasks=[];
+    if(data.tasks.length===0){
+      data.tasks = SEED_TASKS.map(([phase,text])=>({id:uid(),text,phase,done:false}));
+      dirty=true; setStatus("Seeded default tasks - hit Save to persist","dirty");
+    } else { setStatus("Loaded "+(data.lastModified?new Date(data.lastModified).toLocaleString():""),"saved"); }
+    render();
+  }catch(e){ setStatus("Load error: "+e.message,"error"); data={sections:[],tasks:[]}; render(); }
+}
+
+window.addEventListener("DOMContentLoaded", load);
+window.addEventListener("beforeunload", e=>{ if(dirty){ e.preventDefault(); e.returnValue=""; } });
+</script>
+</body>
+</html>
