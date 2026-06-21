@@ -18,6 +18,7 @@ const CATEGORIES = [
 let data = { lastModified: null, sections: [] };
 let dirty = false;
 let searchTerm = "";
+let electronicsCollapsed = (localStorage.getItem("elecCollapsed") || "true") === "true";
 
 // --- Helpers ---------------------------------------------------------------
 
@@ -212,11 +213,13 @@ function sectionHasSearchMatch(sec) {
 
 function expandAll() {
   data.sections.forEach(sec => sec.collapsed = false);
+  electronicsCollapsed = false; localStorage.setItem("elecCollapsed", false);
   render();
 }
 
 function collapseAll() {
   data.sections.forEach(sec => sec.collapsed = true);
+  electronicsCollapsed = true; localStorage.setItem("elecCollapsed", true);
   render();
 }
 
@@ -226,10 +229,58 @@ function render() {
   const root = document.getElementById("sections");
   root.innerHTML = "";
   const dupSet = findDuplicateSet();
+  const elecOpen = !electronicsCollapsed || !!searchTerm;
+  let elecHeaderDone = false;
   data.sections.forEach((sec, si) => {
-    root.appendChild(renderSection(sec, si, dupSet));
+    if (sec.category === "electronics") {
+      if (!elecHeaderDone) { root.appendChild(renderElectronicsGroupHeader()); elecHeaderDone = true; }
+      if (elecOpen) {
+        const el = renderSection(sec, si, dupSet);
+        el.classList.add("elec-child");
+        root.appendChild(el);
+      }
+    } else {
+      root.appendChild(renderSection(sec, si, dupSet));
+    }
   });
   renderTotals();
+}
+
+function electronicsTotals() {
+  let est = 0, act = 0, n = 0;
+  data.sections.forEach(s => {
+    if (s.category === "electronics") { n++; s.items.forEach(it => { est += totalEst(it); act += actual(it); }); }
+  });
+  return { est, act, n };
+}
+
+function toggleElectronics() {
+  electronicsCollapsed = !electronicsCollapsed;
+  localStorage.setItem("elecCollapsed", electronicsCollapsed);
+  render();
+}
+
+function renderElectronicsGroupHeader() {
+  const { est, act, n } = electronicsTotals();
+  const open = !electronicsCollapsed || !!searchTerm;
+  const el = document.createElement("div");
+  el.className = "section elec-group";
+  el.setAttribute("data-category", "electronics");
+  el.innerHTML = `
+    <div class="section-stripe"></div>
+    <div class="section-header ${open ? "" : "collapsed"}" onclick="toggleElectronics()">
+      <div>
+        <div class="section-title-row">
+          <span class="section-chevron">&#9656;</span>
+          <span class="section-name">Electronics (${n} groups)</span>
+        </div>
+        <div class="section-summary">
+          <span class="ss-cell"><span class="ss-label">Est</span><span class="ss-value">${fmt(est)}</span></span>
+          <span class="ss-cell"><span class="ss-label">Actual</span><span class="ss-value">${fmt(act)}</span></span>
+        </div>
+      </div>
+    </div>`;
+  return el;
 }
 
 function renderTotals() {
