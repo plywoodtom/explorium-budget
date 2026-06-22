@@ -23,18 +23,40 @@
   .sval{font-size:18px;font-weight:700;}
   .sval.good{color:var(--accent);}
   .bycat{margin-top:10px;font-size:12px;color:var(--text-dim);display:flex;flex-wrap:wrap;gap:4px 12px;}
+  /* ---- clock-in/out timer ---- */
+  .timer{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;}
+  .timer.running{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;}
+  .timer-top{display:flex;align-items:center;gap:12px;}
+  .clock{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:1px;min-width:130px;}
+  .clock.idle{color:var(--text-dimmer);font-size:26px;min-width:0;}
+  .timer-meta{flex:1;font-size:12px;color:var(--text-dim);min-width:0;}
+  .timer-meta b{color:var(--text);font-weight:600;}
+  .big{font-size:18px;font-weight:700;min-height:56px;flex:1;}
+  .btn-start{background:var(--accent);color:#0a0a0a;border-color:var(--accent);}
+  .btn-stop{background:var(--over);color:#0a0a0a;border-color:var(--over);}
+  .timer-inputs{display:flex;gap:6px;margin-top:10px;}
+  .timer-inputs input,.timer-inputs select{background:var(--panel-2);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:9px 8px;font-size:14px;font-family:inherit;}
+  .timer-inputs #t-desc{flex:1;min-width:0;}
+  .timer-row2{display:flex;gap:8px;margin-top:10px;}
+  .link-btn{background:transparent;border:none;color:var(--text-dim);font-size:12px;text-decoration:underline;padding:4px;min-height:0;}
+  /* ---- manual add ---- */
   .add-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
   .add-row input,.add-row select{background:var(--panel);color:var(--text);border:1px solid var(--border);
     border-radius:6px;padding:9px 8px;font-size:14px;font-family:inherit;}
   #e-date{width:140px;} #e-cat{flex:0 0 auto;} #e-desc{flex:1;min-width:120px;} #e-hours{width:64px;text-align:center;}
-  .entries{display:flex;flex-direction:column;gap:5px;}
-  .entry{background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:8px 10px;
-    display:grid;grid-template-columns:78px 1fr auto auto;gap:8px;align-items:center;font-size:13px;}
-  .e-date{font-family:monospace;color:var(--text-dim);font-size:11px;}
-  .e-cat{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#0a0a0a;background:var(--link);
-    padding:1px 6px;border-radius:3px;font-weight:700;margin-right:6px;}
-  .e-hrs{font-weight:700;color:var(--accent);}
-  .e-del{background:transparent;border:1px solid var(--border);color:var(--over);border-radius:5px;padding:4px 9px;font-size:12px;cursor:pointer;}
+  /* ---- entries (editable) ---- */
+  .entries{display:flex;flex-direction:column;gap:7px;}
+  .entry{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;
+    display:flex;flex-direction:column;gap:7px;font-size:13px;}
+  .erow{display:flex;gap:6px;align-items:center;}
+  .entry input,.entry select{background:var(--panel);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:7px 6px;font-size:13px;font-family:inherit;}
+  .e-date{width:128px;} .e-cat{flex:0 0 auto;} .e-hrs{width:66px;text-align:center;font-weight:700;color:var(--accent);}
+  .e-desc{flex:1;min-width:0;}
+  .e-task{flex:1;min-width:0;}
+  .e-tasklab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);flex:0 0 auto;}
+  .e-del{background:transparent;border:1px solid var(--border);color:var(--over);border-radius:6px;padding:7px 10px;font-size:14px;cursor:pointer;flex:0 0 auto;}
   button{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:6px;
     padding:9px 14px;font-size:13px;font-family:inherit;cursor:pointer;min-height:38px;}
   button.primary{background:var(--accent);color:#0a0a0a;border-color:var(--accent);font-weight:600;}
@@ -53,20 +75,28 @@
 </header>
 
 <main>
+  <!-- Clock in / out -->
+  <div class="timer" id="timer"></div>
+
   <div class="summary" id="summary"></div>
-  <div class="add-row">
-    <input type="date" id="e-date">
-    <select id="e-cat">
-      <option>Cutting</option><option>Assembly</option><option>Skinning</option>
-      <option>Wiring</option><option>Install</option><option>Design</option>
-      <option>Sourcing</option><option>Travel/Pickup</option><option>Admin</option><option>Other</option>
-    </select>
-    <input type="text" id="e-desc" placeholder="What did you do?">
-    <input type="number" id="e-hours" placeholder="hrs" min="0" step="0.25">
-    <button onclick="addEntry()">Add</button>
-  </div>
+
+  <details>
+    <summary style="font-size:12px;color:var(--text-dim);cursor:pointer;margin-bottom:8px;">+ Add a past entry manually</summary>
+    <div class="add-row" style="margin-top:8px;">
+      <input type="date" id="e-date">
+      <select id="e-cat">
+        <option>Cutting</option><option>Assembly</option><option>Skinning</option>
+        <option>Wiring</option><option>Install</option><option>Design</option>
+        <option>Sourcing</option><option>Travel/Pickup</option><option>Admin</option><option>Other</option>
+      </select>
+      <input type="text" id="e-desc" placeholder="What did you do?">
+      <input type="number" id="e-hours" placeholder="hrs" min="0" step="0.25">
+      <button onclick="addEntry()">Add</button>
+    </div>
+  </details>
+
   <div class="entries" id="entries"></div>
-  <div class="hint">Log everything - budgeted or not (travel, design, sourcing). $/hr at the bottom uses the contract total and your logged spend. Saves to the same data.json (shared edit secret).</div>
+  <div class="hint">Tap Start to clock in; Stop creates an entry you can edit (time, category, description) and assign to a task. Times persist if your phone locks or the page reloads. Remember to hit Save to push to the cloud.</div>
 </main>
 
 <div class="save-bar">
@@ -77,8 +107,11 @@
 <script>
 const WORKER_URL = "https://explorium-budget-worker.plywoodtom.workers.dev";
 const SECRET_STORAGE_KEY = "explorium_budget_secret";
+const TIMER_KEY = "explorium_active_timer";
+const CATS = ["Cutting","Assembly","Skinning","Wiring","Install","Design","Sourcing","Travel/Pickup","Admin","Other"];
 let data = { sections:[], tasks:[], timelog:[] };
 let dirty = false;
+let tickHandle = null;
 
 function uid(){ return "t-"+Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4); }
 function getSecret(){
@@ -88,7 +121,70 @@ function getSecret(){
 }
 function setStatus(m,c){ const e=document.getElementById("save-status"); e.textContent=m; e.className="save-status "+(c||""); }
 function fmt(n){ return "$"+(Math.round(n)).toLocaleString("en-US"); }
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function markDirty(){ dirty=true; setStatus("Unsaved changes","dirty"); }
 
+/* ---------- clock in / out ---------- */
+function getTimer(){ try{ return JSON.parse(localStorage.getItem(TIMER_KEY)); }catch(e){ return null; } }
+function setTimer(t){ if(t) localStorage.setItem(TIMER_KEY, JSON.stringify(t)); else localStorage.removeItem(TIMER_KEY); }
+
+function startTimer(){
+  const desc=document.getElementById("t-desc") ? document.getElementById("t-desc").value.trim() : "";
+  const cat=document.getElementById("t-cat") ? document.getElementById("t-cat").value : "Other";
+  setTimer({ startTs: Date.now(), desc, cat });
+  renderTimer();
+}
+function stopTimer(){
+  const t=getTimer(); if(!t) return;
+  const ms=Date.now()-t.startTs;
+  const hours=Math.max(0.01, Math.round(ms/3600000*100)/100);
+  data.timelog.push({ id:uid(), date:new Date().toISOString().slice(0,10), cat:t.cat||"Other", desc:t.desc||"", hours, taskId:"" });
+  setTimer(null);
+  markDirty(); renderTimer(); render();
+}
+function discardTimer(){ if(confirm("Discard this running timer without logging it?")){ setTimer(null); renderTimer(); } }
+
+function hms(ms){
+  const s=Math.floor(ms/1000); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), ss=s%60;
+  const p=n=>String(n).padStart(2,"0");
+  return p(h)+":"+p(m)+":"+p(ss);
+}
+function tick(){
+  const t=getTimer(); const clock=document.getElementById("clock");
+  if(t && clock){ clock.textContent=hms(Date.now()-t.startTs); }
+}
+function renderTimer(){
+  const wrap=document.getElementById("timer"); const t=getTimer();
+  if(t){
+    wrap.className="timer running";
+    wrap.innerHTML=`
+      <div class="timer-top">
+        <span class="clock" id="clock">00:00:00</span>
+        <span class="timer-meta">Clocked in${t.cat?` - <b>${esc(t.cat)}</b>`:""}${t.desc?`<br>${esc(t.desc)}`:""}</span>
+      </div>
+      <div class="timer-row2">
+        <button class="big btn-stop" onclick="stopTimer()">&#9632; Stop &amp; log</button>
+      </div>
+      <button class="link-btn" onclick="discardTimer()">discard without logging</button>`;
+    tick();
+  } else {
+    wrap.className="timer";
+    wrap.innerHTML=`
+      <div class="timer-top">
+        <span class="clock idle">--:--:--</span>
+        <span class="timer-meta">Not clocked in. Tap Start when you begin a task.</span>
+      </div>
+      <div class="timer-inputs">
+        <select id="t-cat">${CATS.map(c=>`<option${c==='Other'?' selected':''}>${c}</option>`).join("")}</select>
+        <input type="text" id="t-desc" placeholder="What are you working on? (optional)">
+      </div>
+      <div class="timer-row2">
+        <button class="big btn-start" onclick="startTimer()">&#9658; Start</button>
+      </div>`;
+  }
+}
+
+/* ---------- summary ---------- */
 function totalSpent(){
   let sum=0;
   (data.sections||[]).forEach(s=>(s.items||[]).forEach(it=>{
@@ -97,7 +193,6 @@ function totalSpent(){
   }));
   return sum;
 }
-
 function renderSummary(){
   const hrs=data.timelog.reduce((s,e)=>s+(Number(e.hours)||0),0);
   const contract=Number(data.contractTotal)||0;
@@ -108,7 +203,7 @@ function renderSummary(){
   const byCat={};
   data.timelog.forEach(e=>{ byCat[e.cat]=(byCat[e.cat]||0)+(Number(e.hours)||0); });
   const cats=Object.keys(byCat).sort((a,b)=>byCat[b]-byCat[a])
-    .map(c=>`${c} ${byCat[c]}h`).join("  -  ");
+    .map(c=>`${c} ${(byCat[c]).toFixed(2)}h`).join("  -  ");
   document.getElementById("summary").innerHTML=`
     <div class="sgrid">
       <div class="scell"><span class="slab">Total hours</span><span class="sval">${hrs.toFixed(2)}</span></div>
@@ -120,20 +215,43 @@ function renderSummary(){
     <div class="bycat">Contract ${fmt(contract)} - Spent ${fmt(spent)}</div>`;
 }
 
+/* ---------- editable entries ---------- */
+function taskOptions(sel){
+  let o=`<option value="">(no task)</option>`;
+  (data.tasks||[]).forEach(t=>{ o+=`<option value="${t.id}"${t.id===sel?" selected":""}>${esc(t.text)}</option>`; });
+  return o;
+}
+function catOptions(sel){
+  return CATS.map(c=>`<option${c===sel?" selected":""}>${c}</option>`).join("");
+}
 function render(){
   const wrap=document.getElementById("entries"); wrap.innerHTML="";
   const sorted=[...data.timelog].map((e,idx)=>({e,idx})).sort((a,b)=>(b.e.date||"").localeCompare(a.e.date||""));
   sorted.forEach(({e,idx})=>{
     const row=document.createElement("div"); row.className="entry";
     row.innerHTML=`
-      <span class="e-date">${e.date||""}</span>
-      <span><span class="e-cat">${e.cat||""}</span><span class="e-desc"></span></span>
-      <span class="e-hrs">${(Number(e.hours)||0)}h</span>
-      <button class="e-del" onclick="delEntry(${idx})">&times;</button>`;
-    row.querySelector(".e-desc").textContent=e.desc||"";
+      <div class="erow">
+        <input type="date" class="e-date" value="${e.date||""}" onchange="updEntry(${idx},'date',this.value)">
+        <select class="e-cat" onchange="updEntry(${idx},'cat',this.value)">${catOptions(e.cat)}</select>
+        <input type="number" class="e-hrs" value="${Number(e.hours)||0}" min="0" step="0.25" onchange="updEntry(${idx},'hours',this.value)">
+        <button class="e-del" onclick="delEntry(${idx})">&times;</button>
+      </div>
+      <div class="erow">
+        <input type="text" class="e-desc" placeholder="What did you do?" value="${esc(e.desc)}" onchange="updEntry(${idx},'desc',this.value)">
+      </div>
+      <div class="erow">
+        <span class="e-tasklab">Task</span>
+        <select class="e-task" onchange="updEntry(${idx},'taskId',this.value)">${taskOptions(e.taskId||"")}</select>
+      </div>`;
     wrap.appendChild(row);
   });
   renderSummary();
+}
+function updEntry(i,field,val){
+  if(field==="hours") val=Number(val)||0;
+  data.timelog[i][field]=val;
+  markDirty();
+  if(field==="hours"||field==="cat") renderSummary();
 }
 
 function addEntry(){
@@ -142,11 +260,11 @@ function addEntry(){
   const desc=document.getElementById("e-desc").value.trim();
   const hours=Number(document.getElementById("e-hours").value)||0;
   if(!hours){ alert("Enter hours"); return; }
-  data.timelog.push({id:uid(),date:date||new Date().toISOString().slice(0,10),cat,desc,hours});
+  data.timelog.push({id:uid(),date:date||new Date().toISOString().slice(0,10),cat,desc,hours,taskId:""});
   document.getElementById("e-desc").value=""; document.getElementById("e-hours").value="";
-  dirty=true; setStatus("Unsaved changes","dirty"); render();
+  markDirty(); render();
 }
-function delEntry(i){ if(confirm("Delete this entry?")){ data.timelog.splice(i,1); dirty=true; setStatus("Unsaved changes","dirty"); render(); } }
+function delEntry(i){ if(confirm("Delete this entry?")){ data.timelog.splice(i,1); markDirty(); render(); } }
 
 async function save(){
   const secret=getSecret(); if(!secret){ setStatus("Secret required","error"); return; }
@@ -169,11 +287,11 @@ async function load(){
     if(!Array.isArray(data.timelog)) data.timelog=[];
     document.getElementById("e-date").value=new Date().toISOString().slice(0,10);
     setStatus("Loaded "+(data.lastModified?new Date(data.lastModified).toLocaleString():""),"saved");
-    render();
-  }catch(e){ setStatus("Load error: "+e.message,"error"); data={sections:[],tasks:[],timelog:[]}; render(); }
+    renderTimer(); render();
+  }catch(e){ setStatus("Load error: "+e.message,"error"); data={sections:[],tasks:[],timelog:[]}; renderTimer(); render(); }
 }
 
-window.addEventListener("DOMContentLoaded", load);
+window.addEventListener("DOMContentLoaded", ()=>{ load(); tickHandle=setInterval(tick,1000); });
 window.addEventListener("beforeunload", e=>{ if(dirty){ e.preventDefault(); e.returnValue=""; } });
 </script>
 </body>
