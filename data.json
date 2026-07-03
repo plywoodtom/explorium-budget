@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-06-17T19:28:42.087979Z",
+  "lastModified": "2026-07-03T18:53:40.153886Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -2149,8 +2149,8 @@
           "description": "3/4\" plywood (framing + platforms, all games)",
           "qty": 72,
           "unitCost": 85,
-          "actualCost": null,
-          "notes": "Original est 85/sheet. Buying ~100 birch at 60; expense per-sheet-used as actual. Reception counter sheets separate.",
+          "actualCost": 1423.76,
+          "notes": "Original est 85/sheet. Buying ~100 birch at 60; expense per-sheet-used as actual. Reception counter sheets separate. | PURCHASED 2026-07-02: 29 of 72 sheets at $49.09/sheet all-in = $1,423.76, paid via Zelle (est was $85/sheet). ~43 more to buy.",
           "receiptPath": null,
           "dateAdded": "2026-06-21"
         },
