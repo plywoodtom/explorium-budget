@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-07-03T18:53:40.153886Z",
+  "lastModified": "2026-07-06T01:50:15.785516Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -2199,8 +2199,8 @@
           "description": "Doors (36in slabs)",
           "qty": 18,
           "unitCost": 40,
-          "actualCost": null,
-          "notes": "Original est 40 each.",
+          "actualCost": 756.0,
+          "notes": "USED COMMERCIAL DOORS (heavy, durable - upgrade over hollow-core the budget assumed). Spend so far $756 for 16 of 18: $400 pack (8 usable) + $6 auction (32in - too narrow, use on ADA-exempt Sync Shift/Volcano) + $350 for 7 slabs @ $50 (Zelle 2026-07-05). ~2 doors left. City approved 2/3 ADA variance so the narrow one is fine on an exempt game.",
           "receiptPath": null,
           "dateAdded": "2026-06-21"
         },
@@ -2209,8 +2209,8 @@
           "description": "Door hardware (push plate + jamb)",
           "qty": 18,
           "unitCost": 25,
-          "actualCost": null,
-          "notes": "Original est 25/door.",
+          "actualCost": 0.0,
+          "notes": "Largely SALVAGED free from the used-door purchases (push plates, handles, some closers came on the $400 pack). Buy hardware only for doors that arrive bare.",
           "receiptPath": null,
           "dateAdded": "2026-06-21"
         },
