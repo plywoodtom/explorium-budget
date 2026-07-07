@@ -2149,8 +2149,8 @@
           "description": "3/4\" plywood (framing + platforms, all games)",
           "qty": 72,
           "unitCost": 85,
-          "actualCost": 4566,
-          "notes": "Original est 85/sheet. Reception counter sheets separate. | PURCHASED 2026-07-02: 29 of 72 sheets at $49.09/sheet all-in = $1,423.76, Zelle. | PURCHASED 2026-07-07: 64 more at $45/sheet pre-tax (+9.12% tax, ~$3,142 all-in). Total 93 bought vs 72 needed = 21 spare (~29% waste cushion). 3/4in COMPLETE.",
+          "actualCost": 4282,
+          "notes": "Original est 85/sheet. Reception counter sheets separate. | PURCHASED 2026-07-02: 29 of 72 sheets at $49.09/sheet all-in = $1,423.76, Zelle. | PURCHASED 2026-07-07: 64 more, part of a $4,040 Zelle order (64x 3/4in + 34x 1/2in); ~$2,858 allocated to 3/4in. NOTE: list = 64x45 + 34x35 +9.12% tax = ~$4,441, but Tom paid $4,040 = ~$400 under (bulk deal, or verify a number on the receipt). Total 93 bought vs 72 needed = 21 spare. 3/4in COMPLETE.",
           "receiptPath": null,
           "dateAdded": "2026-06-21"
         },
@@ -2159,8 +2159,8 @@
           "description": "1/2\" plywood (inside skins + backers)",
           "qty": 26,
           "unitCost": 45,
-          "actualCost": 898,
-          "notes": "Original est 45/sheet, actual $35. | PURCHASED 2026-07-07: ~23-24 sheets at $35/sheet pre-tax (~$898 all-in), part of the $4,040 Zelle order. SHORT of 26 needed by ~2-3; supplier has more 1/2in coming later this week (buried in stock, will call Tom). Sync Shift + Air Pirate + LB skyline.",
+          "actualCost": 1182,
+          "notes": "Original est 45/sheet, quoted $35. | PURCHASED 2026-07-07: 34 sheets, ~$1,182 of the $4,040 Zelle order (64x 3/4in + 34x 1/2in). 34 vs 26 needed = COMPLETE + 8 spare. Sync Shift + Air Pirate + LB skyline.",
           "receiptPath": null,
           "dateAdded": "2026-06-21"
         },
