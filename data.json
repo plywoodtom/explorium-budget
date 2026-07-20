@@ -2263,6 +2263,32 @@
           "notes": "Wood-to-wood panel bonding.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
+        },
+        {
+          "id": "ma-hd20260720-1",
+          "description": "18GA 1-1/2\" brad nails (DeWalt, 2500ct box)",
+          "qty": 2,
+          "unitCost": 27.78,
+          "actualCost": 60.41,
+          "notes": "2 boxes @ 27.78 = 55.56 + 8.73pct pro-rata tax. Nails for Explorium wall frames.",
+          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
+          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
+          "scope": "added",
+          "datePurchased": "2026-07-20",
+          "dateAdded": "2026-07-20"
+        },
+        {
+          "id": "ma-hd20260720-2",
+          "description": "18GA 3/4\" brad nails (DeWalt, 2500ct box)",
+          "qty": 1,
+          "unitCost": 21.48,
+          "actualCost": 23.35,
+          "notes": "21.48 + 8.73pct pro-rata tax. Nails for Explorium wall frames.",
+          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
+          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
+          "scope": "added",
+          "datePurchased": "2026-07-20",
+          "dateAdded": "2026-07-20"
         }
       ]
     },
@@ -2379,6 +2405,19 @@
           "scope": "added",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
+        },
+        {
+          "id": "co-hd20260720",
+          "description": "Ice bag 7lb (Home Depot run)",
+          "qty": 1,
+          "unitCost": 3.28,
+          "actualCost": 3.57,
+          "notes": "Incidental on the same Home Depot nail receipt.",
+          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
+          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
+          "scope": "added",
+          "datePurchased": "2026-07-20",
+          "dateAdded": "2026-07-20"
         }
       ]
     },
