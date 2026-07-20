@@ -2923,6 +2923,19 @@
           "paymentMethod": "ACH",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
+        },
+        {
+          "id": "ov-lunch20260720",
+          "description": "Crew lunch - Harlows Cafe (4 people)",
+          "qty": 1,
+          "unitCost": 109.27,
+          "actualCost": 109.27,
+          "notes": "Food 84.24 + tax 6.82 + tip 18.21 = 109.27. Crew lunch during Explorium build, 102F day.",
+          "receiptPath": "receipts/2026-07-20-harlows-crew-lunch.jpg",
+          "paymentMethod": "Company ATM/debit card (...9658)",
+          "scope": "added",
+          "datePurchased": "2026-07-20",
+          "dateAdded": "2026-07-20"
         }
       ]
     },
