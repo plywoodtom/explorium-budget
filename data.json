@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-07-23T06:50:00Z",
+  "lastModified": "2026-07-23T16:25:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -3035,6 +3035,16 @@
           "actualCost": 118.73,
           "notes": "Added in 2026-07-23 reconciliation.",
           "receiptPath": "receipts/2026-06-16-homedepot-phx-evapcooler-steelrod-118.73.jpg",
+          "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "oh-scooter-ctrl",
+          "description": "Scooter controller (aftermarket 36V) - shop-to-shop transport",
+          "qty": 1,
+          "unitCost": 9.32,
+          "actualCost": 9.32,
+          "notes": "AliExpress order 8213447676365290 (HeWang Store), paid 7/13. Scooters = Explorium shop transport.",
+          "receiptPath": "receipts/2026-07-13-aliexpress-scooter-controller-9.32.jpg",
           "dateAdded": "2026-07-23"
         }
       ]
