@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-07-06T01:50:15.785516Z",
+  "lastModified": "2026-07-23T06:50:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -503,6 +503,36 @@
           "notes": "Icy Waters - spec pending - placeholder cost",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "ex-lidar-icy",
+          "description": "LiDAR game system (Icy Waters) - Kleader via Alibaba",
+          "qty": 1,
+          "unitCost": 1541.97,
+          "actualCost": 1541.97,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-16-lidar-game-payment-alibaba-1541.97-visa.jpg",
+          "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "ex-photosensors",
+          "description": "Photoelectric sensors x20 (Alibaba)",
+          "qty": 1,
+          "unitCost": 240.64,
+          "actualCost": 240.64,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-13-alibaba-photoelectric-sensors-20x-240.64.pdf",
+          "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "ex-purgatory",
+          "description": "Floor sensors (Purgatory Props)",
+          "qty": 1,
+          "unitCost": 233.0,
+          "actualCost": 233.0,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-06-purgatory-props-floor-sensors-233.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -633,6 +663,16 @@
           "notes": "Redirect Light Path 20m booster",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "ex-led-strips",
+          "description": "Addressable RGB neon LED strips + tubes (Alibaba)",
+          "qty": 1,
+          "unitCost": 1248.58,
+          "actualCost": 1248.58,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-06-alibaba-addressable-RGB-neon-LED-strips-tubes-1248.58.pdf",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -1873,6 +1913,16 @@
           "notes": "KT",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "ex-fireext",
+          "description": "Walmart 7/9 - fire extinguisher (3A40BC) + lacquer + markers",
+          "qty": 1,
+          "unitCost": 105.77,
+          "actualCost": 105.77,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-09-walmart-fire-extinguisher-3A40BC-lacquer-markers-105.77.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2167,11 +2217,11 @@
         {
           "id": "ma-mdf14",
           "description": "1/4\" MDF skins (both faces + edge strips)",
-          "qty": 180,
+          "qty": 172,
           "unitCost": 30,
-          "actualCost": null,
-          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal.",
-          "receiptPath": null,
+          "actualCost": 3864.62,
+          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal. | BOUGHT 2026-07-21: 148x 4x8 Daiken + 24x 5x10 HDF, Royal order #3144290, paid check #103. Laminate NOT included.",
+          "receiptPath": "receipts/2026-07-21-royal-plywood-MDF-order3144290-check103-3864.62.pdf",
           "dateAdded": "2026-06-21"
         },
         {
@@ -2246,11 +2296,11 @@
         },
         {
           "id": "ma-5",
-          "description": "Aluminum thresholds (3in x 1/4in x 4ft)",
+          "description": "Door thresholds - 3/16in x 3in STEEL strip (18 doors)",
           "qty": 18,
           "unitCost": 30.56,
-          "actualCost": null,
-          "notes": "Under each doorway.",
+          "actualCost": 283.01,
+          "notes": "Under each doorway. | BOUGHT 2026-07-21 as STEEL (not aluminum), $283.01. Receipt pending scan 7/22.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
         },
@@ -2289,6 +2339,26 @@
           "scope": "added",
           "datePurchased": "2026-07-20",
           "dateAdded": "2026-07-20"
+        },
+        {
+          "id": "ma-felt",
+          "description": "Acoustic felt SAMPLES (Alibaba)",
+          "qty": 1,
+          "unitCost": 80.14,
+          "actualCost": 80.14,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-13-alibaba-acoustic-felt-SAMPLES-80.14.pdf",
+          "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "ma-hd0614",
+          "description": "Home Depot 6/14 - cooler pad, hardboard, melamine",
+          "qty": 1,
+          "unitCost": 124.46,
+          "actualCost": 124.46,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-06-14-homedepot-mesa-coolerpad-hdbd-melamine-124.46.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2418,6 +2488,16 @@
           "scope": "added",
           "datePurchased": "2026-07-20",
           "dateAdded": "2026-07-20"
+        },
+        {
+          "id": "co-hd-blaster-blade",
+          "description": "Home Depot - PB Blaster + saw blade",
+          "qty": 1,
+          "unitCost": 57.94,
+          "actualCost": 57.94,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-06-17-hd-pbblaster-11.06_and_2026-07-10-hd-sawblade-46.88.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2832,6 +2912,16 @@
           "paymentMethod": "Debit",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
+        },
+        {
+          "id": "to-tiedown",
+          "description": "Harbor Freight tie-down kit",
+          "qty": 1,
+          "unitCost": 21.81,
+          "actualCost": 21.81,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-07-14-harborfreight-tiedownkit-21.81.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2936,6 +3026,16 @@
           "scope": "added",
           "datePurchased": "2026-07-20",
           "dateAdded": "2026-07-20"
+        },
+        {
+          "id": "oh-evapcooler",
+          "description": "Home Depot 6/16 - evap cooler parts (shop cooling)",
+          "qty": 1,
+          "unitCost": 118.73,
+          "actualCost": 118.73,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": "receipts/2026-06-16-homedepot-phx-evapcooler-steelrod-118.73.jpg",
+          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -3046,6 +3146,16 @@
           "notes": "SUPERSEDED 2026-06-08 by ov-6 (annual policy covering both shops, 2978.36 ACH). Original 450 estimate was build-window-only.",
           "receiptPath": null,
           "dateAdded": "2026-06-08"
+        },
+        {
+          "id": "tbd-sugarobstacles",
+          "description": "Sugar Surge floor obstacles (already purchased)",
+          "qty": 1,
+          "unitCost": 535.0,
+          "actualCost": 535.0,
+          "notes": "Added in 2026-07-23 reconciliation.",
+          "receiptPath": null,
+          "dateAdded": "2026-07-23"
         }
       ]
     }
