@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-08-03T17:53:24Z",
+  "lastModified": "2026-08-03T18:04:28Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -3056,6 +3056,16 @@
           "notes": "AliExpress order 8213447676365290 (HeWang Store), paid 7/13. Scooters = Explorium shop transport.",
           "receiptPath": "receipts/2026-07-13-aliexpress-scooter-controller-9.32.jpg",
           "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "ov-quiktrip20260803",
+          "description": "Crew water + snacks - QuikTrip (Abi working)",
+          "qty": 1,
+          "unitCost": 13.5,
+          "actualCost": 13.5,
+          "notes": "ESTIMATE ~$13 - awaiting exact amount from Tom; true up when he sends it",
+          "receiptPath": null,
+          "dateAdded": "2026-08-03"
         }
       ]
     },
