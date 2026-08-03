@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-08-03T17:53:24Z",
+  "lastModified": "2026-06-17T19:28:42.087979Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -503,36 +503,6 @@
           "notes": "Icy Waters - spec pending - placeholder cost",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
-        },
-        {
-          "id": "ex-lidar-icy",
-          "description": "LiDAR game system (Icy Waters) - Kleader via Alibaba",
-          "qty": 1,
-          "unitCost": 1541.97,
-          "actualCost": 1541.97,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-16-lidar-game-payment-alibaba-1541.97-visa.jpg",
-          "dateAdded": "2026-07-23"
-        },
-        {
-          "id": "ex-photosensors",
-          "description": "Photoelectric sensors x20 (Alibaba)",
-          "qty": 1,
-          "unitCost": 240.64,
-          "actualCost": 240.64,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-13-alibaba-photoelectric-sensors-20x-240.64.pdf",
-          "dateAdded": "2026-07-23"
-        },
-        {
-          "id": "ex-purgatory",
-          "description": "Floor sensors (Purgatory Props)",
-          "qty": 1,
-          "unitCost": 233.0,
-          "actualCost": 233.0,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-06-purgatory-props-floor-sensors-233.jpg",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -663,16 +633,6 @@
           "notes": "Redirect Light Path 20m booster",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
-        },
-        {
-          "id": "ex-led-strips",
-          "description": "Addressable RGB neon LED strips + tubes (Alibaba)",
-          "qty": 1,
-          "unitCost": 1248.58,
-          "actualCost": 1248.58,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-06-alibaba-addressable-RGB-neon-LED-strips-tubes-1248.58.pdf",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -1913,16 +1873,6 @@
           "notes": "KT",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
-        },
-        {
-          "id": "ex-fireext",
-          "description": "Walmart 7/9 - fire extinguisher (3A40BC) + lacquer + markers",
-          "qty": 1,
-          "unitCost": 105.77,
-          "actualCost": 105.77,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-09-walmart-fire-extinguisher-3A40BC-lacquer-markers-105.77.jpg",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2195,74 +2145,14 @@
       "notes": "Wall panels, plywood, laminate, adhesives, fasteners, hardware, thresholds. Per-game wall material detail in EXPLORIUM-WALL-MATERIALS-WORKSHEET.md.",
       "items": [
         {
-          "id": "ma-ply34",
-          "description": "3/4\" plywood (framing + platforms, all games)",
-          "qty": 72,
-          "unitCost": 85,
-          "actualCost": 4282,
-          "notes": "Original est 85/sheet. Reception counter sheets separate. | PURCHASED 2026-07-02: 29 of 72 sheets at $49.09/sheet all-in = $1,423.76, Zelle. | PURCHASED 2026-07-07: 64 more, part of a $4,040 Zelle order (64x 3/4in + 34x 1/2in); ~$2,858 allocated to 3/4in. NOTE: list = 64x45 + 34x35 +9.12% tax = ~$4,441, but Tom paid $4,040 = ~$400 under (bulk deal, or verify a number on the receipt). Total 93 bought vs 72 needed = 21 spare. 3/4in COMPLETE.",
-          "receiptPath": null,
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-ply12",
-          "description": "1/2\" plywood (inside skins + backers)",
-          "qty": 26,
-          "unitCost": 45,
-          "actualCost": 1182,
-          "notes": "Original est 45/sheet, quoted $35. | PURCHASED 2026-07-07: 34 sheets, ~$1,182 of the $4,040 Zelle order (64x 3/4in + 34x 1/2in). 34 vs 26 needed = COMPLETE + 8 spare. Sync Shift + Air Pirate + LB skyline.",
-          "receiptPath": null,
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-mdf14",
-          "description": "1/4\" MDF skins (both faces + edge strips)",
-          "qty": 172,
-          "unitCost": 30,
-          "actualCost": 3864.62,
-          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal. | BOUGHT 2026-07-21: 148x 4x8 Daiken + 24x 5x10 HDF, Royal order #3144290, paid check #103. Laminate NOT included.",
-          "receiptPath": "receipts/2026-07-21-royal-plywood-MDF-order3144290-check103-3864.62.pdf",
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-lam48",
-          "description": "Plastic laminate 4x8",
-          "qty": 194,
-          "unitCost": 67,
+          "id": "ma-1",
+          "description": "Wall materials (wholesale, all 11 games + 10pct tax)",
+          "qty": 1,
+          "unitCost": 22053,
           "actualCost": null,
-          "notes": "Original est 67/sheet.",
+          "notes": "Royal Plywood. Break out per-game as built.",
           "receiptPath": null,
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-lam510",
-          "description": "Plastic laminate 5x10 (Twister)",
-          "qty": 16,
-          "unitCost": 104.69,
-          "actualCost": null,
-          "notes": "Original est area-scaled. Twister 6 outside confirmed; inside bottoms 3-6x 4x10 TBD (Oz/tornado theme).",
-          "receiptPath": null,
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-doors",
-          "description": "Doors (36in slabs)",
-          "qty": 18,
-          "unitCost": 40,
-          "actualCost": 756.0,
-          "notes": "USED COMMERCIAL DOORS (heavy, durable - upgrade over hollow-core the budget assumed). Spend so far $756 for 16 of 18: $400 pack (8 usable) + $6 auction (32in - too narrow, use on ADA-exempt Sync Shift/Volcano) + $350 for 7 slabs @ $50 (Zelle 2026-07-05). ~2 doors left. City approved 2/3 ADA variance so the narrow one is fine on an exempt game.",
-          "receiptPath": null,
-          "dateAdded": "2026-06-21"
-        },
-        {
-          "id": "ma-doorhw",
-          "description": "Door hardware (push plate + jamb)",
-          "qty": 18,
-          "unitCost": 25,
-          "actualCost": 0.0,
-          "notes": "Largely SALVAGED free from the used-door purchases (push plates, handles, some closers came on the $400 pack). Buy hardware only for doors that arrive bare.",
-          "receiptPath": null,
-          "dateAdded": "2026-06-21"
+          "dateAdded": "2026-04-27"
         },
         {
           "id": "ma-2",
@@ -2296,11 +2186,11 @@
         },
         {
           "id": "ma-5",
-          "description": "Door thresholds - 3/16in x 3in STEEL strip (18 doors)",
+          "description": "Aluminum thresholds (3in x 1/4in x 4ft)",
           "qty": 18,
           "unitCost": 30.56,
-          "actualCost": 283.01,
-          "notes": "Under each doorway. | BOUGHT 2026-07-21 as STEEL (not aluminum), $283.01. Receipt pending scan 7/22.",
+          "actualCost": null,
+          "notes": "Under each doorway.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
         },
@@ -2313,62 +2203,6 @@
           "notes": "Wood-to-wood panel bonding.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
-        },
-        {
-          "id": "ma-hd20260720-1",
-          "description": "18GA 1-1/2\" brad nails (DeWalt, 2500ct box)",
-          "qty": 2,
-          "unitCost": 27.78,
-          "actualCost": 60.41,
-          "notes": "2 boxes @ 27.78 = 55.56 + 8.73pct pro-rata tax. Nails for Explorium wall frames.",
-          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
-          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
-          "scope": "added",
-          "datePurchased": "2026-07-20",
-          "dateAdded": "2026-07-20"
-        },
-        {
-          "id": "ma-hd20260720-2",
-          "description": "18GA 3/4\" brad nails (DeWalt, 2500ct box)",
-          "qty": 1,
-          "unitCost": 21.48,
-          "actualCost": 23.35,
-          "notes": "21.48 + 8.73pct pro-rata tax. Nails for Explorium wall frames.",
-          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
-          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
-          "scope": "added",
-          "datePurchased": "2026-07-20",
-          "dateAdded": "2026-07-20"
-        },
-        {
-          "id": "ma-felt",
-          "description": "Acoustic felt SAMPLES (Alibaba)",
-          "qty": 1,
-          "unitCost": 80.14,
-          "actualCost": 80.14,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-13-alibaba-acoustic-felt-SAMPLES-80.14.pdf",
-          "dateAdded": "2026-07-23"
-        },
-        {
-          "id": "ma-hd0614",
-          "description": "Home Depot 6/14 - cooler pad, hardboard, melamine",
-          "qty": 1,
-          "unitCost": 124.46,
-          "actualCost": 124.46,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-06-14-homedepot-mesa-coolerpad-hdbd-melamine-124.46.jpg",
-          "dateAdded": "2026-07-23"
-        },
-        {
-          "id": "ma-hd20260803-1",
-          "description": "18GA 1-1/2\" galvanized narrow-crown staples (Grip-Rite, 5000ct)",
-          "qty": 1,
-          "unitCost": 40.21,
-          "actualCost": 43.87,
-          "notes": "Home Depot 8/3 - assembling frames; military discount applied",
-          "receiptPath": "receipts/2026-08-03-homedepot-crown-staples.jpg",
-          "dateAdded": "2026-08-03"
         }
       ]
     },
@@ -2485,29 +2319,6 @@
           "scope": "added",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
-        },
-        {
-          "id": "co-hd20260720",
-          "description": "Ice bag 7lb (Home Depot run)",
-          "qty": 1,
-          "unitCost": 3.28,
-          "actualCost": 3.57,
-          "notes": "Incidental on the same Home Depot nail receipt.",
-          "receiptPath": "receipts/2026-07-20-homedepot.jpg",
-          "paymentMethod": "Dad's Chase Visa (Tom repays via Zelle)",
-          "scope": "added",
-          "datePurchased": "2026-07-20",
-          "dateAdded": "2026-07-20"
-        },
-        {
-          "id": "co-hd-blaster-blade",
-          "description": "Home Depot - PB Blaster + saw blade",
-          "qty": 1,
-          "unitCost": 57.94,
-          "actualCost": 57.94,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-06-17-hd-pbblaster-11.06_and_2026-07-10-hd-sawblade-46.88.jpg",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -2922,16 +2733,6 @@
           "paymentMethod": "Debit",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
-        },
-        {
-          "id": "to-tiedown",
-          "description": "Harbor Freight tie-down kit",
-          "qty": 1,
-          "unitCost": 21.81,
-          "actualCost": 21.81,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-07-14-harborfreight-tiedownkit-21.81.jpg",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -3023,39 +2824,6 @@
           "paymentMethod": "ACH",
           "datePurchased": "2026-06-08",
           "dateAdded": "2026-06-08"
-        },
-        {
-          "id": "ov-lunch20260720",
-          "description": "Crew lunch - Harlows Cafe (4 people)",
-          "qty": 1,
-          "unitCost": 109.27,
-          "actualCost": 109.27,
-          "notes": "Food 84.24 + tax 6.82 + tip 18.21 = 109.27. Crew lunch during Explorium build, 102F day.",
-          "receiptPath": "receipts/2026-07-20-harlows-crew-lunch.jpg",
-          "paymentMethod": "Company ATM/debit card (...9658)",
-          "scope": "added",
-          "datePurchased": "2026-07-20",
-          "dateAdded": "2026-07-20"
-        },
-        {
-          "id": "oh-evapcooler",
-          "description": "Home Depot 6/16 - evap cooler parts (shop cooling)",
-          "qty": 1,
-          "unitCost": 118.73,
-          "actualCost": 118.73,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": "receipts/2026-06-16-homedepot-phx-evapcooler-steelrod-118.73.jpg",
-          "dateAdded": "2026-07-23"
-        },
-        {
-          "id": "oh-scooter-ctrl",
-          "description": "Scooter controller (aftermarket 36V) - shop-to-shop transport",
-          "qty": 1,
-          "unitCost": 9.32,
-          "actualCost": 9.32,
-          "notes": "AliExpress order 8213447676365290 (HeWang Store), paid 7/13. Scooters = Explorium shop transport.",
-          "receiptPath": "receipts/2026-07-13-aliexpress-scooter-controller-9.32.jpg",
-          "dateAdded": "2026-07-23"
         }
       ]
     },
@@ -3166,16 +2934,6 @@
           "notes": "SUPERSEDED 2026-06-08 by ov-6 (annual policy covering both shops, 2978.36 ACH). Original 450 estimate was build-window-only.",
           "receiptPath": null,
           "dateAdded": "2026-06-08"
-        },
-        {
-          "id": "tbd-sugarobstacles",
-          "description": "Sugar Surge floor obstacles (already purchased)",
-          "qty": 1,
-          "unitCost": 535.0,
-          "actualCost": 535.0,
-          "notes": "Added in 2026-07-23 reconciliation.",
-          "receiptPath": null,
-          "dateAdded": "2026-07-23"
         }
       ]
     }
