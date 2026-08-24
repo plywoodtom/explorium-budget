@@ -2929,9 +2929,9 @@
           "qty": 1,
           "unitCost": 25.86,
           "actualCost": 25.86,
-          "notes": "Refill for Yale forklift (to-4) propane tank (to-21). U-Haul Moving & Storage at Phoenix Airport, 2345 E McDowell Rd. 6.00 gal @ $3.95 = $23.70 + $2.16 tax. Order D875804C, contract 82428985, store 822042. Follows the initial fill (to-22, $33.61). Payment method not shown on the receipt.",
+          "notes": "Refill for Yale forklift (to-4) propane tank (to-21). U-Haul Moving & Storage at Phoenix Airport, 2345 E McDowell Rd. 6.00 gal @ $3.95 = $23.70 + $2.16 tax. Order D875804C, contract 82428985, store 822042. Follows the initial fill (to-22, $33.61). Paid with the shop card (Tom: \"shop atm/credit card\").",
           "receiptPath": null,
-          "paymentMethod": null,
+          "paymentMethod": "Debit",
           "datePurchased": "2026-08-24",
           "dateAdded": "2026-08-24"
         },
