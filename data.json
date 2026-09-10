@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-09-10T15:45:00Z",
+  "lastModified": "2026-09-10T15:50:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -3011,6 +3011,16 @@
           "notes": "Tom confirmed 2026-09-03: Square Payroll is set to MANUAL payment, so every crew Zelle IS the net paycheck - nothing was paid off the books. Peter $3,096.48 / Marie $1,366.48 / Abi $1,303.42 / Duncan $1,187.15 / Edrian $805.48. Excludes Peter's $173.69 receipt reimbursement (logged separately). *** STILL TO ADD: Square's separate debits for employee withholding + employer FICA/state and the workers-comp premium. Est. +$1,200-1,600. Waiting on the bank statement. *** Replaces the earlier PPP-report line and two speculative off-payroll lines, which risked double-counting this same money. || OPEN 2026-09-03: card 5646 is likely PETE'S, not Tom's. That means some Zelles to Peter are RECEIPT REIMBURSEMENTS, not wages - the 8/19 $173.69 is confirmed as one. The 8/17 $145.20 is also a non-round amount and may be another. If so, this line is overstated by roughly that much. RESOLVE with the Square payroll register (per-period, per-employee), which shows true wages; anything Zelled to Peter beyond that is reimbursement.",
           "receiptPath": "receipts/2026-09-03-zelle-activity-3screens.jpg",
           "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "lab-sq-20260911",
+          "description": "Square Payroll run, pay period 8/31-9/6/26 (pay date 9/11) - gross 3,099.66 + employer taxes 317.72. Net checks 2,491.00 + tax debit 926.38.",
+          "qty": 1,
+          "unitCost": 3417.38,
+          "actualCost": 3417.38,
+          "notes": "Net by employee: Pete Johnson 1,427.59 / Marie Bartron 825.50 / Duncan Garcia 157.29 / Edrian Robinson 80.62 / Abi Leon 0.00. Employee tax withheld 608.66. POSSIBLE OVERLAP with lab Zelle entry covering 7/25-9/3 - confirm with Tom.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-11"
         }
       ]
     },
