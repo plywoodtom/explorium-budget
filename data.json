@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-09-10T15:50:00Z",
+  "lastModified": "2026-09-10T16:00:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -3848,6 +3848,16 @@
           "notes": "Bank. Shop/crew vehicle fuel.",
           "receiptPath": null,
           "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "oh-rent-sept",
+          "description": "Shop rent SEPTEMBER, both units (Skyport statement 9/1)",
+          "qty": 1,
+          "unitCost": 3222.45,
+          "actualCost": 3222.45,
+          "notes": "Tom confirmed paid 9/10. Amount from receipts/2026-09-01-skyport-STATEMENT-sept-rent-3222.45.jpg",
+          "receiptPath": "receipts/2026-09-01-skyport-STATEMENT-sept-rent-3222.45.jpg",
+          "dateAdded": "2026-09-10"
         }
       ]
     },
