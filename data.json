@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-08-03T18:04:28Z",
+  "lastModified": "2026-09-10T15:45:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -123,6 +123,16 @@
           "notes": "SDA + SCL external pull-ups",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "ex-icywaters-pc",
+          "description": "CyberPowerPC GMA5600BSTV5 - Icy Waters game PC (Best Buy)",
+          "qty": 1,
+          "unitCost": 1367.77,
+          "actualCost": 1367.77,
+          "notes": "Best Buy Scottsdale 7/31/26, $1,367.77 (July bank statement). Tom confirmed 2026-09-03 this Best Buy charge is the PC, not the projector. Spec photo of the box label to follow. Unbundling Icy Waters (local PC + local projector + Kleader sensor/SDK) was the plan that saved ~$1,700 against the $5,150 turnkey quote. || SPEC (box label): Ryzen 5 8400F up to 4.7GHz, 16GB DDR5, RTX 3050 6GB, 1TB Gen4 NVMe, Win11 HOME, WiFi6+BT, kbd+mouse, 1yr warranty. Adequate for Unity + TUIO on a single projector output - GPU is not the bottleneck for this game. *** OPERATIONAL RISK: Windows 11 HOME cannot defer feature updates the way Pro can and will force restarts. On an unattended installed game in Virginia that means a reboot mid-operating-day with nobody on site who knows what to do. SOLVED BY TOM 2026-09-03: AIR-GAP IT. No internet = no Windows Update = no forced reboots. PC talks only to the Pi over a local network with no WAN route. This is standard practice for installed exhibit/AV machines and is better than fighting Active Hours. PRE-SHIP CHECKLIST: (1) while still online, confirm Windows is ACTIVATED, install all drivers + Unity runtime + Kleader SDK, and run updates ONCE so it ships current; (2) then disconnect for good; (3) auto-login + game auto-launch so it self-recovers from a power cut; (4) no NTP offline means clock drift - only matters if the game timestamps anything; (5) TRADEOFF: offline means no remote support from Arizona. If remote fixes are wanted later, put the PI on the internet as the jump box and keep the PC air-gapped behind it. ***",
+          "receiptPath": "receipts/2026-07-31-bestbuy-cyberpowerpc-GMA5600BSTV5-spec-label.jpg",
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -140,7 +150,7 @@
           "qty": 11,
           "unitCost": 65.0,
           "actualCost": null,
-          "notes": "Exterior check-in display",
+          "notes": "Exterior check-in display || \u26a0\ufe0f SCOPE \u2014 RESOLVED FROM THE FACEBOOK EXPORT 2026-09-03 (Explorium-Facebook-Export/messages.zip, 'Beth Rosen_82.json', 2,636 messages). Tom's recollection that the 7in screen was only ever loose talk is NOT what the thread says. 2026-04-21 Beth: 'it was going to be like a 7\" tablet i thought. Or was it going to be 7\" table with a scanner just below?' Tom: 'Sounds right. They sell a package where you can buy the raspberry pie and the 7 inch monitor and then the scanner we can place in a box right below it.' Tom then discussed portrait vs landscape orientation. That reads as AGREEMENT, in April 2026, not months earlier. *** THE REAL ISSUE IS PRICING, NOT SCOPE. 2025-08-01 Beth set out two options: a $100 scanner-only unit, or a $400 monitor unit. On 2026-04-27 the quote was being corrected at '$100 for the 11th scanner' on a $5,899 subtotal - i.e. still priced at the $100 SCANNER rate. A Pi + official 7in touchscreen costs well over $100 per game. If the quote was never revised, Tom absorbs the difference across 11 games. CHECK THE SIGNED QUOTE. ***",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
         },
@@ -159,8 +169,8 @@
           "description": "25-32in HDMI Monitor or TV",
           "qty": 11,
           "unitCost": 140.0,
-          "actualCost": null,
-          "notes": "Interior game display",
+          "actualCost": 0.0,
+          "notes": "Interior game display || BETH IS SUPPLYING THESE (confirmed 2026-09-03 after reviewing the Facebook Messenger history). $0 to Tom. Budget line closed.",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
         },
@@ -229,8 +239,8 @@
           "description": "100mm White Dome Arcade Button (with microswitch)",
           "qty": 140,
           "unitCost": 3.0,
-          "actualCost": null,
-          "notes": "Bulk for all games - WS2812B modded where needed",
+          "actualCost": 0.0,
+          "notes": "Bulk for all games - WS2812B modded where needed || COVERED BY THE MINHAO ORDER (ex-minhao-wire, $3,356.06) - ~150 buttons and ~30 lasers in that shipment. No separate purchase. Exact quantities are in the Alibaba / WhatsApp thread if a precise count is ever needed.",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
         },
@@ -303,6 +313,26 @@
           "notes": "Floor-mount Sync Shift buttons",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "el-amzn-rfid-20260819",
+          "description": "Amazon - GEENFC 13.56MHz M1 RFID readers USB, qty 8",
+          "qty": 1,
+          "unitCost": 95.92,
+          "actualCost": 95.92,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-3248695-8478633 8/19.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ex-minhao-wire",
+          "description": "Minhao order - 35 lasers + 152 arcade buttons + 14 power supplies (Zhongshan Minhao Lighting Co Ltd)",
+          "qty": 1,
+          "unitCost": 3356.06,
+          "actualCost": 3356.06,
+          "notes": "PAID BY INTERNATIONAL WIRE 2026-07-16, MidFirst ref 1017378: goods $3,306.06 + $50.00 wire fee = $3,356.06 total debit. Beneficiary Zhongshan Minhao Lighting Co Ltd, Hong Kong, via JPMorgan Chase HK. Account balance at time of wire was $66,587.60, which matches the 7/15 figure in the July reconciliation exactly. Includes extras ordered to meet the vendor minimum - some may go to Velocity Rings lighted rings or to inventory; NOT split out yet, logged 100% to the job until actual use is known (Tom's call 2026-09-03).",
+          "receiptPath": "receipts/2026-07-16-midfirst-WIRE-minhao-lighting-3356.06.jpg",
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -319,8 +349,8 @@
           "description": "Large pressure-sensitive floor mat 4x5 ft",
           "qty": 12,
           "unitCost": 40.0,
-          "actualCost": null,
-          "notes": "Air Pirates(4), Velocity Rings(4), Volcano(4)",
+          "actualCost": 0.0,
+          "notes": "Air Pirates(4), Velocity Rings(4), Volcano(4) || NOT BUYING (2026-09-03). Using the photoelectric floor sensors ordered direct from China instead (ex-photosensors). If their range proves inadequate, fallback is pressure mats from Amazon shipped straight to Virginia.",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
         },
@@ -529,8 +559,8 @@
           "description": "Floor sensors (Purgatory Props)",
           "qty": 1,
           "unitCost": 233.0,
-          "actualCost": 233.0,
-          "notes": "Added in 2026-07-23 reconciliation.",
+          "actualCost": 198.0,
+          "notes": "8 floor sensors, $233.00 paid 7/6. The $35.00 that came back on 7/22 was NOT a discount and NOT a price adjustment - Purgatory shipped the wrong customer's box, Andrea took it to the post office and forwarded it to the right person, that person shipped Tom's box on, and Purgatory sent $35 as a thank-you. The parts still cost $233. Tom also paid ~$23 postage to forward the wrong box - that $23 is NOT in the July bank statement (which ties out exactly), so it was paid in cash or by Andrea and is not captured here. Line is carried at $198 = $233 less the $35 received, which is what actually moved through the account.",
           "receiptPath": "receipts/2026-07-06-purgatory-props-floor-sensors-233.jpg",
           "dateAdded": "2026-07-23"
         }
@@ -833,6 +863,16 @@
           "notes": "CC, LB, KT, LM, Volcano",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "el-amzn-20260725",
+          "description": "Amazon - Bluetooth 5.3 audio receiver (3.5mm/RCA), MagSafe 25W charger pad, M10 threaded extension rods 6pc",
+          "qty": 1,
+          "unitCost": 52.3,
+          "actualCost": 52.3,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-8573575-2952221 7/25.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -1193,6 +1233,16 @@
           "notes": "Dedicated motor supply",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "el-amzn-transformer-20260820",
+          "description": "Amazon - Beleeb 20A variable transformer / AC voltage regulator",
+          "qty": 1,
+          "unitCost": 106.59,
+          "actualCost": 106.59,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-0802089-6661821 8/20. Electronics share of a $225.49 order also containing rope (tax allocated).",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -1393,6 +1443,16 @@
           "notes": "LB, KT, general",
           "receiptPath": null,
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "el-amzn-alarmwire-20260903",
+          "description": "Amazon - Voltive 22/4 stranded alarm wire, riser CL3R, black, 1000ft",
+          "qty": 1,
+          "unitCost": 248.62,
+          "actualCost": 248.62,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 114-9056000-6322613 9/3. Tagged PO Explorium.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -2136,13 +2196,33 @@
         },
         {
           "id": "gx-21",
-          "description": "Projector TBD (Icy Waters)",
+          "description": "Optoma UHZ36 4K UHD laser projector (Icy Waters)",
           "qty": 1,
           "unitCost": 300.0,
-          "actualCost": null,
-          "notes": "",
-          "receiptPath": null,
+          "actualCost": 1360.52,
+          "notes": "FOUND 2026-09-03. Amazon BUSINESS order 114-5220233-3044231 placed 7/31/26: Optoma UHZ36 4K UHD Laser HDR projector, $1,247.04 + $113.48 tax = $1,360.52, Visa 9658. This is the unnamed $1,360.52 bank debit dated 8/3. It is on the AMAZON BUSINESS account, which is why the sweep of the personal Amazon order emails never found it. Budget line was a $300 placeholder, so $1,060.52 over - but the placeholder was never realistic. NOTE: this is exactly the unit CC recommended on 7/16 (laser, standard throw, 4K, brand) over the vendor's $2,500 bundle option.",
+          "receiptPath": "receipts/2026-09-03-amazon-business-order-details.jpg",
           "dateAdded": "2026-06-17"
+        },
+        {
+          "id": "ex-andymark-balls",
+          "description": "Volcano balls (AndyMark)",
+          "qty": 1,
+          "unitCost": 136.74,
+          "actualCost": 136.74,
+          "notes": "Bank 9/2/26. The throwable balls for the Volcano game. Receipt in Tom's email.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ex-mouser-clearcoat",
+          "description": "Techspray Licron Crystal ESD coating x2 (Mouser) - Volcano",
+          "qty": 1,
+          "unitCost": 124.71,
+          "actualCost": 124.71,
+          "notes": "Mouser order 40202696, 20 Aug 2026. 2x Techspray 1756-8S Licron Crystal ESD-safe coating @ $53.34 = $106.68 + $9.39 shipping + $8.64 tax = $124.71. Matches the bank debit exactly. *** PURPOSE (Tom, corrected 2026-09-03): NOT static control. The coating turns the volcano cone surface into a CAPACITIVE TOUCH ELECTRODE - a safety interlock that shuts the game off the moment anyone touches the volcano. CC had assumed static/anti-cling; wrong. ***",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -2219,8 +2299,8 @@
           "description": "1/4\" MDF skins (both faces + edge strips)",
           "qty": 172,
           "unitCost": 30,
-          "actualCost": 3864.62,
-          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal. | BOUGHT 2026-07-21: 148x 4x8 Daiken + 24x 5x10 HDF, Royal order #3144290, paid check #103. Laminate NOT included.",
+          "actualCost": 3684.62,
+          "notes": "Original est 30/sheet. Refined framing count ~155 4x8 + 13 5x10; original qty kept for estimate. From Royal. | BOUGHT 2026-07-21: 148x 4x8 Daiken + 24x 5x10 HDF, Royal order #3144290, paid check #103. Laminate NOT included. || CORRECTED 2026-09-03 from the July bank statement + check image: check #103 dated 7/22, cleared 7/29, was written for $3,684.62 - NOT the $3,864.62 on Royal's order. The check was $180.00 short of the invoice (8 and 6 transposed when writing it out). RESOLVED - Tom added the $180 to the top of his NEXT Royal order, so Royal is paid in full. No outstanding balance. Do not re-raise.",
           "receiptPath": "receipts/2026-07-21-royal-plywood-MDF-order3144290-check103-3864.62.pdf",
           "dateAdded": "2026-06-21"
         },
@@ -2229,9 +2309,9 @@
           "description": "Plastic laminate 4x8",
           "qty": 194,
           "unitCost": 67,
-          "actualCost": null,
-          "notes": "Original est 67/sheet.",
-          "receiptPath": null,
+          "actualCost": 6920.44,
+          "notes": "Original est 194 x $67 = $12,998. PAID: check cleared 8/03/26 for $6,920.44 (bank app transaction list). Tom identified this as one of two Royal Plywood payments ('just under $7,000'). Royal's 7/16 quote #246073 priced the black post laminate at $4,704 (4x8) + $1,029 (5x10) + $351 Formica surcharge = $6,084 + 8.1% tax = $6,576.80, so the $6,920.44 is ~$344 more - possibly includes the $180 owed from the short check #103 plus a quantity change. GET THE INVOICE to confirm exactly what it covered and whether the laminate line is now closed.",
+          "receiptPath": "receipts/2026-09-03-midfirst-app-transactions-aug01-sep02.jpg",
           "dateAdded": "2026-06-21"
         },
         {
@@ -2269,9 +2349,9 @@
           "description": "Spray adhesive (whole project)",
           "qty": 1,
           "unitCost": 1300,
-          "actualCost": null,
-          "notes": "One bottle covers all 11 games.",
-          "receiptPath": null,
+          "actualCost": 1418.65,
+          "notes": "One bottle covers all 11 games. | BOUGHT 2026-08-07: Formica F200XM 140lb CLEAR spray non-methylene-chloride contact adhesive, 1 canister, Royal will-call order 3176195. $1,316.00 + 7.80% tax = $1,418.65. OVER budget by $118.65. A SECOND canister at the same price is expected (Tom estimated ~2-1/3 canisters for the full job).",
+          "receiptPath": "receipts/2026-08-07-royal-formica-F200XM-140lb-contact-adhesive-canister-order3176195-1418.65.jpg",
           "dateAdded": "2026-04-27"
         },
         {
@@ -2290,7 +2370,7 @@
           "qty": 1,
           "unitCost": 500,
           "actualCost": null,
-          "notes": "Tapcon-style bolts + steel dowel pins.",
+          "notes": "Tapcon-style bolts + steel dowel pins. || CHANGED 2026-09-03: NOT doing alignment pins - using 5/8in NUTS AND BOLTS instead, which Tom says are considerably cheaper and hold better. Floor anchors still to order; a quote came in a couple weeks ago and was HIGHER than this $500 estimate.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
         },
@@ -2300,8 +2380,8 @@
           "qty": 18,
           "unitCost": 30.56,
           "actualCost": 283.01,
-          "notes": "Under each doorway. | BOUGHT 2026-07-21 as STEEL (not aluminum), $283.01. Receipt pending scan 7/22.",
-          "receiptPath": null,
+          "notes": "Under each doorway. | BOUGHT 2026-07-21 as STEEL (not aluminum), $283.01. Receipt FILED 2026-09-03: Industrial Metal Supply pickup ticket 17060030, 80 lf of 3/16x3 HR flat A36 cut to 4x144in + 4x96in, $259.40 pre-tax.",
+          "receiptPath": "receipts/2026-07-21-industrialmetalsupply-3-16x3-steel-flat-80lf-ticket17060030-283.01.jpg",
           "dateAdded": "2026-05-27"
         },
         {
@@ -2369,6 +2449,166 @@
           "notes": "Home Depot 8/3 - assembling frames; military discount applied",
           "receiptPath": "receipts/2026-08-03-homedepot-crown-staples.jpg",
           "dateAdded": "2026-08-03"
+        },
+        {
+          "id": "ma-hd20260821",
+          "description": "Home Depot 8/21 (PO: explorium) - Diablo 10in 90T finish blade, foil tape, escutcheon/screws, 3M electrical tape 5pk, 3-way angle plug, 16d duplex nails, eye bolts, flat washers, bulbs, hand soap",
+          "qty": 1,
+          "unitCost": 166.45,
+          "actualCost": 166.45,
+          "notes": "Receipt tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-08-21-homedepot-explorium-166.45-AND-2026-07-09-staples-32.42.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-hd20260826-hw",
+          "description": "Home Depot 8/26 - ext-tooth lock washers 5/16, tee nuts 5/16-18, hex bolts 5/16x1 (12)",
+          "qty": 1,
+          "unitCost": 6.83,
+          "actualCost": 6.83,
+          "notes": "Hardware share of the $233.81 HD 8/26 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-08-25-homedepot-69.90-AND-2026-08-26-homedepot-233.81-AND-hf-evenexchange-sander-0.00.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-rope-20260820",
+          "description": "Amazon - Twisted manila rope 2in x 50ft (Cat & Mouse yarn ball)",
+          "qty": 1,
+          "unitCost": 118.9,
+          "actualCost": 118.9,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-0802089-6661821 8/20. Rope share of a $225.49 order also containing a variable transformer (tax allocated).",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-rope-20260821",
+          "description": "Amazon - Natural jute rope 2in x 50ft, qty 6 (Cat & Mouse yarn ball)",
+          "qty": 1,
+          "unitCost": 739.32,
+          "actualCost": 739.32,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-8481163-0404233 8/21.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-rope-20260901",
+          "description": "Amazon - Natural jute rope 2in x 50ft (Cat & Mouse yarn ball)",
+          "qty": 1,
+          "unitCost": 117.82,
+          "actualCost": 117.82,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-8538081-7053860 9/1.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-20260830",
+          "description": "Amazon - 3M VHB 5952 double-sided acrylic foam tape 1in x 36yd + UV resin kit 1000g",
+          "qty": 1,
+          "unitCost": 100.79,
+          "actualCost": 100.79,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-7623978-0517066 8/30.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-20260827",
+          "description": "Amazon - ULLFEU UV resin kit 1000g clear hard",
+          "qty": 1,
+          "unitCost": 23.88,
+          "actualCost": 23.88,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-8159296-5436218 8/27.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-20260728",
+          "description": "Amazon - KCO M14 threaded extension downrods 7.89in + 11.8in black",
+          "qty": 1,
+          "unitCost": 21.03,
+          "actualCost": 21.03,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-5746319-7035458 7/28. Business share of a $36.76 order that also contained personal groceries (tax allocated).",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-amzn-20260702",
+          "description": "Amazon - 1/4in stainless flat washers 100pk, grade-8 hex bolts 1/4-20x1.5 50pk, 13.56MHz USB RFID reader",
+          "qty": 1,
+          "unitCost": 29.85,
+          "actualCost": 29.85,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-5193155-0756210 7/2. Was described in the July reconciliation but never logged as a tracker line.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-hd-20260820",
+          "description": "Home Depot 8/20 (PO: explorium) - Loctite Pro window&door 21oz x3, Great Stuff Pro W&D 20oz, wire connectors 30pk, extension springs 2 sets, Gorilla epoxy syringe, Gorilla glue 8oz, eye bolts, screw eyes, 1-5/8in drywall + gold screws 1lb each",
+          "qty": 1,
+          "unitCost": 123.74,
+          "actualCost": 123.74,
+          "notes": "Receipt tagged PO/JOB NAME: explorium. Card 9658.",
+          "receiptPath": "receipts/2026-08-20-homedepot-123.74-AND-2026-08-24-homedepot-135.15-AND-dollartree-29.89-AND-ace-peter-10.37.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-hd-20260901",
+          "description": "Home Depot 9/1 (PO: explorium) - 1-1/4in fine drywall screws, 5 lb",
+          "qty": 1,
+          "unitCost": 29.22,
+          "actualCost": 29.22,
+          "notes": "HD Dobson Rd Mesa 9/1/26. Receipt tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-09-01-homedepot-29.22-AND-2026-07-31-basspro-workclothes-97.47.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-eteco-hardcoat",
+          "description": "Eteco - hardcoat for foam props/scenic",
+          "qty": 1,
+          "unitCost": 989.2,
+          "actualCost": 989.2,
+          "notes": "Bank 9/2/26, $989.20. Protective hardcoat over carved foam (volcano cone, props). Receipt is in Tom's email - attach when located.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-versafoam-kits",
+          "description": "Versa Foam System 10 spray foam kits x6 (Facebook Marketplace, cash)",
+          "qty": 1,
+          "unitCost": 900.0,
+          "actualCost": 900.0,
+          "notes": "Bank 8/25/26 - $900.00 CASH WITHDRAWAL, used to buy six 2-part spray polyurethane foam kits off Facebook Marketplace at $150/kit. Retail on these runs well above that, so this was a strong buy. Ad screenshots to be filed.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-hd-20260831",
+          "description": "Home Depot 8/29 - Great Stuff Pro adhesive 24oz x4, gun cleaner x2, 3M 6211 respirator + 6023 cartridge",
+          "qty": 1,
+          "unitCost": 182.95,
+          "actualCost": 182.95,
+          "notes": "Receipt found 2026-09-03. HD Dobson Rd Mesa, purchased 8/29/26 3:46pm, POSTED to the bank 8/31 - same $182.95 transaction, NOT a second one. Receipt tagged PO/JOB NAME 'Explorian' (Tom's typo for explorium). Contents: GSP window/door adhesive 4 x $19.97 = $79.88, gun cleaner 2 x $11.31 = $22.62, 3M 6211 reusable half-face respirator $37.98, 3M 6023 cartridge $21.48, snacks $7.26. NOT foam - foam ADHESIVE. Correcting the earlier placeholder description. NOTE: the 3M 6211 respirator is CREW PPE for a new hire (the half-face on the Lowe's 9/3 receipt is for the other); the 3M 6023 CARTRIDGE on this receipt is a replacement filter for Tom's own respirator. Not repeat buying.",
+          "receiptPath": "receipts/2026-08-29-homedepot-dobson-adhesive-respirator-182.95.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-foam-yarnball",
+          "description": "8in foam - 3 sheets into the Cat & Mouse yarn ball core",
+          "qty": 1,
+          "unitCost": 150.0,
+          "actualCost": 150.0,
+          "notes": "From the same 6/11 cash foam buy (~$1,000 for 20+ sheets at ~$50). Tom confirmed 2026-09-03: 8 sheets to the volcano (tb-2, $400) and 3 more to the yarn ball = $150. Explorium foam share is therefore ~$550 of the ~$1,000; the balance is the future pirate room and stays OUT. Matches the figure already used in PROP-COST-cat-mouse-yarn-ball.md.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-hd-20260901b",
+          "qty": 1,
+          "description": "Home Depot 9/1 - 1-5/8in gold screws 1lb, 1-5/8in coarse drywall screws 5lb",
+          "unitCost": 37.47,
+          "actualCost": 37.47,
+          "notes": "Materials share of the $239.29 HD Tatum receipt (tax allocated).",
+          "receiptPath": "receipts/2026-09-01-homedepot-tatum-stapler-239.29.jpg",
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -2455,9 +2695,9 @@
           "description": "PPE consumables (masks, glasses, earplugs)",
           "qty": 2,
           "unitCost": 50,
-          "actualCost": null,
-          "notes": "Covers ~2 helpers.",
-          "receiptPath": null,
+          "actualCost": 27.23,
+          "notes": "Covers ~2 helpers. | FILLED 2026-09-03 from the HF 7/25 receipt: goggle/face-mask combo, clear + impact safety glasses, foam ear plugs (tax allocated).",
+          "receiptPath": "receipts/2026-07-25-harborfreight-explorium-supplies-tools-413.47.jpg",
           "dateAdded": "2026-05-27"
         },
         {
@@ -2508,6 +2748,206 @@
           "notes": "Added in 2026-07-23 reconciliation.",
           "receiptPath": "receipts/2026-06-17-hd-pbblaster-11.06_and_2026-07-10-hd-sawblade-46.88.jpg",
           "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "co-staples-20260709",
+          "description": "Staples - dry-erase wall calendar (build schedule)",
+          "qty": 1,
+          "unitCost": 32.42,
+          "actualCost": 32.42,
+          "notes": "Staples Elliot Rd 7/9. Was in the July reconciliation narrative but never logged as a tracker line.",
+          "receiptPath": "receipts/2026-08-21-homedepot-explorium-166.45-AND-2026-07-09-staples-32.42.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hf-20260725",
+          "description": "Harbor Freight 7/25 - 18ga staples x4 boxes, stretch wrap, air tool oil, cotton swabs, markers, plumber's thread",
+          "qty": 1,
+          "unitCost": 83.36,
+          "actualCost": 83.36,
+          "notes": "Consumable share of the $413.47 HF 7/25 receipt (tax allocated). Receipt image was already on file but the cost was never logged.",
+          "receiptPath": "receipts/2026-07-25-harborfreight-explorium-supplies-tools-413.47.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260804",
+          "description": "Home Depot - Flex Seal Liquid 1qt white",
+          "qty": 1,
+          "unitCost": 34.34,
+          "actualCost": 34.34,
+          "notes": "HD Thomas Rd 8/4, military discount applied.",
+          "receiptPath": "receipts/2026-08-04-homedepot-flexseal-34.34-AND-dup-of-2026-07-25-harborfreight-413.47.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260819",
+          "description": "Home Depot - Great Stuff Pro window/door foam 20oz, gun cleaner, Diablo sanding sheet, paint shield",
+          "qty": 1,
+          "unitCost": 47.82,
+          "actualCost": 47.82,
+          "notes": "Consumable share of the $120.17 HD 8/19 receipt (tax allocated); the dispensing gun is logged under Tools.",
+          "receiptPath": "receipts/2026-08-19-homedepot-greatstuff-gun-sanding-120.17.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260825",
+          "description": "Home Depot 8/25 (PO: explorium) - Great Stuff Pro adhesive 24oz x2, Loctite gaps+cracks, 36in x 7ft charcoal fiberglass screen, drink",
+          "qty": 1,
+          "unitCost": 69.9,
+          "actualCost": 69.9,
+          "notes": "Receipt is tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-08-25-homedepot-69.90-AND-2026-08-26-homedepot-233.81-AND-hf-evenexchange-sander-0.00.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260826",
+          "description": "Home Depot 8/26 (PO: explorium) - Great Stuff Pro adhesive 24oz x4, gun cleaner, nitrile gloves 120pk + 40pk, irrigation staples 100pk",
+          "qty": 1,
+          "unitCost": 153.96,
+          "actualCost": 153.96,
+          "notes": "Consumable share of the $233.81 HD 8/26 receipt (tax allocated). Receipt tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-08-25-homedepot-69.90-AND-2026-08-26-homedepot-233.81-AND-hf-evenexchange-sander-0.00.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hf-20260902",
+          "description": "Harbor Freight - nitrile gloves 2x50pc, Bondo lightweight body filler 1qt, plastic spreader set, body filler applicator set",
+          "qty": 1,
+          "unitCost": 62.13,
+          "actualCost": 62.13,
+          "notes": "Consumable share of the $191.88 HF 9/2 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-09-02-harborfreight-AND-2026-08-17-lowes-kregjig-191.88-and-96.30.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-lowes-20260903",
+          "description": "Lowe's - 3M half-face respirator + 5in spiral mixer",
+          "qty": 1,
+          "unitCost": 71.88,
+          "actualCost": 71.88,
+          "notes": "Lowe's Scottsdale 9/3.",
+          "receiptPath": "receipts/2026-09-03-lowes-scottsdale-respirator-mixer-71.88.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hf-20260820",
+          "description": "Harbor Freight 8/20 - 3x21 sanding belts 50/80/120 grit, glue sticks 50pc, tin chip brushes 36pk, wire brushes 3pk",
+          "qty": 1,
+          "unitCost": 54.49,
+          "actualCost": 54.49,
+          "notes": "Consumable share of the $298.81 HF 8/20 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-08-20-harborfreight-298.81-AND-2026-08-26-homedepot-141.33-AND-2026-08-23-homedepot-REPAIRS-141.58.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260826b",
+          "description": "Home Depot 8/26 Tatum (PO: explorium) - Great Stuff Pro adhesive 24oz x2, WD-40, Kwikset key blank, drinks",
+          "qty": 1,
+          "unitCost": 65.36,
+          "actualCost": 65.36,
+          "notes": "Consumable share of the $141.33 HD 8/26 Tatum receipt (tax allocated). Receipt tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-08-20-harborfreight-298.81-AND-2026-08-26-homedepot-141.33-AND-2026-08-23-homedepot-REPAIRS-141.58.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-walmart-20260720",
+          "description": "Walmart - printer ink cartridge (build documents / checklists)",
+          "qty": 1,
+          "unitCost": 51.19,
+          "actualCost": 51.19,
+          "notes": "Walmart Bell Rd 7/20.",
+          "receiptPath": "receipts/2026-07-20-walmart-ink-cartridge-51.19.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-peter-reimb-20260819",
+          "description": "Peter Johnson - reimbursement for 3 shop receipts",
+          "qty": 1,
+          "unitCost": 173.69,
+          "actualCost": 173.69,
+          "notes": "Zelle 8/19/26. Receipt photo was already filed but the cost had never been logged.",
+          "receiptPath": "receipts/2026-08-19-peter-johnson-reimbursed-3receipts-173.69.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-dollartree-20260821",
+          "description": "Dollar Tree 8/21 - bamboo + metal skewers, paper plates, cable ties, paint scraper, paint shield, utility knife, 10ft outdoor extension cords, phone stand, snacks",
+          "qty": 1,
+          "unitCost": 29.89,
+          "actualCost": 29.89,
+          "notes": "Card 9658. Skewers/scrapers are scenic-texturing consumables.",
+          "receiptPath": "receipts/2026-08-20-homedepot-123.74-AND-2026-08-24-homedepot-135.15-AND-dollartree-29.89-AND-ace-peter-10.37.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260824",
+          "description": "Home Depot 8/24 (PO: explorium) - 7-mil black vinyl electrical tape 10pk, Gorilla glue 8oz, 100pk irrigation staples",
+          "qty": 1,
+          "unitCost": 47.93,
+          "actualCost": 47.93,
+          "notes": "Consumable share of the $135.15 HD 8/24 receipt (tax allocated). Receipt tagged PO/JOB NAME: explorium.",
+          "receiptPath": "receipts/2026-08-20-homedepot-123.74-AND-2026-08-24-homedepot-135.15-AND-dollartree-29.89-AND-ace-peter-10.37.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-ram-pigments-20260903",
+          "description": "So-Strong urethane pigments, 9-pack sampler (Reynolds Advanced Materials)",
+          "qty": 1,
+          "unitCost": 43.51,
+          "actualCost": 43.51,
+          "notes": "RAM Phoenix invoice 5765780, 9/3/26. $40.26 + $3.25 tax, paid Visa 9658, balance $0. Tinting for resin/foam coatings.",
+          "receiptPath": "receipts/2026-09-03-reynolds-RAM-sostrong-pigments-9pack-43.51.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-amzn-20260731",
+          "description": "Amazon Business 7/31 - Titebond II Premium wood glue 2.15 gal PROJug, recycled shop rags 10lb box",
+          "qty": 1,
+          "unitCost": 92.21,
+          "actualCost": 92.21,
+          "notes": "Orders 114-6024708-3033832 ($51.80) and 114-5317259-6029816 ($40.41).",
+          "receiptPath": "receipts/2026-09-03-amazon-business-order-details.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260819b",
+          "description": "Home Depot 8/19 - Gorilla Glue Original 8oz x4",
+          "qty": 1,
+          "unitCost": 43.15,
+          "actualCost": 43.15,
+          "notes": "HD Baseline Rd Tempe 8/19/26, $39.92 + tax = $43.15. *** PAID ON DEBIT CARD ending 2962 - a THIRD card, not the business 9658 and not the 5646 that turned out to be Pete's. This charge does NOT appear in the business bank account, so it is outside the bank reconciliation. WHOSE CARD IS 2962? If it is Tom's personal card he is owed a reimbursement; if it is a crew member's, they are. ***",
+          "receiptPath": "receipts/2026-09-01-walmart-printer-toner-244.64-AND-2026-08-19-homedepot-card2962-43.15.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-hd-20260901b",
+          "qty": 1,
+          "description": "Home Depot 9/1 - crew water 48pk, drinks, chips",
+          "unitCost": 18.17,
+          "actualCost": 18.17,
+          "notes": "Consumable share of the $239.29 HD Tatum receipt (tax allocated).",
+          "receiptPath": "receipts/2026-09-01-homedepot-tatum-stapler-239.29.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "co-ram-20260904",
+          "description": "So-Strong pigment brown + black, 30x 32oz mix cups, 20 stir sticks (Reynolds)",
+          "qty": 1,
+          "unitCost": 80.14,
+          "actualCost": 80.14,
+          "notes": "RAM Phoenix invoice 5766345, 9/4/26. Brown $23.71 + black $16.51 + 30 mix/measure containers $30.30 + 20 shim/stir sticks $3.60 + tax. Paid Visa 9658, balance $0. Second Reynolds order in two days (9/3 was the $43.51 9-colour sampler). This is the pigment-into-the-hardcoat strategy - colouring the volcano shell as it goes on instead of painting it afterwards. 30 mix cups says this is being batched in volume.",
+          "receiptPath": "receipts/2026-09-04-reynolds-RAM-pigment-brown-black-mixcups-80.14.jpg",
+          "dateAdded": "2026-09-04"
+        },
+        {
+          "id": "co-hf-20260904",
+          "description": "Harbor Freight - 2in chip brushes 36pk x2, 5 gallon bucket",
+          "qty": 1,
+          "unitCost": 33.78,
+          "actualCost": 33.78,
+          "notes": "HF Phoenix Northgate 9/4/26. 72 chip brushes ($26.98 after a $3 coupon) + 5 gal bucket $3.98 + tax. Hardcoat application - disposable brushes, one batch each.",
+          "receiptPath": "receipts/2026-09-04-harborfreight-chipbrushes-bucket-33.78.jpg",
+          "dateAdded": "2026-09-04"
         }
       ]
     },
@@ -2524,9 +2964,9 @@
           "description": "Tom personal pay (4 months x 4k lean)",
           "qty": 4,
           "unitCost": 4000,
-          "actualCost": null,
-          "notes": "Cash flow during build, not new cost - draw vs profit. Logged via payments list.",
-          "receiptPath": null,
+          "actualCost": 8000.0,
+          "notes": "Budgeted 4 x $4,000 = $16,000. TRUE DRAWS 7/16-8/30/26 = $8,000 (7/16 $2,000, 8/03 $2,000, 8/15 $1,000, 8/17 $1,000, 8/30 $2,000). CORRECTED 2026-09-03: the 8/11 $3,356.26 Zelle was NOT a draw - it was Tom reimbursing himself for a personal check to Highway 85 for AUG+SEPT HEALTH INSURANCE. Moved to Overhead (ov-rent-reimb). NOTE: ~$14,779.78 of self-payments through mid-July are documented in the July reconciliation and sit OUTSIDE this line; much of that was also rent reimbursement.",
+          "receiptPath": "receipts/2026-09-03-zelle-activity-3screens.jpg",
           "payments": [
             {
               "id": "pay-lb1-1",
@@ -2561,6 +3001,16 @@
           "notes": "Expanded 2026-05-27. Funded by reception desk + RFID deposits.",
           "receiptPath": null,
           "dateAdded": "2026-05-27"
+        },
+        {
+          "id": "lb-payroll-net-zelle",
+          "description": "Payroll - NET wages paid to crew by Zelle, 7/25/26-9/3/26",
+          "qty": 1,
+          "unitCost": 7759.01,
+          "actualCost": 7759.01,
+          "notes": "Tom confirmed 2026-09-03: Square Payroll is set to MANUAL payment, so every crew Zelle IS the net paycheck - nothing was paid off the books. Peter $3,096.48 / Marie $1,366.48 / Abi $1,303.42 / Duncan $1,187.15 / Edrian $805.48. Excludes Peter's $173.69 receipt reimbursement (logged separately). *** STILL TO ADD: Square's separate debits for employee withholding + employer FICA/state and the workers-comp premium. Est. +$1,200-1,600. Waiting on the bank statement. *** Replaces the earlier PPP-report line and two speculative off-payroll lines, which risked double-counting this same money. || OPEN 2026-09-03: card 5646 is likely PETE'S, not Tom's. That means some Zelles to Peter are RECEIPT REIMBURSEMENTS, not wages - the 8/19 $173.69 is confirmed as one. The 8/17 $145.20 is also a non-round amount and may be another. If so, this line is overstated by roughly that much. RESOLVE with the Square payroll register (per-period, per-employee), which shows true wages; anything Zelled to Peter beyond that is reimbursement.",
+          "receiptPath": "receipts/2026-09-03-zelle-activity-3screens.jpg",
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -2621,9 +3071,9 @@
           "description": "First aid kit (OSHA basic)",
           "qty": 1,
           "unitCost": 50,
-          "actualCost": null,
-          "notes": "Wife may have one from teaching retirement.",
-          "receiptPath": null,
+          "actualCost": 19.63,
+          "notes": "Wife may have one from teaching retirement. | FILLED 2026-09-03 from the HF 7/25 receipt: 10-person first aid kit $17.99 + tax.",
+          "receiptPath": "receipts/2026-07-25-harborfreight-explorium-supplies-tools-413.47.jpg",
           "dateAdded": "2026-05-27"
         },
         {
@@ -2944,6 +3394,186 @@
           "notes": "Added in 2026-07-23 reconciliation.",
           "receiptPath": "receipts/2026-07-14-harborfreight-tiedownkit-21.81.jpg",
           "dateAdded": "2026-07-23"
+        },
+        {
+          "id": "to-hf-20260725",
+          "description": "Harbor Freight 7/25 - LCD heat gun + 9pc accessory kit, 16/18ga 3-in-1 nailer, dust collector accessory, 25ft rubber air hose, 3-way quick-coupling manifold, high-flow blow gun, brass coupler, 9pc wrench set",
+          "qty": 1,
+          "unitCost": 283.25,
+          "actualCost": 283.25,
+          "notes": "Durable share of the $413.47 HF 7/25 receipt (tax allocated). DUAL-USE - tools Tom keeps.",
+          "receiptPath": "receipts/2026-07-25-harborfreight-explorium-supplies-tools-413.47.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-kreg-20260817",
+          "description": "Kreg Accu-Cut cutting jig (Lowe's, military discount)",
+          "qty": 1,
+          "unitCost": 96.3,
+          "actualCost": 96.3,
+          "notes": "Lowe's Tempe 8/17. DUAL-USE - tool Tom keeps.",
+          "receiptPath": "receipts/2026-09-02-harborfreight-AND-2026-08-17-lowes-kregjig-191.88-and-96.30.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hd-20260819",
+          "description": "Great Stuff Pro 14 dispensing gun (Home Depot) - gun 1 of 2",
+          "qty": 1,
+          "unitCost": 72.35,
+          "actualCost": 72.35,
+          "notes": "Tool share of the $120.17 HD 8/19 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-08-19-homedepot-greatstuff-gun-sanding-120.17.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hd-20260826",
+          "description": "Great Stuff Pro 14 dispensing gun (Home Depot) - gun 2 of 2",
+          "qty": 1,
+          "unitCost": 73.02,
+          "actualCost": 73.02,
+          "notes": "Tool share of the $233.81 HD 8/26 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-08-25-homedepot-69.90-AND-2026-08-26-homedepot-233.81-AND-hf-evenexchange-sander-0.00.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hf-20260902",
+          "description": "Harbor Freight - 3/8in desiccant air dryer w/ filter, HSS mortising router bit, 25ft 12ga tri-tap extension cord, 3ft air hose, magnetic hooks, 3-way grounded adapter",
+          "qty": 1,
+          "unitCost": 129.75,
+          "actualCost": 129.75,
+          "notes": "Durable share of the $191.88 HF 9/2 receipt (tax allocated). DUAL-USE - shop air/electrical kit Tom keeps.",
+          "receiptPath": "receipts/2026-09-02-harborfreight-AND-2026-08-17-lowes-kregjig-191.88-and-96.30.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hf-20260820",
+          "description": "Harbor Freight 8/20 - Bauer 3x21 belt sander, 5in random orbital sander, 6in short-throw RO/DA sander, McGraw 6in orbital air sander, 14pc industrial coupler+plug set, 4-sided diamond hone block, 6in polishing backing",
+          "qty": 1,
+          "unitCost": 244.32,
+          "actualCost": 244.32,
+          "notes": "Durable share of the $298.81 HF 8/20 receipt (tax allocated). DUAL-USE - sanders Tom keeps. NOTE: the $64.99 6in RO/DA came back faulty and was swapped on an EVEN EXCHANGE 8/26 (ticket 01630804, $0.00) - no cost change.",
+          "receiptPath": "receipts/2026-08-20-harborfreight-298.81-AND-2026-08-26-homedepot-141.33-AND-2026-08-23-homedepot-REPAIRS-141.58.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hd-20260826b",
+          "description": "Home Depot 8/26 Tatum - 1/4in NPT air regulator w/ gauge, 3/8in x 50ft hybrid air hose, hybrid hose-end field repair",
+          "qty": 1,
+          "unitCost": 75.97,
+          "actualCost": 75.97,
+          "notes": "Tool share of the $141.33 HD 8/26 Tatum receipt (tax allocated). DUAL-USE - shop air line.",
+          "receiptPath": "receipts/2026-08-20-harborfreight-298.81-AND-2026-08-26-homedepot-141.33-AND-2026-08-23-homedepot-REPAIRS-141.58.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-mimaki-20260827",
+          "description": "2x Mimaki CJV150-160 wide-format printer/cutters (used, Signarama)",
+          "qty": 2,
+          "unitCost": 3000.0,
+          "actualCost": 6000.0,
+          "notes": "Bill of sale 2026-08-27, seller Signarama (Derek Herndon, President), sold AS-IS/WHERE-IS. Bought to print Beth's art/graphics for Explorium. DUAL-USE - like the welder and forklift, these REMAIN Time Bandit assets after the job ships, so a share should be re-allocated to TB capital rather than left 100% against Explorium. Listed in DUAL-USE-EQUIPMENT.md. || PAYMENT CONFIRMED 2026-09-03 from the bank app: paid in THREE parts totalling EXACTLY $6,000.00 - $2,999.00 card debit 8/26 + a deliberate $1.00 test payment the same day + $3,000.00 check cleared 8/28. Tom sends the $1 to confirm the recipient actually received it, after a seller once claimed non-receipt. Nothing further owed to Signarama.",
+          "receiptPath": "receipts/2026-08-27-signarama-BILLOFSALE-2x-mimaki-cjv150-160-6000.00.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260903",
+          "description": "Amazon - compressed air duster/blower, FastCap 9/16in screw hole covers 265ct, Porter Cable 20V replacement battery",
+          "qty": 1,
+          "unitCost": 115.51,
+          "actualCost": 115.51,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 114-5453873-1249011 9/3. Tagged PO Explorium.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260825",
+          "description": "Amazon - up/down compression spiral router bits 1/4in shank DLC, 5pk",
+          "qty": 1,
+          "unitCost": 77.82,
+          "actualCost": 77.82,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 111-6167164-3198629 8/25.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260819a",
+          "description": "Amazon - Pomsare 13pc angle grinder polishing/sanding + wood carving disc set",
+          "qty": 1,
+          "unitCost": 39.27,
+          "actualCost": 39.27,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-9966750-2153040 8/19.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260819b",
+          "description": "Amazon - 4-ring curry combs, 8pk (foam texturing)",
+          "qty": 1,
+          "unitCost": 16.37,
+          "actualCost": 16.37,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 112-8144242-7606638 8/19.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260819c",
+          "description": "Amazon - Dexter SOFGRIP 8in flexible fillet knife (foam carving)",
+          "qty": 1,
+          "unitCost": 58.36,
+          "actualCost": 58.36,
+          "notes": "Amazon, pulled from order-confirmation emails 2026-09-03. Order 114-6543204-2937039 8/19.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260816a",
+          "description": "Amazon Business 8/15 - router bits (RavTav roundover, 3x Freud 1/2in + 1x 3/8in flush trim, Yonico crown) + Kreg KMA2750 Accu-Cut 50in expansion pack",
+          "qty": 1,
+          "unitCost": 216.45,
+          "actualCost": 216.45,
+          "notes": "Order 114-6284011-9260252, placed 8/15/26, charged 8/16, $216.45. ITEMIZED 2026-09-03 - was logged as \"7 Tools items, detail pending\" because Amazon Business confirmation emails omit product names. Kreg expansion pack $99 pairs with the Accu-Cut saw kit in to-amzn-20260816b.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-amzn-20260816b",
+          "description": "Kreg Accu-Cut + Ionic Drive 7-1/4in circular saw project kit (KPTCS7252700B)",
+          "qty": 1,
+          "unitCost": 316.39,
+          "actualCost": 316.39,
+          "notes": "Amazon Business order 114-1872180-9441026, placed 8/15/26, $290.00 + tax = $316.39. IDENTIFIED 2026-09-03 - was logged as 'Tools item, detail pending' because the Amazon Business confirmation email lists no product names.",
+          "receiptPath": "receipts/2026-09-03-amazon-business-order-details.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-sawstop-20260727",
+          "description": "SawStop table saw (flesh-detection brake)",
+          "qty": 1,
+          "unitCost": 2400.0,
+          "actualCost": 2400.0,
+          "notes": "Zelle to 'Mike Sawstop' 7/27/26, $2,400. Bought as a shop safety upgrade. The Porter Cable auction saw (to-1) is being KEPT for now and sold after the Virginia trip, so this is an addition, not a replacement. DUAL-USE - Tom keeps it.",
+          "receiptPath": "receipts/2026-09-03-zelle-activity-3screens.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hd-20260824",
+          "description": "Home Depot 8/24 - Corona Pro cut lopper, Diablo 1/4in x 1in straight router bit",
+          "qty": 1,
+          "unitCost": 87.22,
+          "actualCost": 87.22,
+          "notes": "Tool share of the $135.15 HD 8/24 receipt (tax allocated).",
+          "receiptPath": "receipts/2026-08-20-homedepot-123.74-AND-2026-08-24-homedepot-135.15-AND-dollartree-29.89-AND-ace-peter-10.37.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "to-hd-20260901",
+          "qty": 1,
+          "description": "DeWalt 18ga narrow crown stapler + #6 countersinks x2 + Maxfit PH2 bits (Home Depot 9/1)",
+          "unitCost": 183.65,
+          "actualCost": 183.65,
+          "notes": "Tool share of the $239.29 HD Tatum receipt 9/1/26 (tax allocated). Receipt tagged PO/JOB NAME: explorium. THE LAST UNIDENTIFIED TRANSACTION - reconciliation complete.",
+          "receiptPath": "receipts/2026-09-01-homedepot-tatum-stapler-239.29.jpg",
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -3020,7 +3650,7 @@
           "qty": 1,
           "unitCost": 8000,
           "actualCost": null,
-          "notes": "Full truckload.",
+          "notes": "Full truckload. || UPDATED 2026-09-03: freight has gone UP - closer to $10,000 INSURED. BETH PAYS THE DIFFERENCE above the set-aside. Still awaiting clarification on the last confusing FreightCenter email.",
           "receiptPath": null,
           "dateAdded": "2026-04-27"
         },
@@ -3078,6 +3708,136 @@
           "notes": "ESTIMATE ~$13 - awaiting exact amount from Tom; true up when he sends it",
           "receiptPath": null,
           "dateAdded": "2026-08-03"
+        },
+        {
+          "id": "ov-rent-reimb",
+          "description": "Health insurance (Highway 85) - Aug + Sept, reimbursed to Tom",
+          "qty": 1,
+          "unitCost": 3356.26,
+          "actualCost": 3356.26,
+          "notes": "CORRECTED 2026-09-03 (2nd correction). Tom wrote a personal check to Highway 85 on 8/8/26 for his health insurance covering AUGUST and SEPTEMBER, then Zelled himself $3,356.26 on 8/11 to reimburse it. It is NOT rent, and NOT an owner draw. *** The $3,356.26 matching the Minhao wire's $3,356.06 to within 20 cents is CONFIRMED COINCIDENCE - Tom verified. Do not re-investigate. *** CLASSIFICATION NOTE: this is an owner benefit / company overhead, NOT a cost of Beth's build. Pull it out if a true job-cost figure is ever needed. ENDS AFTER SEPTEMBER - Tom goes onto Andrea's plan, saving ~$1,300/mo going forward.",
+          "receiptPath": "receipts/2026-09-03-zelle-activity-3screens.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-anthropic-20260717",
+          "description": "Anthropic Claude subscription (July)",
+          "qty": 1,
+          "unitCost": 216.0,
+          "actualCost": 216.0,
+          "notes": "Statement 7/17. Recurring business software; not a Beth job cost specifically.",
+          "receiptPath": "receipts/2026-07-31-midfirst-STATEMENT-july-p1.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-uhaul-july",
+          "description": "U-Haul / storage rentals - 7/17 $49.01 + 7/30 $54.72",
+          "qty": 1,
+          "unitCost": 103.73,
+          "actualCost": 103.73,
+          "notes": "Statement. Trailer/storage runs.",
+          "receiptPath": "receipts/2026-07-31-midfirst-STATEMENT-july-p1.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-meals-july",
+          "description": "Crew meals + fuel stops, 7/20-7/24 (Harlows, First Watch, QT, Panda Express)",
+          "qty": 1,
+          "unitCost": 224.59,
+          "actualCost": 224.59,
+          "notes": "Statement: Harlows Cafe $109.27, First Watch $72.70, QT $17.88, Panda Express $24.74.",
+          "receiptPath": "receipts/2026-07-31-midfirst-STATEMENT-july-p1.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-andrea-20260721",
+          "description": "Zelle to Andrea Hemenway - insurance reimbursement",
+          "qty": 1,
+          "unitCost": 500.0,
+          "actualCost": 500.0,
+          "notes": "Statement 7/21. Tom reimbursing Andrea for an insurance payment she made from the company account. OPEN: shop insurance or personal car insurance? If personal, this is NOT an Explorium cost.",
+          "receiptPath": "receipts/2026-07-31-midfirst-STATEMENT-july-p1.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-misc-july",
+          "description": "Misc July debits - Bass Pro Mesa $97.47, Walmart Mesa $81.65, unidentified FL merchant $20.08, Zelle Diana $1.52",
+          "qty": 1,
+          "unitCost": 200.72,
+          "actualCost": 200.72,
+          "notes": "Statement 7/21-7/31. BASS PRO $97.47 IDENTIFIED 2026-09-03: long-sleeve cool-knit crew $40 + convertible angler pants $50 + tax - work clothing Tom bought to cover up while breaking out in a rash and sweating in the shop (see the shop-mold issue). TAX NOTE for the CPA: ordinary clothing that is suitable for everyday wear is normally NOT deductible even when bought for work; the stronger argument here is protective gear bought in response to a workplace exposure. Flag it, do not assume it. Also in this line: Walmart Mesa $81.65, unidentified 'D36721737 180 072 2 FL' $20.08, Zelle Diana $1.52.",
+          "receiptPath": "receipts/2026-09-01-homedepot-29.22-AND-2026-07-31-basspro-workclothes-97.47.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-rent-latefees-20260820",
+          "description": "Shop rent + LATE FEES - check cleared 8/20",
+          "qty": 1,
+          "unitCost": 4805.66,
+          "actualCost": 4805.66,
+          "notes": "Bank app 8/20/26. Tom flagged this as 'rent and late fees'. SPLIT between the two shops not yet known, and the late-fee portion is worth pulling out separately - it is avoidable cost, not rent.",
+          "receiptPath": "receipts/2026-09-03-midfirst-app-transactions-aug01-sep02.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-misc-small-augsep",
+          "description": "Unitemized small card debits, 8/3-9/2 (33 transactions under $100 each)",
+          "qty": 1,
+          "unitCost": 753.95,
+          "actualCost": 753.95,
+          "notes": "29 transactions under $100 each from the bank app, no merchant names. Grouped so cash reconciles. RESOLVED OUT 2026-09-03: $45.67 air filters, $40.41 shop rags, $51.80 wood glue. Also resolved out: $7.33 (9/1) = Gourock shipping change to Virginia.",
+          "receiptPath": "receipts/2026-09-03-midfirst-app-transactions-aug01-sep02.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-airfilters-20260731",
+          "description": "MERV 13 air filters - Aerostar 20x20x1 6pk + Filterbuy 30x30x1 smoke/allergy 6pk",
+          "qty": 1,
+          "unitCost": 159.66,
+          "actualCost": 159.66,
+          "notes": "Amazon Business, both placed 7/31/26: $45.67 + $113.99 = $159.66. MERV 13 smoke and allergy grade. Bought during the shop rash / suspected-mold period - these are air-quality remediation for the shop, not game materials.",
+          "receiptPath": "receipts/2026-09-03-amazon-business-order-details.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-printer-20260901",
+          "description": "Brother HL-L2420DW mono laser printer + TN830 toner + supplies (Walmart)",
+          "qty": 1,
+          "unitCost": 244.64,
+          "actualCost": 244.64,
+          "notes": "Walmart Dobson Rd Mesa 9/1/26: printer $125.00 + TN830 toner $60.92 + a third item $39.97 + 8.3% tax = $244.64, Visa 9658. Bought after the old office printer stopped talking to the laptop. This is the unnamed $244.64 bank debit dated 9/1. DUAL-USE - shop/office equipment Tom keeps. Third $39.97 item not identified on the receipt.",
+          "receiptPath": "receipts/2026-09-01-walmart-printer-toner-244.64-AND-2026-08-19-homedepot-card2962-43.15.jpg",
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-workerscomp-20260819",
+          "description": "Workers compensation insurance - initial premium + shortfall top-up",
+          "qty": 1,
+          "unitCost": 1151.02,
+          "actualCost": 1151.02,
+          "notes": "Bank 8/19/26: $998.00 initial payment + $153.02 ACH shortfall (the first amount collected was not enough). Assigned-risk pool, Wood Products Manufacturing class, bound 2026-08-20 via Casey Elliott at Phoenix Insurance Group. *** THIS WILL RECUR AND WILL LIKELY GROW. Premium is rated on payroll, and payroll went from 1 employee to 5. Expect an audit or an installment increase. This was the missing piece of the true payroll cost flagged earlier. ***",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-anthropic-20260817",
+          "description": "Anthropic Claude subscription (August)",
+          "qty": 1,
+          "unitCost": 216.2,
+          "actualCost": 216.2,
+          "notes": "Bank 8/17/26. Recurring - matches the $216.00 July charge (ov-anthropic-20260717). Business software subscription, not a Beth job cost specifically.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ov-fuel-augsep",
+          "description": "Fuel - QT full tank $134.36 (8/31) + Circle K $100.00 (8/24, their per-swipe max)",
+          "qty": 1,
+          "unitCost": 234.36,
+          "actualCost": 234.36,
+          "notes": "Bank. Shop/crew vehicle fuel.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-03"
         }
       ]
     },
@@ -3131,11 +3891,11 @@
         },
         {
           "id": "tb-2",
-          "description": "Volcano structure (foam/fiberglass cone)",
+          "description": "Volcano structure - 8in foam core (8 sheets)",
           "qty": 1,
           "unitCost": 1400,
-          "actualCost": null,
-          "notes": "Estimate 800-2000.",
+          "actualCost": 400.0,
+          "notes": "RESOLVES THE JULY OPEN ITEM. On 6/11 Tom paid ~$1,000 cash for 20+ sheets of 8in styrofoam at ~$50/sheet; the July reconciliation left the Volcano-vs-pirate-room split 'TBD'. Tom confirmed 2026-09-03 that EIGHT sheets went into the volcano = ~$400 Explorium share. The rest is the future pirate room and is NOT an Explorium cost. NO FIBERGLASS - the shell is Eteco hardcoat over the foam (ma-eteco-hardcoat, $989.20), sealed and glued with ~4.2 of the six Versa Foam froth packs (ma-versafoam-kits, $900). Pigment mixed into the hardcoat instead of paint (co-ram-pigments-20260903) to cut paint cost. Paint still to buy.",
           "receiptPath": null,
           "dateAdded": "2026-06-08"
         },
@@ -3151,11 +3911,11 @@
         },
         {
           "id": "tb-4",
-          "description": "Volcano batting cage netting",
+          "description": "Volcano octagon netting (Gourock)",
           "qty": 1,
           "unitCost": 600,
-          "actualCost": null,
-          "notes": "Estimate 400-800.",
+          "actualCost": 622.5,
+          "notes": "Budgeted $600. PAID 9/1/26: $615.17 for the nets + a $7.33 charge the same day for the SHIPPING CHANGE to Virginia (Tom redirected it from Tempe to Harrisonburg) = $622.50 total to Gourock. OVER budget by $22.50. Gourock.com is the batting-cage netting supplier speced for the 12ft octagon enclosure: SQUARE mesh on the walls (resists shear on flat tensioned panels), DIAMOND mesh on the top (conforms to the cone, and saved $33), NO rope border (saved ~$233/net; aircraft cable at ~$45 does the same job). Shipping was to go direct to Harrisonburg VA given the 7-10 business day lead time.",
           "receiptPath": null,
           "dateAdded": "2026-06-08"
         },
@@ -3165,7 +3925,7 @@
           "qty": 1,
           "unitCost": 1250,
           "actualCost": null,
-          "notes": "Estimate 1000-1500 pending Tom's quote.",
+          "notes": "Estimate 1000-1500 pending Tom's quote. || \u26a0\ufe0f BUDGET WILL 3-4x (Tom, 2026-09-03). Ordering ~tomorrow: 8x 20ft sticks of 4x4 A500 square tube, 5-10 sticks of grey Sch80 1in PVC for downrods, 10 golf cart springs (Amazon), a 20ft pipe for the cam drive, a couple of 10ft rectangular tubes for cam drive + push rods, plus pillow-block and sleeve bearings (list not yet made). Realistic range $3,750-5,000 against the $1,250 estimate. || ORDERED 2026-09-04 from INDUSTRIAL METAL SUPPLY (not Totten - Totten never called back). 8 sticks of 4x4 x 1/8in wall A500 square tube, 20 ft = 160 lf, $1,866.05 delivered = $11.66/lf, right in the middle of the $10-12.50/lf band. FREE DELIVERY WEDNESDAY 9/9. Free delivery is worth having - 8 sticks at 6.46 lb/ft is 1,032 lb of steel. Tom expected IMS not to stock A500 and was wrong; they had it. STILL TO ORDER for this game: 5-10x Sch80 1in grey PVC downrods (designed sacrificial - see handover note), 20ft pipe for the cam drive, 2x 10ft rectangular tube for cam/push rods, pillow-block + sleeve bearings, 10 golf cart springs. Deflection basis: Velocity-Rings-Deflection.pdf - 3 tubes at 1/8in gives 0.226in at 300 lb static and 0.677in at 900 lb dynamic.",
           "receiptPath": null,
           "dateAdded": "2026-06-08"
         },
