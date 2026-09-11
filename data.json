@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-09-10T16:00:00Z",
+  "lastModified": "2026-09-11T23:45:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -2609,6 +2609,16 @@
           "notes": "Materials share of the $239.29 HD Tatum receipt (tax allocated).",
           "receiptPath": "receipts/2026-09-01-homedepot-tatum-stapler-239.29.jpg",
           "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ma-grimco-20260911",
+          "description": "Grimco order 36053807 (PO Explorium) - 5x Mimaki SS21 600mL inks (M/Y/LC/OR/LM), GF 201-203 HTAP 54in x 50yd matte, ORAGUARD 200 laminate 54in x 50yd matte, 3M Edge Sealer 3950, 3M Primer 94",
+          "qty": 1,
+          "unitCost": 1598.15,
+          "actualCost": 1598.15,
+          "notes": "Merchandise 1,468.01 + tax 130.14, shipping free. Card ending 9658. Ships to the 2420 shop. Inks 172.79 ea, HTAP 275.99, ORAGUARD 269.18, sealer 27.52, primer 31.37.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-11"
         }
       ]
     },
