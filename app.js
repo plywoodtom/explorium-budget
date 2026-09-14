@@ -297,7 +297,7 @@ function renderTotals() {
     document.getElementById("deposit-value").textContent = fmt(deposit);
     const meta = [];
     if (data.depositDate) meta.push("received " + data.depositDate);
-    if (data.contractTotal) meta.push("50pct of " + fmt(data.contractTotal) + " contract");
+    if (data.contractTotal) meta.push("of " + fmt(data.contractTotal) + " contract - " + fmt(data.contractTotal - deposit) + " still due");
     document.getElementById("deposit-meta").textContent = meta.length ? "- " + meta.join(" - ") : "";
   } else {
     depEl.style.display = "none";

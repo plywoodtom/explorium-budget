@@ -1,7 +1,7 @@
 {
   "lastModified": "2026-09-14T14:20:00Z",
-  "deposit": 111382.05,
-  "depositDate": "2026-05-29",
+  "deposit": 167073.08,
+  "depositDate": "5/29 and 8/28",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
   "depositReceipt": "receipts/2026-05-29-deposit-wire-SwiftLegal-ref2722.jpg",
   "contractTotal": 222764.1,
@@ -4020,6 +4020,18 @@
           "dateAdded": "2026-07-23"
         }
       ]
+    }
+  ],
+  "payments": [
+    {
+      "date": "2026-05-29",
+      "amount": 111382.05,
+      "note": "Deposit wire, 50% across 3 invoices (Swift Legal)"
+    },
+    {
+      "date": "2026-08-28",
+      "amount": 55691.03,
+      "note": "Incoming wire, memo Explorium-Inv. No. 250714B"
     }
   ]
 }
