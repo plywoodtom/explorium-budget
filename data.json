@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-09-11T23:45:00Z",
+  "lastModified": "2026-09-14T14:20:00Z",
   "deposit": 111382.05,
   "depositDate": "2026-05-29",
   "depositMemo": "Incoming wire from Benjamin Swift PA DBA Swift Legal (client escrow). Reference 000000000002722. 50pct of $222,764.10 contract across 3 invoices (Explorium games + RFID software + reception counter).",
@@ -333,6 +333,16 @@
           "notes": "PAID BY INTERNATIONAL WIRE 2026-07-16, MidFirst ref 1017378: goods $3,306.06 + $50.00 wire fee = $3,356.06 total debit. Beneficiary Zhongshan Minhao Lighting Co Ltd, Hong Kong, via JPMorgan Chase HK. Account balance at time of wire was $66,587.60, which matches the 7/15 figure in the July reconciliation exactly. Includes extras ordered to meet the vendor minimum - some may go to Velocity Rings lighted rings or to inventory; NOT split out yet, logged 100% to the job until actual use is known (Tom's call 2026-09-03).",
           "receiptPath": "receipts/2026-07-16-midfirst-WIRE-minhao-lighting-3356.06.jpg",
           "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "el-amzn-rfid-20260911",
+          "description": "Amazon 112-2230882-3647429 - GEENFC 13.56MHz RFID readers USB, qty 8 (SECOND order)",
+          "qty": 8,
+          "unitCost": 10.99,
+          "actualCost": 95.92,
+          "notes": "87.92 + 8.00 tax. Brings total readers to 16 (8 bought 8/19 + 8 now). Room count is now 16 in service after Velocity Rings dropped its exit reader, so this is EXACTLY enough and ZERO spares.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-11"
         }
       ]
     },
@@ -2223,6 +2233,16 @@
           "notes": "Mouser order 40202696, 20 Aug 2026. 2x Techspray 1756-8S Licron Crystal ESD-safe coating @ $53.34 = $106.68 + $9.39 shipping + $8.64 tax = $124.71. Matches the bank debit exactly. *** PURPOSE (Tom, corrected 2026-09-03): NOT static control. The coating turns the volcano cone surface into a CAPACITIVE TOUCH ELECTRODE - a safety interlock that shuts the game off the moment anyone touches the volcano. CC had assumed static/anti-cling; wrong. ***",
           "receiptPath": null,
           "dateAdded": "2026-09-03"
+        },
+        {
+          "id": "ex-amzn-20260911",
+          "description": "Amazon 112-6457909-7466652 - 12x ABUSA heavy duty swing hangers (Velocity Rings top pivots), 2x 1.5in polyester rope 15ft (Air Pirates MOCK-UP only), Titebond melamine glue 1gal",
+          "qty": 1,
+          "unitCost": 284.14,
+          "actualCost": 284.14,
+          "notes": "Hangers 3 packs x 43.99 = 131.97. Ropes 2 x 46.99 = 93.98. Glue 34.49. ROPES ARE THE MOCK-UP, rated 1000 lb at the clamp and NOT for players. The certified spliced and tagged pair still has to come from a rigging house.",
+          "receiptPath": null,
+          "dateAdded": "2026-09-11"
         }
       ]
     },
@@ -2958,6 +2978,16 @@
           "notes": "HF Phoenix Northgate 9/4/26. 72 chip brushes ($26.98 after a $3 coupon) + 5 gal bucket $3.98 + tax. Hardcoat application - disposable brushes, one batch each.",
           "receiptPath": "receipts/2026-09-04-harborfreight-chipbrushes-bucket-33.78.jpg",
           "dateAdded": "2026-09-04"
+        },
+        {
+          "id": "co-lowes-20260911",
+          "description": "Lowe's 9/11 Scottsdale (PO: explorium volcano) - 7in masonry brush, Simple Green 128oz, Valspar bonding primer 1gal",
+          "qty": 1,
+          "unitCost": 53.94,
+          "actualCost": 53.94,
+          "notes": "49.94 + 4.00 tax. Card 9658. Customer code on the receipt reads \"explorium volcano\".",
+          "receiptPath": null,
+          "dateAdded": "2026-09-11"
         }
       ]
     },
